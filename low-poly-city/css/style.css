@@ -1,0 +1,175 @@
+/* ---------- 基础布局 ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body, #app { height: 100%; overflow: hidden; background: #eef1f5; }
+body { font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif; }
+canvas { display: block; }
+
+.hidden { display: none !important; }
+
+/* ---------- 玻璃拟态信息面板 ---------- */
+.panel {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  max-width: 320px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(60, 80, 120, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  z-index: 10;
+}
+.panel h1 { font-size: 17px; color: #2b3a55; margin-bottom: 8px; }
+.panel p  { font-size: 12.5px; color: #55607a; line-height: 1.8; }
+.panel code, .fp-hint kbd {
+  background: rgba(47, 143, 255, 0.1);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 12px;
+  color: #2f6fd0;
+}
+
+/* ---------- 第一人称 HUD ---------- */
+#hud-fp { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+.crosshair {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 7px; height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: rgba(40, 60, 90, 0.55);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+}
+.fp-hint {
+  position: absolute;
+  left: 50%; bottom: 22px;
+  transform: translateX(-50%);
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 24px rgba(60, 80, 120, 0.18);
+  font-size: 12.5px;
+  color: #44506b;
+  white-space: nowrap;
+}
+
+/* ---------- 第一人称小地图（右上角） ---------- */
+#minimap {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  padding: 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(60, 80, 120, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+#minimap canvas {
+  width: 170px;
+  height: 170px;
+  display: block;
+  border-radius: 9px;
+}
+
+/* ---------- 武器栏（右下角） ---------- */
+#weapon-hud {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(60, 80, 120, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  text-align: right;
+}
+#ammo {
+  font-family: "Consolas", monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: #2b3a55;
+  margin-bottom: 6px;
+}
+.wslots { display: flex; gap: 6px; }
+.wslot {
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: rgba(60, 80, 120, 0.08);
+  font-size: 12px;
+  color: #55607a;
+  white-space: nowrap;
+}
+.wslot b { margin-right: 3px; color: #8a94ab; }
+.wslot.active { background: #2f8fff; color: #fff; box-shadow: 0 3px 10px rgba(47,143,255,.4); }
+.wslot.active b { color: rgba(255,255,255,.85); }
+.whint { margin-top: 6px; font-size: 10.5px; color: #8a94ab; }
+
+/* ---------- 狙击枪瞄准镜遮罩（中间透明，仅外围晕影） ---------- */
+#scope {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+}
+#scope::before { /* 黑色晕影 + 镜筒边缘 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center,
+    rgba(0, 0, 0, 0) 34%,
+    rgba(0, 0, 0, 0.55) 41%,
+    rgba(0, 0, 0, 0.98) 52%);
+}
+#scope::after { /* 红色十字准线 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 70, 70, 0.65), rgba(255, 70, 70, 0.65)) center / 100% 1px no-repeat,
+    linear-gradient(rgba(255, 70, 70, 0.65), rgba(255, 70, 70, 0.65)) center / 1px 100% no-repeat;
+}
+/* 开镜时隐藏默认准星点，避免与瞄具十字重叠 */
+#scope:not(.hidden) ~ #hud-fp .crosshair { display: none; }
+
+/* ---------- 爆炸震屏白闪 ---------- */
+#hit-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 7;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- 悬停城区的浮动标签 ---------- */
+#zone-label {
+  position: fixed;
+  transform: translate(-50%, -130%);
+  padding: 7px 14px;
+  border-radius: 9px;
+  background: #2f8fff;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(47, 143, 255, 0.4);
+  z-index: 9;
+}
+#zone-label::after {           /* 小三角 */
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -6px;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top-color: #2f8fff;
+  border-bottom: none;
+}

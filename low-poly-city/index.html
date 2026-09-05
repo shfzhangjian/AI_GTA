@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>低多边形城市 · Three.js 等距城市场景</title>
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- three.js 已本地化到 ./libs，无需联网 -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./libs/three.module.js",
+        "three/addons/": "./libs/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- 俯视模式 HUD -->
+  <aside id="hud-overhead" class="panel">
+    <h1>🏙️ 低多边形城市</h1>
+    <p>
+      鼠标<b>悬停发光圆圈</b>可预览城区，<b>点击</b>即可进入第一人称视角。<br />
+      🖱️ 左键拖拽旋转 · 滚轮缩放 · 右键平移
+    </p>
+  </aside>
+
+  <!-- 第一人称小地图（右上角） -->
+  <div id="minimap" class="hidden"><canvas></canvas></div>
+
+  <!-- 武器栏（右下角） -->
+  <div id="weapon-hud" class="hidden">
+    <div id="ammo">∞</div>
+    <div class="wslots">
+      <div class="wslot"><b>1</b>锤子</div>
+      <div class="wslot"><b>2</b>冲锋枪</div>
+      <div class="wslot"><b>3</b>狙击枪</div>
+      <div class="wslot"><b>4</b>火箭筒</div>
+    </div>
+    <div class="whint">1~4 切枪 · R 装填 · 右键瞄准镜</div>
+  </div>
+
+  <!-- 狙击枪瞄准镜遮罩 -->
+  <div id="scope" class="hidden"></div>
+
+  <!-- 爆炸震屏白闪 -->
+  <div id="hit-flash"></div>
+
+  <!-- 第一人称模式 HUD -->
+  <div id="hud-fp" class="hidden">
+    <div class="crosshair"></div>
+    <div class="fp-hint">
+      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移动 ·
+      <kbd>Shift</kbd> 奔跑 · 移动鼠标转向 · <kbd>Esc</kbd> 退出第一人称
+    </div>
+  </div>
+
+  <!-- 悬停城区时的浮动标签 -->
+  <div id="zone-label" class="hidden"></div>
+
+  <!-- 启动失败提示（例如未用本地服务器打开页面） -->
+  <div id="boot-error" class="panel hidden">
+    <h1>⚠️ 加载失败</h1>
+    <p id="boot-error-msg"></p>
+    <p>请通过本地服务器打开本页，例如在项目目录执行：<br /><code>npx serve .</code> 或 <code>python -m http.server 8000</code></p>
+  </div>
+
+  <script>
+    // 模块加载失败时给出可读提示（file:// 直开是常见原因）
+    window.addEventListener('error', (e) => {
+      const box = document.getElementById('boot-error');
+      const msg = document.getElementById('boot-error-msg');
+      if (box && msg && !window.__cityBooted) {
+        msg.textContent = String(e.message || e.error || '未知错误');
+        box.classList.remove('hidden');
+      }
+    }, { once: true });
+  </script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
