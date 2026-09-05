@@ -414,13 +414,14 @@ export function buildAgents(scene, colliders, { humans = 14, dogs = 7 } = {}) {
     /**
      * 近战/锥形命中判定：以 (x,z) 为原点、(dx,dz) 为朝向，扇区内所有活物受击。
      * @param {{dmg?:number, range?:number, arc?:number}} opts arc=夹角余弦阈值
-     * @returns {number} 命中数量
+     * @returns {{hits:number, x:number, z:number}} 命中数量与最后一名受害者位置（报案用）
      */
     attack(x, z, dx, dz, opts = {}) {
       const { dmg = 34, range = 1.6, arc = 0.8 } = opts;
       const L = Math.hypot(dx, dz) || 1;
       dx /= L; dz /= L;
       let hits = 0;
+      let lastX = x; let lastZ = z;
       for (const a of agents) {
         if (a.downT > 0) continue;
         const rx = a.x - x;
@@ -431,9 +432,10 @@ export function buildAgents(scene, colliders, { humans = 14, dogs = 7 } = {}) {
         if (dot > arc) {
           a.takeHit(x, z, dmg);
           hits++;
+          lastX = a.x; lastZ = a.z;
         }
       }
-      return hits;
+      return { hits, x: lastX, z: lastZ };
     },
 
     /**

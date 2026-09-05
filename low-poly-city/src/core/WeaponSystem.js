@@ -24,10 +24,13 @@ const POSE_ADS = { pos: new THREE.Vector3(0, -0.16, -0.55), rot: new THREE.Euler
 
 export class WeaponSystem {
   /**
-   * @param {{app, city, mode, sfx, hud:{bar:HTMLElement, slots:HTMLElement[], ammo:HTMLElement, scope:HTMLElement, flash:HTMLElement}}} opts
+   * @param {{app, city, mode, sfx, police?:object, health?:object,
+   *          hud:{bar:HTMLElement, slots:HTMLElement[], ammo:HTMLElement, scope:HTMLElement, flash:HTMLElement}}} opts
    */
-  constructor({ app, city, mode, sfx, hud }) {
+  constructor({ app, city, mode, sfx, police = null, health = null, hud }) {
     this.app = app; this.city = city; this.mode = mode; this.sfx = sfx; this.hud = hud;
+    this.police = police; // 袭击路人触发报案；射线可命中警察
+    this.health = health; // 火箭近爆伤及玩家自身
     this.camera = app.camera;
 
     // —— 枪械视图模型（相机子物体）——
@@ -162,6 +165,8 @@ export class WeaponSystem {
       if (hit.agent) {
         hit.agent.takeHit(cam.position.x, cam.position.z, w.dmg);
         this.sfx.tick();
+        // 袭击平民 -> 报警（打警察不再重复报案）
+        if (hit.agent.kind === 'human') this.police?.reportCrime(hit.agent.x, hit.agent.z);
       }
     }
     if (a.mag <= 0) this._startReload();
@@ -182,7 +187,7 @@ export class WeaponSystem {
         if (d < best) { best = d; agent = null; point = p.clone(); }
       }
     }
-    for (const a of this.city.agents.list) {
+    for (const a of this._shootables()) {
       if (a.downT > 0) continue;
       // 水平圆柱近似：XZ 平面求最近点，再校验交点高度落在躯干带内
       const rx = a.x - origin.x;
@@ -196,7 +201,7 @@ export class WeaponSystem {
       const r = a.radius + 0.18;
       if (px * px + pz * pz >= r * r) continue;
       const hitY = origin.y + dir.y * t;
-      const h = a.kind === 'human' ? 1.9 : 0.75; // 躯干高度带
+      const h = a.kind === 'dog' ? 0.75 : 1.9; // 躯干高度带（人/警察同高）
       if (hitY < WORLD.surfGrass + 0.05 || hitY > WORLD.surfGrass + h) continue;
       best = t; agent = a; point = origin.clone().addScaledVector(dir, t);
     }
@@ -208,11 +213,25 @@ export class WeaponSystem {
     return { dist: best, agent, point };
   }
 
+  /** 可被子弹命中的活体：行人/狗 + 在场警察 */
+  _shootables() {
+    const cop = this.police?.cop;
+    return cop ? [...this.city.agents.list, cop] : this.city.agents.list;
+  }
+
   /* ---------------- 爆炸与特效 ---------------- */
   explodeAt(pos) {
     const camP = this.camera.position;
     const dist = Math.hypot(pos.x - camP.x, pos.z - camP.z);
-    this.city.agents.explodeAt(pos.x, pos.z, 6, 100);
+    const humanHits = this.city.agents.explodeAt(pos.x, pos.z, 6, 100);
+    const carsKilled = this.city.traffic.damageAt(pos.x, pos.z, 6); // 摧毁汽车
+    // 警察与玩家也会被爆炸波及
+    const cop = this.police?.cop;
+    if (cop && cop.downT <= 0 && Math.hypot(cop.x - pos.x, cop.z - pos.z) < 6.5) {
+      cop.takeHit(pos.x, pos.z, 100);
+    }
+    if (dist < 5.5) this.health?.takeHit(20); // 自己的火箭也炸自己
+    if (humanHits > 0 || carsKilled > 0) this.police?.reportCrime(pos.x, pos.z);
     this.sfx.explosion(dist);
 
     // 火球
@@ -288,10 +307,13 @@ export class WeaponSystem {
       this.swingT += dt / w.rate;
       if (prev < 0.35 && this.swingT >= 0.35) {
         const cam = this.camera;
-        const hits = this.city.agents.attack(
+        const res = this.city.agents.attack(
           cam.position.x, cam.position.z, this.mode.fp.facing.x, this.mode.fp.facing.z,
           { dmg: w.dmg, range: w.range, arc: Math.cos(w.arc) });
-        if (hits > 0) this.sfx.hammerHit();
+        if (res.hits > 0) {
+          this.sfx.hammerHit();
+          this.police?.reportCrime(res.x, res.z); // 当街行凶 -> 有人报警
+        }
       }
       if (this.swingT >= 1) this.swingT = -1;
     }
@@ -338,7 +360,7 @@ export class WeaponSystem {
         if (box.containsPoint(p)) { boom = true; break; } // 撞楼
       }
       if (!boom) {
-        for (const a of this.city.agents.list) {
+        for (const a of this._shootables()) {
           if (a.downT > 0) continue;
           const dx = a.x - p.x, dz = a.z - p.z;
           if (dx * dx + dz * dz < 1.4 && Math.abs(p.y - WORLD.surfGrass) < 2.2) { boom = true; break; }

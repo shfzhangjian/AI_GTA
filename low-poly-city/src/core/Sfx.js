@@ -166,4 +166,51 @@ export class Sfx {
   tick() { if (this.ctx) this._osc('square', 1900, 1500, 0.03, 0.12); }
 
   scopeIn() { if (this.ctx) this._osc('sine', 900, 1600, 0.08, 0.1); }
+
+  /** 警察手枪：短促中频爆音 */
+  pistolShot() {
+    if (!this.ctx) return;
+    const p = 0.9 + Math.random() * 0.2;
+    this._osc('square', 150 * p, 55, 0.09, 0.3);
+    this._noiseHit(0.06, 0.26, 'bandpass', 1600, 500);
+  }
+
+  /** 玩家中弹：闷响 + 高频耳鸣 */
+  playerHit() {
+    if (!this.ctx) return;
+    this._osc('sine', 140, 50, 0.25, 0.55);
+    this._noiseHit(0.08, 0.3, 'lowpass', 700, 150);
+    this._osc('sine', 5200, 4300, 1.0, 0.05); // 耳鸣余韵
+  }
+
+  /** 警笛：锯齿波被 3.4Hz LFO 调制出“哇——呜——”连绵音，持续直到 sirenStop */
+  sirenStart() {
+    if (!this.ctx || this._siren) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.value = 720;
+    const lfo = this.ctx.createOscillator();
+    lfo.frequency.value = 3.4;
+    const lfoAmt = this.ctx.createGain();
+    lfoAmt.gain.value = 190;
+    lfo.connect(lfoAmt); lfoAmt.connect(osc.frequency);
+    const f = this.ctx.createBiquadFilter();
+    f.type = 'lowpass'; f.frequency.value = 1600;
+    const g = this.ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(0.075, t + 0.4); // 由远及近渐强入场
+    osc.connect(f); f.connect(g); g.connect(this.master);
+    osc.start(t); lfo.start(t);
+    this._siren = { osc, lfo, g };
+  }
+
+  sirenStop() {
+    if (!this._siren) return;
+    const t = this.ctx.currentTime;
+    const { osc, lfo, g } = this._siren;
+    g.gain.setTargetAtTime(0.0001, t, 0.25);
+    osc.stop(t + 1); lfo.stop(t + 1);
+    this._siren = null;
+  }
 }

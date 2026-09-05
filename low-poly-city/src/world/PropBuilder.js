@@ -131,6 +131,8 @@ export function createTraffic(scene, lanes) {
         v: lane.speed * dir * (0.8 + Math.random() * 0.4),
         f: lane.axis === 'x' ? { x: dir, z: 0 } : { x: 0, z: dir },   // 前进单位向量
         s: lane.axis === 'x' ? { x: 0, z: 1 } : { x: 1, z: 0 },       // 横向单位向量
+        dead: false,      // 被火箭弹摧毁
+        deadT: 0,         // 残骸剩余存在时间
       });
     }
   }
@@ -153,8 +155,45 @@ export function createTraffic(scene, lanes) {
       return out;
     },
 
-    update(dt) {
+    /**
+     * 爆炸摧毁附近车辆：烧黑、抛锚成路障（仍阻挡玩家/后车），约 25s 后清走。
+     * @returns {number} 本次新摧毁数量
+     */
+    damageAt(x, z, radius = 6) {
+      let killed = 0;
       for (const c of cars) {
+        if (c.dead) continue;
+        const p = c.mesh.position;
+        if (Math.hypot(p.x - x, p.z - z) > radius + 1.6) continue;
+        c.dead = true;
+        c.deadT = 25;
+        c.tailMat.color.set('#3a0d0d'); // 烧毁尾灯
+        c.mesh.traverse((m) => {
+          if (m.isMesh && m.material.isMeshStandardMaterial) {
+            m.material.color.set(0x24262a); // 碳黑残骸
+            m.material.roughness = 0.98;
+            m.material.metalness = 0;
+          }
+        });
+        killed++;
+      }
+      return killed;
+    },
+
+    update(dt) {
+      // 残骸超时移除（避免永久堵路）
+      for (let i = cars.length - 1; i >= 0; i--) {
+        const c = cars[i];
+        if (!c.dead) continue;
+        c.deadT -= dt;
+        if (c.deadT <= 0) {
+          g.remove(c.mesh);
+          cars.splice(i, 1);
+        }
+      }
+
+      for (const c of cars) {
+        if (c.dead) continue; // 残骸静止，仍作为防追尾障碍与玩家碰撞体
         let blocked = false;
 
         // ① 让行：车道正前方近距离内有行人/狗

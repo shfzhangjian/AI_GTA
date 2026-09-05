@@ -149,6 +149,68 @@ canvas { display: block; }
   pointer-events: none;
 }
 
+/* ---------- 玩家血条（左下角） ---------- */
+#hp-bar {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 10;
+  width: 230px;
+  height: 15px;
+  border-radius: 8px;
+  background: rgba(20, 24, 34, 0.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}
+#hp-bar::before {
+  content: "生命";
+  position: absolute;
+  left: 7px;
+  top: 0;
+  line-height: 15px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+#hp-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px 3px 3px 8px;
+  background: linear-gradient(90deg, #35d07f, #28a765);
+  transition: width 0.15s ease-out;
+}
+
+/* ---------- 受伤红晕（全屏边缘） ---------- */
+#damage-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse at center,
+    rgba(180, 0, 0, 0) 42%,
+    rgba(190, 0, 0, 0.55) 72%,
+    rgba(150, 0, 0, 0.92) 100%);
+}
+
+/* ---------- 死亡提示 ---------- */
+#death-msg {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(34px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #ff4d4d;
+  text-shadow: 0 4px 24px rgba(120, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.4);
+  pointer-events: none;
+}
+
 /* ---------- 悬停城区的浮动标签 ---------- */
 #zone-label {
   position: fixed;

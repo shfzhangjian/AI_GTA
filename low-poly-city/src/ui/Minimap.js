@@ -118,6 +118,21 @@ export class Minimap {
       }
     }
 
+    // 警情：闪烁警车（红蓝交替方块）+ 警察蓝点
+    const pol = this.police;
+    if (pol?.car) {
+      const blink = performance.now() % 400 < 200;
+      c.fillStyle = blink ? '#ff4d4d' : '#3b82f6';
+      const cp = pol.car.group.position;
+      c.fillRect(this.mx(cp.x) - 2.5, this.mz(cp.z) - 2.5, 5, 5);
+    }
+    if (pol?.cop && pol.cop.downT <= 0) {
+      c.fillStyle = '#1f5fff';
+      c.beginPath();
+      c.arc(this.mx(pol.cop.x), this.mz(pol.cop.z), 2.4, 0, Math.PI * 2);
+      c.fill();
+    }
+
     let dx = fwd.x;
     let dz = fwd.z;
     const L = Math.hypot(dx, dz);
