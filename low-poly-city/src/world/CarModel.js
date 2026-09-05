@@ -1,44 +1,46 @@
 /**
- * CarModel —— 集成 simple-muscle-car（MIT, ASouthernCat）的 Blender 肌肉车模型，按本项目需求改造：
+ * CarModel —— 车辆 GLB 模板加载与"可上路"归一化（当前主力：保时捷 911，来自 3d-car-showcase）。
  *
- * - 剔除 Blender 展示用"固定底座/旋转底座"（材质"底座"），否则包围盒被圆盘撑歪导致车辆悬空；
- * - 以真实几何归一化：目标车长、轮胎接地（min.y 即胎面）、车头朝 +x
- *   （模型车头在 -z：车灯"发光"/前牌所在侧）；
- * - "轮子"是单个含 4 岛的多材质网格 —— 按象限聚类拆成 4 个独立轮毂枢轴（userData.wheels），
- *   供车流逐帧 rotateOnWorldAxis 实现真实滚动。
- * 加载失败返回 null，车流自动回退程序化盒装车。
+ * 规格驱动（SPECS）自动识别车型并适配各自的脏数据：
+ * - porsche911（Sketchfab 导出，Draco+clearcoat）：剔除展示台背景板 Cube.001、反光地板/灯带 Plane~Plane.004；
+ *   车轮是 Cylinder.000/001 两个"轴对"节点（左右胎合并网格），按象限聚类拆成 4 个独立轮毂枢轴；
+ *   材质缺 metallic/roughness 因子（glTF 默认全金属），加载时统一调校。
+ * - muscle（simple-muscle-car）：剔除固定/旋转底座，"轮子"单网格四岛拆分。作为回退保留。
+ * 车头判定：两模型车头均在模型 -z（前杠/车灯所在侧），统一转到 wrapper 局部 +x。
  */
 import * as THREE from 'three';
 
-let templatePromise = null;
+/* ---------------- 车型规格 ---------------- */
 
-/** 异步加载肌肉车模板（仅浏览器；node 测试不触发） */
-export function loadMuscleCarTemplate(url = './libs/car/car_draco.glb', dracoPath = './libs/draco/') {
-  if (!templatePromise) {
-    templatePromise = (async () => {
-      const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
-      const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
-      const draco = new DRACOLoader();
-      draco.setDecoderPath(dracoPath);
-      const loader = new GLTFLoader();
-      loader.setDRACOLoader(draco);
-      const gltf = await loader.loadAsync(url);
-      const root = gltf.scene;
-      stripBases(root);
-      root.traverse((o) => { if (o.isMesh) o.castShadow = true; });
-      return root;
-    })().catch(() => null);
-  }
-  return templatePromise;
+const SPECS = [
+  {
+    id: 'porsche911',
+    detect: (root) => !!findMeshByMat(root, 'paint'),
+    wheelNode: (o) => /^Cylinder\.\d+$/.test(o.name || ''), // 每个节点 = 一根轴（左右两轮并框）
+    paintMat: 'paint',
+    strip: ['Cube.001', 'Plane', 'Plane.001', 'Plane.002', 'Plane.003', 'Plane.004'], // 背景板/反光地板/展台灯带（车牌 Plane.005/006 保留）
+  },
+  {
+    id: 'muscle',
+    detect: (root) => !!root.getObjectByName('轮子'),
+    wheelNode: (o) => o.name === '轮子', // 单网格装 4 个轮胎岛
+    paintMat: '车漆',
+    strip: ['固定底座', '旋转底座'],
+  },
+];
+
+function findMeshByMat(root, matName) {
+  let found = null;
+  root.traverse((o) => { if (!found && o.isMesh && o.material && o.material.name === matName) found = o; });
+  return found;
 }
 
 /**
- * 剔除展示转盘（幂等，加载与每次克隆都会执行）。
- * 注意：GLB 里"旋转底座"是网格节点且车身挂在它下面 —— 只丢弃自身几何、
- * 用空 Group 容器保留子树，直接 remove 会连车带轮全部消失。
+ * 剔除展示道具（幂等）。节点若挂有子树（如肌肉车"旋转底座"之下就是车身），
+ * 只摘自身几何、以空 Group 容器保留子树，直接 remove 会连坐删车。
  */
-function stripBases(root) {
-  for (const name of ['固定底座', '旋转底座']) {
+function stripProps(root, names) {
+  for (const name of names) {
     const n = root.getObjectByName(name);
     if (!n || !n.parent) continue;
     if (n.children.length) {
@@ -48,12 +50,35 @@ function stripBases(root) {
       holder.scale.copy(n.scale);
       for (const ch of [...n.children]) holder.add(ch);
       n.parent.add(holder);
-      n.parent.remove(n); // 不 dispose 几何：原模板还可能被再次克隆
+      n.parent.remove(n); // 不 dispose：原模板还可能被再次克隆
     } else {
       n.parent.remove(n);
     }
   }
 }
+
+/** Sketchfab 导出缺 metallic/roughness 因子（glTF 默认全金属），按材质名调校成可信观感 */
+function tuneMaterials(root) {
+  root.traverse((o) => {
+    if (!o.isMesh || !o.material || Array.isArray(o.material)) return;
+    const m = o.material;
+    switch (m.name) {
+      case 'paint': case 'silver':
+        m.metalness = 0.9; m.roughness = 0.25; break;
+      case 'coat':
+        m.metalness = 0.8; m.roughness = 0.3; break;
+      case 'full_black': case 'plastic': case 'rubber':
+        m.metalness = 0.25; m.roughness = 0.75; break;
+      case 'lights': // 前照灯常亮微光
+        m.emissive = new THREE.Color(0xfff2d8); m.emissiveIntensity = 0.9; break;
+      case 'tex_shiny': // 展台 LED 灯带：熄发光、压成暗件，避免车上出现怪光圈
+        m.emissive = new THREE.Color(0x000000); m.color.setHex(0x1a1a1a); break;
+      default: break;
+    }
+  });
+}
+
+/* ---------------- 轮子拆分（通用） ---------------- */
 
 /** 浅拷贝几何属性（避免共享原始几何被后续 dispose 误伤） */
 function copyGeoAttrs(geo) {
@@ -65,21 +90,22 @@ function copyGeoAttrs(geo) {
 }
 
 /**
- * 把"轮子"节点（单网格多岛或多子网格）拆成 4 个可独立旋转的轮毂枢轴。
- * 三角形按质心象限聚类；重建几何为枢轴相对坐标，半径由最远顶点量得。
+ * 收集 spec.wheelNode 命中节点的全部网格，三角形按质心象限聚类成 4 轮，
+ * 重建为 inner 直属的 4 个轮毂枢轴（独立旋转），原轮轴节点移除。
  */
-function splitWheels(root) {
-  const wheelNode = root.getObjectByName('轮子');
-  if (!wheelNode) return [];
+function splitWheels(inner, spec) {
+  const nodes = [];
+  inner.traverse((o) => { if (spec.wheelNode(o)) nodes.push(o); });
+  if (!nodes.length) return [];
   const meshes = [];
-  wheelNode.traverse((o) => o.isMesh && meshes.push(o));
-  if (meshes.length < 4 && meshes.length === 1 && meshes[0].geometry.attributes.position.count < 12) return [];
+  for (const n of nodes) n.traverse((o) => o.isMesh && meshes.push(o));
+  if (!meshes.length) return [];
 
-  wheelNode.updateMatrixWorld(true);
-  const inv = new THREE.Matrix4().copy(wheelNode.matrixWorld).invert();
+  inner.updateMatrixWorld(true);
+  const inv = new THREE.Matrix4().copy(inner.matrixWorld).invert();
   const v = new THREE.Vector3();
 
-  // 每个源网格：非索引副本 + 三角形质心（轮子节点局部系）+ 变换矩阵
+  // 每个源网格：非索引副本 + 三角形质心（inner 局部系）+ 变换矩阵
   const items = meshes.map((mesh) => {
     const geo = mesh.geometry.index ? mesh.geometry.toNonIndexed() : copyGeoAttrs(mesh.geometry);
     const m4 = new THREE.Matrix4().multiplyMatrices(inv, mesh.matrixWorld);
@@ -98,7 +124,7 @@ function splitWheels(root) {
     return { geo, mat: mesh.material, centers, m4 };
   });
 
-  // 全体质心包围 -> 象限分割中点
+  // 全体质心包围 -> 象限分割中点（x=左右，z=前后）
   let minX = 1e9, maxX = -1e9, minZ = 1e9, maxZ = -1e9;
   for (const it of items) {
     for (let t = 0; t < it.centers.length / 3; t++) {
@@ -110,8 +136,7 @@ function splitWheels(root) {
   const mx = (minX + maxX) / 2;
   const mz = (minZ + maxZ) / 2;
 
-  // 象限 -> [{item, tris[]}]
-  const quads = new Map();
+  const quads = new Map(); // 象限键 -> [{item, tris[]}]
   for (const it of items) {
     for (let t = 0; t < it.centers.length / 3; t++) {
       const key = (it.centers[t * 3] >= mx ? 1 : 0) + (it.centers[t * 3 + 2] >= mz ? 2 : 0);
@@ -123,17 +148,19 @@ function splitWheels(root) {
     }
   }
 
-  // 重建为枢轴组（只摘除克隆体上的子节点，不 dispose 共享几何）
-  wheelNode.clear();
+  // 重建为枢轴组（只摘克隆体上的节点，不 dispose 共享几何）
+  for (const n of nodes) n.parent?.remove(n);
   const pivots = [];
   for (const parts of quads.values()) {
-    let sx = 0; let sz = 0; let n = 0;
+    let sx = 0; let sy = 0; let sz = 0; let n = 0;
     for (const p of parts) {
-      for (const t of p.tris) { sx += p.item.centers[t * 3]; sz += p.item.centers[t * 3 + 2]; n++; }
+      for (const t of p.tris) {
+        sx += p.item.centers[t * 3]; sy += p.item.centers[t * 3 + 1]; sz += p.item.centers[t * 3 + 2]; n++;
+      }
     }
-    const cx = sx / n; const cz = sz / n;
+    const cx = sx / n; const cy = sy / n; const cz = sz / n;
     const pivot = new THREE.Group();
-    pivot.position.set(cx, 0, cz);
+    pivot.position.set(cx, cy, cz); // inner 局部系下的轮心
     let rMax = 0;
     for (const part of parts) {
       const src = part.item.geo.attributes;
@@ -150,32 +177,69 @@ function splitWheels(root) {
       g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
       if (nor.length) g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); else g.computeVertexNormals();
       if (uv.length) g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
-      g.applyMatrix4(part.item.m4); // mesh 局部系 -> 轮子节点系
-      g.translate(-cx, -pivot.position.y, -cz); // 枢轴相对坐标
+      g.applyMatrix4(part.item.m4); // mesh 局部系 -> inner 局部系
+      g.translate(-cx, -cy, -cz); // 枢轴相对坐标
       const pp = g.attributes.position;
       for (let i = 0; i < pp.count; i++) {
         const d = Math.hypot(pp.getX(i), pp.getY(i), pp.getZ(i));
         if (d > rMax) rMax = d;
       }
       const sub = new THREE.Mesh(g, part.item.mat);
-      sub.castShadow = true;
       pivot.add(sub);
     }
-    pivot.userData.wheelRadius = Math.max(0.2, rMax * 0.95);
-    wheelNode.add(pivot);
+    // 质心/几何均在 inner 局部系（缩放被 inv 抵消），换算成世界半径供滚动角速度使用
+    pivot.userData.wheelRadius = Math.max(0.1, rMax * 0.92 * inner.scale.x);
+    inner.add(pivot);
     pivots.push(pivot);
   }
-  items.forEach((it) => it.geo.dispose()); // 只释放中间副本，原几何仍归模板共享
+  items.forEach((it) => it.geo.dispose()); // 只释放中间副本，原几何归模板共享
   return pivots;
 }
 
+/* ---------------- 加载与归一化 ---------------- */
+
+let templatePromise = null;
+
 /**
- * 生成一辆"可上路"的归一化车：去底座 / 缩放 / 车头朝 +x / 轮胎接地 / 逐实例材质换漆 / 拆轮。
- * @returns {THREE.Group} wrapper，userData = { height, wheels: Group[], wheelRadius }
+ * 异步加载车辆模板（仅浏览器）：优先保时捷 911，失败回退肌肉车；双双失败返回 null -> 盒装车。
+ * @param {string[]} urls
  */
-export function normalizeCarClone(template, targetLen = 4.3, paint = null) {
+export function loadCarTemplate(urls = ['./libs/car/porsche911.glb', './libs/car/car_draco.glb'], dracoPath = './libs/draco/') {
+  if (!templatePromise) {
+    templatePromise = (async () => {
+      const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+      const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
+      const draco = new DRACOLoader();
+      draco.setDecoderPath(dracoPath);
+      const loader = new GLTFLoader();
+      loader.setDRACOLoader(draco);
+      for (const url of urls) {
+        try {
+          const gltf = await loader.loadAsync(url);
+          const root = gltf.scene;
+          const spec = SPECS.find((s) => s.detect(root));
+          if (spec) stripProps(root, spec.strip);
+          tuneMaterials(root); // 肌肉车无同名材质，switch 全部落空，无害
+          return root;
+        } catch (e) { /* 尝试下一个候选 */ }
+      }
+      return null;
+    })();
+  }
+  return templatePromise;
+}
+
+/** @deprecated 兼容旧调用名 */
+export const loadMuscleCarTemplate = loadCarTemplate;
+
+/**
+ * 生成一辆"可上路"的归一化车：去展示道具 / 缩放 / 车头朝 +x / 轮胎接地 / 逐实例换漆 / 拆轮。
+ * @returns {THREE.Group|null} wrapper，userData = { height, wheels: Group[], wheelRadius }；空模板返回 null
+ */
+export function normalizeCarClone(template, targetLen = 4.5, paint = null) {
   const inner = template.clone(true);
-  stripBases(inner); // 幂等兜底：模板处理与否都安全
+  const spec = SPECS.find((s) => s.detect(inner)) || SPECS[SPECS.length - 1];
+  stripProps(inner, spec.strip); // 幂等兜底
 
   let hasMesh = false;
   inner.traverse((o) => { if (o.isMesh) hasMesh = true; });
@@ -184,30 +248,30 @@ export function normalizeCarClone(template, targetLen = 4.3, paint = null) {
   inner.traverse((o) => {
     if (!o.isMesh) return;
     o.material = o.material.clone(); // 实例独立材质：逐车换漆/黑化互不影响
-    o.castShadow = true;
-    if (paint && o.material.name === '车漆') o.material.color.set(paint);
+    o.castShadow = false; // 130 万三角投影太贵，改用贴地假阴影（PropBuilder）
+    if (paint && o.material.name === spec.paintMat) o.material.color.set(paint);
   });
 
   const outer = new THREE.Group();
   outer.add(inner);
 
-  // ① 判向：模型车头在 -z（车灯/前牌侧）；绕 Y 转 -90° 使局部 -z 指向 wrapper +x
+  // ① 判向：两模型车头均在 -z，绕 Y 转 -90° 使局部 -z 指向 wrapper +x
   inner.rotation.y = -Math.PI / 2;
   inner.updateMatrixWorld(true);
 
-  // ② 等比缩放到目标车长（底座已剔除，size.x 即车长）
+  // ② 等比缩放到目标车长（道具已剔除，size.x 即车长）
   let box = new THREE.Box3().setFromObject(inner);
   const size = box.getSize(new THREE.Vector3());
   inner.scale.setScalar(targetLen / Math.max(size.x, 1e-4));
   inner.updateMatrixWorld(true);
 
-  // ③ 水平居中、轮胎接地
+  // ③ 水平居中、轮胎接地（min.y 即胎面）
   box = new THREE.Box3().setFromObject(inner);
   const c = box.getCenter(new THREE.Vector3());
   inner.position.set(-c.x, -box.min.y, -c.z);
 
-  // ④ 拆轮（在最终变换下做，枢轴随车整体运动）
-  const wheels = splitWheels(inner);
+  // ④ 拆轮（最终变换下做，枢轴随车整体运动）
+  const wheels = splitWheels(inner, spec);
   inner.updateMatrixWorld(true);
 
   outer.userData.height = box.max.y - box.min.y;

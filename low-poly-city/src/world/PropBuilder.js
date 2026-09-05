@@ -103,31 +103,59 @@ function rotFor(axis, dir) {
   return dir > 0 ? -Math.PI / 2 : Math.PI / 2; // 车头朝 ±z
 }
 
+/* GLB 车假阴影：径向渐变椭圆贴地（130 万三角/车的实时投影太贵，用贴花替代） */
+let _shadowMat = null;
+const _shadowGeo = new THREE.PlaneGeometry(5.2, 2.7);
+function fakeShadow() {
+  if (!_shadowMat) {
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = 64;
+    const g2 = cv.getContext('2d');
+    const grad = g2.createRadialGradient(32, 32, 5, 32, 32, 30);
+    grad.addColorStop(0, 'rgba(10,12,14,0.5)');
+    grad.addColorStop(1, 'rgba(10,12,14,0)');
+    g2.fillStyle = grad;
+    g2.fillRect(0, 0, 64, 64);
+    _shadowMat = new THREE.MeshBasicMaterial({
+      map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false,
+    });
+  }
+  const sh = new THREE.Mesh(_shadowGeo, _shadowMat);
+  sh.rotation.x = -Math.PI / 2;
+  sh.position.y = 0.035;
+  return sh;
+}
+
 /**
  * 创建循环车流（带让行刹车）。lane 定义：axis=行驶轴，lane=横向坐标，dir=方向。
  * 刹车条件：① 车道正前方 5.4m 内有行人/狗（attachAvoid 注入）；② 同车道同向前车 <6m（防追尾）。
- * @param {{mesh:THREE.Object3D}|null} [carTemplate] 肌肉车 GLB 模板：给定则车流第一帧即为真模型
+ * @param {{mesh:THREE.Object3D}|null} [carTemplate] 车辆 GLB 模板（保时捷911/肌肉车）：给定则第一帧即真模型
+ * @param {THREE.Vector3} [camPos] 相机位置引用：提供则按距离 LOD —— 近(≤38m)GLB 高模，远自动切回低模盒车
  * @returns {{update:(dt:number)=>void, attachAvoid:(list:Array)=>void, carRects:Function, damageAt:Function, setCarTemplate:Function}}
  */
-export function createTraffic(scene, lanes, carTemplate = null) {
+export function createTraffic(scene, lanes, carTemplate = null, camPos = null) {
   const cars = [];
   const g = new THREE.Group();
 
-  /** 把程序化占位车替换为 GLB 真模型（逐车换漆 + 尾灯 + 轮毂枢轴）；失败保持占位 */
+  /** 把程序化占位车替换为 GLB 真模型（逐车换漆 + 尾灯 + 假阴影）；原盒车降为远距 LOD 档 */
   function fitTemplate(c, template) {
     if (!template) return false;
-    const wrap = normalizeCarClone(template, 4.3, c.color);
+    const wrap = normalizeCarClone(template, 4.5, c.color);
     if (!wrap) return false;
     for (const tz of [-0.45, 0.45]) { // 尾灯跟到新模型车尾（-x）
       const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 0.22), c.tailMat);
-      tl.position.set(-2.05, 0.8, tz);
+      tl.position.set(-2.15, 0.7, tz);
       wrap.add(tl);
     }
+    wrap.add(fakeShadow());
     const old = c.mesh;
     wrap.position.copy(old.position);
     wrap.rotation.y = old.rotation.y;
-    g.remove(old);
+    old.visible = false; // 保留为远距 LOD（14×130万三角全显会压垮 GPU）
     g.add(wrap);
+    g.add(old);
+    c.proxy = old;
+    c.near = true;
     c.mesh = wrap;
     c.wheels = wrap.userData.wheels || null; // 供逐帧滚动
     c.wheelR = wrap.userData.wheelRadius || 0.33;
@@ -204,13 +232,15 @@ export function createTraffic(scene, lanes, carTemplate = null) {
         c.dead = true;
         c.deadT = 25;
         c.tailMat.color.set('#3a0d0d'); // 烧毁尾灯
-        c.mesh.traverse((m) => {
+        const char = (m) => {
           if (m.isMesh && m.material.isMeshStandardMaterial) {
             m.material.color.set(0x24262a); // 碳黑残骸
             m.material.roughness = 0.98;
             m.material.metalness = 0;
           }
-        });
+        };
+        c.mesh.traverse(char);
+        if (c.proxy) c.proxy.traverse(char); // 远档盒车同步烧黑，切回不"复活"
         wrecks.push(c);
       }
       return wrecks;
@@ -224,9 +254,12 @@ export function createTraffic(scene, lanes, carTemplate = null) {
         c.deadT -= dt;
         if (c.deadT <= 0) {
           g.remove(c.mesh);
+          if (c.proxy) g.remove(c.proxy); // 远距 LOD 档一并移除
           cars.splice(i, 1);
         } else if (c.deadT < 1.5) {
-          c.mesh.scale.setScalar(Math.max(0.02, c.deadT / 1.5));
+          const s = Math.max(0.02, c.deadT / 1.5);
+          c.mesh.scale.setScalar(s);
+          if (c.proxy) c.proxy.scale.setScalar(s); // 远档盒车同步塌缩
         }
       }
 
@@ -273,6 +306,22 @@ export function createTraffic(scene, lanes, carTemplate = null) {
           const ang = (Math.abs(c.v) * dt) / (c.wheelR || 0.33);
           _axis.set(0, 1, 0).cross(_fwdv.set(c.f.x, 0, c.f.z)).multiplyScalar(Math.sign(c.v));
           for (const w of c.wheels) w.rotateOnWorldAxis(_axis, ang);
+        }
+
+        // 远距 LOD：>38m 切回低模盒车（14×130万三角全显会压垮 GPU），位置保持同步
+        if (c.proxy) {
+          c.proxy.position.copy(c.mesh.position);
+          if (camPos) {
+            const dx = c.mesh.position.x - camPos.x;
+            const dz = c.mesh.position.z - camPos.z;
+            const dy = c.mesh.position.y - camPos.y;
+            const near = dx * dx + dz * dz + dy * dy < 38 * 38;
+            if (near !== c.near) {
+              c.near = near;
+              c.mesh.visible = near;
+              c.proxy.visible = !near;
+            }
+          }
         }
       }
     },

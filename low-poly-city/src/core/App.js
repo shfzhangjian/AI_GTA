@@ -3,6 +3,7 @@
  * 只负责“引擎层”，不关心城市内容本身。
  */
 import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { PALETTE, WORLD } from '../config.js';
 
 export class App {
@@ -26,6 +27,13 @@ export class App {
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(this.renderer.domElement);
+
+    // PBR 环境反射（RoomEnvironment -> PMREM）：保时捷车漆/清漆/镀铬件的高光来源；
+    // environmentIntensity 压低一档，避免室内环境贴图主导低多边形城市的日光基调
+    const pmrem = new THREE.PMREMGenerator(this.renderer);
+    this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    if ('environmentIntensity' in this.scene) this.scene.environmentIntensity = 0.5;
+    pmrem.dispose();
 
     this._setupLights();
     window.addEventListener('resize', () => this.onResize());

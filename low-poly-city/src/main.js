@@ -10,16 +10,16 @@ import { Sfx } from './core/Sfx.js';
 import { buildCity } from './world/CityBuilder.js';
 import { PoliceSystem } from './world/PoliceSystem.js';
 import { CombatFx } from './world/CombatFx.js';
-import { loadMuscleCarTemplate } from './world/CarModel.js';
+import { loadCarTemplate } from './world/CarModel.js';
 import { Minimap } from './ui/Minimap.js';
 import { FP } from './config.js';
 
 const app = new App(document.getElementById('app'));
 
-// ---- 真车模型先行：加载肌肉车 GLB（失败自动回退盒装车），车流第一帧即真模型 ----
-const carTemplate = await loadMuscleCarTemplate();
+// ---- 真车模型先行：保时捷911（3d-car-showcase, MIT），失败回退肌肉车/盒装车；车流第一帧即真模型 ----
+const carTemplate = await loadCarTemplate();
 
-const city = buildCity(app.scene, { carTemplate });
+const city = buildCity(app.scene, { carTemplate, camPos: app.camera.position });
 
 const mode = new ModeManager(app, city, {
   overhead: document.getElementById('hud-overhead'),

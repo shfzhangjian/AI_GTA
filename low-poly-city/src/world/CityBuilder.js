@@ -14,7 +14,7 @@ import { buildAgents } from './AgentBuilder.js';
 
 /**
  * @param {THREE.Scene} scene
- * @param {{carTemplate?:THREE.Object3D|null}} [opts] 肌肉车 GLB 模板（给定则车流第一帧即真模型）
+ * @param {{carTemplate?:THREE.Object3D|null, camPos?:THREE.Vector3}} [opts] 车辆 GLB 模板 + 相机位置引用（车流距离 LOD）
  */
 export function buildCity(scene, opts = {}) {
   /** 第一人称碰撞体：建筑用 AABB(Box3)，树/路灯用圆形 */
@@ -29,7 +29,7 @@ export function buildCity(scene, opts = {}) {
   buildBushes(scene, BUSHES);
   buildStreetlights(scene, addCircle);
   BENCHES.forEach((b) => buildBench(scene, b.x, b.z, b.rotY));
-  const traffic = createTraffic(scene, LANES, opts.carTemplate ?? null);
+  const traffic = createTraffic(scene, LANES, opts.carTemplate ?? null, opts.camPos ?? null);
 
   // 场景图矩阵更新后，把带 collider 标记的主体网格换算成世界 AABB
   scene.updateMatrixWorld(true);
