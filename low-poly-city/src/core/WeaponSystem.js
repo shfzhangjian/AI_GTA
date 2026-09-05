@@ -24,13 +24,14 @@ const POSE_ADS = { pos: new THREE.Vector3(0, -0.16, -0.55), rot: new THREE.Euler
 
 export class WeaponSystem {
   /**
-   * @param {{app, city, mode, sfx, police?:object, health?:object,
+   * @param {{app, city, mode, sfx, police?:object, health?:object, fx?:object,
    *          hud:{bar:HTMLElement, slots:HTMLElement[], ammo:HTMLElement, scope:HTMLElement, flash:HTMLElement}}} opts
    */
-  constructor({ app, city, mode, sfx, police = null, health = null, hud }) {
+  constructor({ app, city, mode, sfx, police = null, health = null, fx = null, hud }) {
     this.app = app; this.city = city; this.mode = mode; this.sfx = sfx; this.hud = hud;
     this.police = police; // 袭击路人触发报案；射线可命中警察
     this.health = health; // 火箭近爆伤及玩家自身
+    this.fx = fx;         // CombatFx：火球/粒子/弹坑/残骸燃烧
     this.camera = app.camera;
 
     // —— 枪械视图模型（相机子物体）——
@@ -224,48 +225,28 @@ export class WeaponSystem {
     const camP = this.camera.position;
     const dist = Math.hypot(pos.x - camP.x, pos.z - camP.z);
     const humanHits = this.city.agents.explodeAt(pos.x, pos.z, 6, 100);
-    const carsKilled = this.city.traffic.damageAt(pos.x, pos.z, 6); // 摧毁汽车
+    const wrecks = this.city.traffic.damageAt(pos.x, pos.z, 6); // 摧毁汽车
+    for (const w of wrecks) this.fx?.attachBurningWreck(w.mesh); // 残骸持续燃烧
+
     // 警察与玩家也会被爆炸波及
     const cop = this.police?.cop;
     if (cop && cop.downT <= 0 && Math.hypot(cop.x - pos.x, cop.z - pos.z) < 6.5) {
       cop.takeHit(pos.x, pos.z, 100);
     }
     if (dist < 5.5) this.health?.takeHit(20); // 自己的火箭也炸自己
-    if (humanHits > 0 || carsKilled > 0) this.police?.reportCrime(pos.x, pos.z);
+    if (humanHits > 0 || wrecks.length > 0) this.police?.reportCrime(pos.x, pos.z);
     this.sfx.explosion(dist);
 
-    // 火球
-    const ball = new THREE.Mesh(
-      new THREE.SphereGeometry(1, 12, 10),
-      new THREE.MeshBasicMaterial({ color: 0xffb347, transparent: true, opacity: 0.95, depthWrite: false })
-    );
-    ball.position.copy(pos);
-    this.app.scene.add(ball);
-    this._fx.push({ kind: 'ball', obj: ball, t: 0, life: 0.5 });
-
-    // 光闪
-    const light = new THREE.PointLight(0xff7a29, 40, 30, 1.8);
-    light.position.copy(pos).add(new THREE.Vector3(0, 0.6, 0));
-    this.app.scene.add(light);
-    this._fx.push({ kind: 'light', obj: light, t: 0, life: 0.45 });
-
-    // 碎石飞溅
-    const debrisMat = new THREE.MeshBasicMaterial({ color: 0x9aa2ad });
-    for (let i = 0; i < 14; i++) {
-      const d = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.13, 0.13), debrisMat);
-      d.position.copy(pos).add(new THREE.Vector3(0, 0.2, 0));
-      const ang = Math.random() * Math.PI * 2;
-      const sp = 5 + Math.random() * 8;
-      this.app.scene.add(d);
-      this._fx.push({
-        kind: 'debris', obj: d, t: 0, life: 1.1,
-        vel: new THREE.Vector3(Math.cos(ang) * sp, 6 + Math.random() * 7, Math.sin(ang) * sp),
-      });
+    // 视觉：火球 + 火焰/黑烟粒子 + 碎石；弹坑投影到地面（空爆也留炸痕，按位置选路面/草地层）
+    this.fx?.explosion(pos);
+    if (this.fx) {
+      const onRoad = Math.abs(pos.x) < WORLD.roadHalf || Math.abs(pos.z) < WORLD.roadHalf;
+      const surf = onRoad ? WORLD.surfRoad : WORLD.surfGrass;
+      this.fx.crater(new THREE.Vector3(pos.x, surf, pos.z));
     }
 
     // 近距震屏白闪
     if (dist < 12) this.flashT = Math.max(this.flashT || 0, 0.35 * (1 - dist / 12));
-    this._maxFxSeen = Math.max(this._maxFxSeen, this._fx.length);
   }
 
   _tracer(from, to) {

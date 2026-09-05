@@ -3,6 +3,7 @@
  */
 import * as THREE from 'three';
 import { PALETTE, WORLD } from '../config.js';
+import { normalizeCarClone } from './CarModel.js';
 
 const std = (color, opts = {}) =>
   new THREE.MeshStandardMaterial({ color, roughness: 0.85, metalness: 0.05, ...opts });
@@ -124,7 +125,7 @@ export function createTraffic(scene, lanes) {
       if (lane.axis === 'x') mesh.position.x = p0;
       else mesh.position.z = p0;
       cars.push({
-        mesh, tailMat,
+        mesh, tailMat, color,
         axis: lane.axis,
         laneCoord: lane.lane,
         p: p0,
@@ -156,11 +157,33 @@ export function createTraffic(scene, lanes) {
     },
 
     /**
-     * 爆炸摧毁附近车辆：烧黑、抛锚成路障（仍阻挡玩家/后车），约 25s 后清走。
-     * @returns {number} 本次新摧毁数量
+     * 用 simple-muscle-car GLB 模板替换全部在用车辆的程序化占位模型（逐车换漆 + 保留尾灯）。
+     * @param {THREE.Object3D} template loadMuscleCarTemplate() 结果
+     */
+    setCarTemplate(template) {
+      for (const c of cars) {
+        if (c.dead) continue;
+        const wrap = normalizeCarClone(template, 4.3, c.color);
+        for (const tz of [-0.45, 0.45]) { // 尾灯跟到新模型车尾（-x）
+          const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 0.22), c.tailMat);
+          tl.position.set(-2.05, 0.8, tz);
+          wrap.add(tl);
+        }
+        const old = c.mesh;
+        wrap.position.copy(old.position);
+        wrap.rotation.y = old.rotation.y;
+        g.remove(old);
+        g.add(wrap);
+        c.mesh = wrap;
+      }
+    },
+
+    /**
+     * 爆炸摧毁附近车辆：烧黑、抛锚成路障（仍阻挡玩家/后车），约 25s 后塌缩消失。
+     * @returns {Array<{mesh:THREE.Object3D}>} 本次新摧毁的车辆（供挂燃烧特效）
      */
     damageAt(x, z, radius = 6) {
-      let killed = 0;
+      const wrecks = [];
       for (const c of cars) {
         if (c.dead) continue;
         const p = c.mesh.position;
@@ -175,13 +198,13 @@ export function createTraffic(scene, lanes) {
             m.material.metalness = 0;
           }
         });
-        killed++;
+        wrecks.push(c);
       }
-      return killed;
+      return wrecks;
     },
 
     update(dt) {
-      // 残骸超时移除（避免永久堵路）
+      // 残骸超时移除（避免永久堵路）；末期缩小淡出，表现"烧穿塌掉"
       for (let i = cars.length - 1; i >= 0; i--) {
         const c = cars[i];
         if (!c.dead) continue;
@@ -189,6 +212,8 @@ export function createTraffic(scene, lanes) {
         if (c.deadT <= 0) {
           g.remove(c.mesh);
           cars.splice(i, 1);
+        } else if (c.deadT < 1.5) {
+          c.mesh.scale.setScalar(Math.max(0.02, c.deadT / 1.5));
         }
       }
 

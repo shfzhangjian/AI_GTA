@@ -9,6 +9,8 @@ import { PlayerHealth } from './core/PlayerHealth.js';
 import { Sfx } from './core/Sfx.js';
 import { buildCity } from './world/CityBuilder.js';
 import { PoliceSystem } from './world/PoliceSystem.js';
+import { CombatFx } from './world/CombatFx.js';
+import { loadMuscleCarTemplate } from './world/CarModel.js';
 import { Minimap } from './ui/Minimap.js';
 import { FP } from './config.js';
 
@@ -42,8 +44,11 @@ const health = new PlayerHealth({
 });
 police.onPlayerHit = () => health.takeHit(20); // 警察子弹：5 枪阵亡
 
+// 战斗特效中枢：爆炸粒子 / 地面弹坑 / 残骸燃烧（全程序化，零素材）
+const combatFx = new CombatFx(app.scene);
+
 const weapons = new WeaponSystem({
-  app, city, mode, sfx, police, health,
+  app, city, mode, sfx, police, health, fx: combatFx,
   hud: {
     bar: document.getElementById('weapon-hud'),
     slots: Array.from(document.querySelectorAll('.wslot')),
@@ -58,6 +63,13 @@ const playerProxy = { x: 999, z: 999 };
 city.traffic.attachAvoid([...city.agents.list, playerProxy, police.proxy]);
 
 minimap.police = police; // 小地图显示警察与闪烁警车
+
+// 异步换装：simple-muscle-car（MIT）肌肉车 GLB 到位后替换车流与警车的占位模型
+loadMuscleCarTemplate().then((t) => {
+  if (!t) return; // 加载失败保持程序化盒装车身，游戏照常运行
+  city.traffic.setCarTemplate(t);
+  police.template = t;
+});
 
 window.__cityBooted = true; // 通知 index.html 的错误兜底：启动成功
 
@@ -95,6 +107,7 @@ app.start((dt, t) => {
   }
 
   weapons.update(dt); // 内部自判是否处于第一人称
+  combatFx.update(dt);
   police.update(dt, mode.mode === 'fp' ? camPos : null);
   health.update(dt, mode.mode === 'fp');
   city.traffic.update(dt);

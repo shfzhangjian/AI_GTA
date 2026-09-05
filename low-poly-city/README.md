@@ -18,7 +18,7 @@
 | 模块化方式 | 浏览器原生 `<script type="importmap">` + ES Modules，无打包器、无 npm 依赖安装 |
 | 音效 | Web Audio API 实时合成（零音频素材文件） |
 | 纹理 | Canvas 2D 程序化生成窗格/玻璃幕墙（零图片资源） |
-| 验证 | Node.js v24 无头冒烟测试（stub DOM/AudioContext，18 项断言全过：装配、碰撞、战斗、弹道、开镜、毁车、警匪对抗、玩家阵亡） |
+| 验证 | Node.js v24 无头冒烟测试（stub DOM/AudioContext，20 项断言全过：装配、碰撞、战斗、弹道、开镜、毁车燃烧、弹坑、警匪对抗、玩家阵亡） |
 
 ## 🚀 运行
 
@@ -52,6 +52,15 @@ python -m http.server 8000     # 方式二（Python）
 
 - 命中判定为解析射线检测（NPC 水平圆柱 + 高度带，建筑 Box3 遮挡，地面接弹）
 - NPC 受击：红闪 + 击退 + 头顶血条（绿/橙/红三档），血量归零打倒躺地、远离玩家后满血复活；未打倒立即转身狂奔逃离
+
+## 🚗 真实车辆模型与破坏特效
+
+- **真车模型**：集成 [simple-muscle-car](https://github.com/ASouthernCat/simple-muscle-car)（MIT）的 Blender 肌肉车 GLB
+  （Draco 压缩，解码器已本地化 `libs/draco/`），运行时自动归一化（车长 4.3m / 车头朝行驶向 / 轮胎接地），
+  按材质名"车漆"逐车换色；加载失败自动回退程序化盒装车身。警车为同款白漆版 + 车顶红蓝警灯。
+- **爆炸升级**：火球 + 上升火焰精灵群 + 黑烟柱（膨胀消散）+ 碎石飞溅 + PointLight 光闪，纹理全 Canvas 程序化生成。
+- **地面弹坑**：不规则边缘焦土贴花（多层随机径向渐变 + 飞溅斑点），空爆也投影到地面；上限 26 个滚动清除。
+- **残骸燃烧**：被摧毁的汽车持续喷火冒烟约 16 秒、火光随机闪烁、火势渐弱，末期塌缩消失（期间始终作为路障阻挡通行）。
 
 ## 🚨 警匪对抗（GTA 式通缉）
 
@@ -90,6 +99,8 @@ low-poly-city/
     │   ├── textures.js         # Canvas 程序化立面纹理（窗格/玻璃幕墙），零图片
     │   ├── PlayerAvatar.js     # 玩家化身（头部 layer 隔离）+ 第一人称双手动画
     │   ├── WeaponModels.js     # 锤子/冲锋枪/狙击枪/火箭筒低多边形枪模 + 火箭弹
+    │   ├── CarModel.js         # 肌肉车 GLB 加载（GLTF+Draco）与归一化换漆
+    │   ├── CombatFx.js         # 爆炸粒子/黑烟柱/弹坑贴花/残骸燃烧特效中枢
     │   ├── GroundBuilder.js    # 地块底座、草地四象限、人行道、拾取平面
     │   ├── RoadBuilder.js      # 十字路、虚线、斑马线、停车场
     │   ├── BuildingFactory.js  # 6 种建筑生成函数（spec -> Group），碰撞标记
@@ -116,4 +127,6 @@ low-poly-city/
 ## ⚖️ 许可与致谢
 
 - three.js r165（MIT License, © three.js authors）— 随仓库 `libs/` 本地分发
+- 车辆模型：[simple-muscle-car](https://github.com/ASouthernCat/simple-muscle-car)（MIT License, © 2024 ASouthernCat）— `libs/car/car_draco.glb`，许可证副本见 `libs/car/MUSCLE_CAR_LICENSE.txt`
+- Draco 压缩解码器（Apache-2.0, © Google）— `libs/draco/`
 - 其余代码由 AI 生成，供学习研究使用
