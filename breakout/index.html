@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>砖块破坏者 · Breakout Elements</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="titlebar">
+      <h1>砖块破坏者 <span class="sub">BREAKOUT · ELEMENTS</span></h1>
+      <div class="keys">
+        <kbd>←→/AD</kbd>移动 <kbd>空格/点击</kbd>发射 <kbd>火球模式:空格/X开炮</kbd> <kbd>P</kbd>暂停 <kbd>M</kbd>静音 <kbd>R</kbd>重开 <kbd>F2</kbd>调试
+      </div>
+    </header>
+
+    <div class="stage">
+      <canvas id="game" width="960" height="640"></canvas>
+      <p id="boot-error" class="boot-error"></p>
+    </div>
+
+    <footer class="foot">模块化 HTML5 Canvas 引擎 · 元素级建模 / 子步碰撞 / 粒子爆炸 / WebAudio 合成音效 / 调试事件追踪</footer>
+  </main>
+
+  <!-- 调试面板由 src/debug/debugPanel.js 动态注入 -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

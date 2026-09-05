@@ -1,0 +1,17 @@
+{
+  "name": "第二关 · 堡垒",
+  "cellSize": 24,
+  "ballSpeed": 360,
+  "bg": { "type": "procedural", "top": "#1a0e26", "bottom": "#3a1c42", "stars": 90, "seed": 21 },
+  "models": {
+    "guard": { "cells": ["W.W", "WMW"] }
+  },
+  "bricks": [
+    { "name": "冰穹",   "x": 396, "y": 74,  "cells": ["IIIIIII"] },
+    { "name": "核心堡垒", "x": 408, "y": 122, "cells": ["MM$$MM", "MWXXWM", "MM$$MM"] },
+    { "name": "左卫",   "x": 168, "y": 194, "model": "guard" },
+    { "name": "右卫",   "x": 720, "y": 194, "model": "guard" },
+    { "name": "左哨",   "x": 240, "y": 290, "cells": ["GG", "GS"] },
+    { "name": "右哨",   "x": 672, "y": 290, "cells": ["GG", "SG"] }
+  ]
+}

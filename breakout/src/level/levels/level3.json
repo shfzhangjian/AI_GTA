@@ -1,0 +1,33 @@
+{
+  "name": "第三关 · 金字塔",
+  "cellSize": 24,
+  "ballSpeed": 400,
+  "bg": {
+    "type": "image",
+    "src": "assets/bg/desert.png",
+    "top": "#261a0b",
+    "bottom": "#52381c",
+    "stars": 60,
+    "seed": 42
+  },
+  "models": {
+    "pillar": { "cells": ["I", "G", "M"] }
+  },
+  "bricks": [
+    {
+      "name": "金字塔",
+      "x": 336,
+      "y": 84,
+      "cells": [
+        ".....XX.....",
+        "....$MM$....",
+        "...XMMMMX...",
+        "..$$MMMM$$..",
+        ".WIIIIIIIW..",
+        "SSSSSSSSSSSS"
+      ]
+    },
+    { "name": "左柱", "x": 140, "y": 180, "model": "pillar" },
+    { "name": "右柱", "x": 796, "y": 180, "model": "pillar" }
+  ]
+}

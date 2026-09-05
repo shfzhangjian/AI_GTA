@@ -1,0 +1,14 @@
+{
+  "name": "第一关 · 星门",
+  "cellSize": 24,
+  "ballSpeed": 330,
+  "bg": { "type": "procedural", "top": "#0b1026", "bottom": "#1c2b52", "stars": 150, "seed": 7 },
+  "bricks": [
+    { "name": "门楣",   "x": 456, "y": 72,  "cells": ["II"] },
+    { "name": "左墩",   "x": 240, "y": 120, "cells": ["SSS", "SGS"] },
+    { "name": "右墩",   "x": 648, "y": 120, "cells": ["SSG", "SGS"] },
+    { "name": "玻璃桥", "x": 408, "y": 192, "cells": ["GGGGGG"] },
+    { "name": "左冰晶", "x": 312, "y": 264, "cells": ["GI", "IG"] },
+    { "name": "右冰晶", "x": 600, "y": 264, "cells": ["IG", "GI"] }
+  ]
+}
