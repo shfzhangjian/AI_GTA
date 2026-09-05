@@ -141,6 +141,8 @@ export function createTraffic(scene, lanes) {
 
   let avoidList = []; // 行人/狗列表（AgentBuilder.list）
   const wrap = (p) => (p > 61 ? p - 122 : p < -61 ? p + 122 : p);
+  const _axis = new THREE.Vector3(); // 车轮滚动轴复用量
+  const _fwdv = new THREE.Vector3();
 
   return {
     attachAvoid(list) { avoidList = list || []; },
@@ -163,18 +165,20 @@ export function createTraffic(scene, lanes) {
     setCarTemplate(template) {
       for (const c of cars) {
         if (c.dead) continue;
-        const wrap = normalizeCarClone(template, 4.3, c.color);
+        const wrap2 = normalizeCarClone(template, 4.3, c.color);
         for (const tz of [-0.45, 0.45]) { // 尾灯跟到新模型车尾（-x）
           const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 0.22), c.tailMat);
           tl.position.set(-2.05, 0.8, tz);
-          wrap.add(tl);
+          wrap2.add(tl);
         }
         const old = c.mesh;
-        wrap.position.copy(old.position);
-        wrap.rotation.y = old.rotation.y;
+        wrap2.position.copy(old.position);
+        wrap2.rotation.y = old.rotation.y;
         g.remove(old);
-        g.add(wrap);
-        c.mesh = wrap;
+        g.add(wrap2);
+        c.mesh = wrap2;
+        c.wheels = wrap2.userData.wheels || null; // 供逐帧滚动
+        c.wheelR = wrap2.userData.wheelRadius || 0.33;
       }
     },
 
@@ -254,6 +258,13 @@ export function createTraffic(scene, lanes) {
         c.p = wrap(c.p + c.v * dt);
         if (c.axis === 'x') c.mesh.position.x = c.p;
         else c.mesh.position.z = c.p;
+
+        // GLB 车轮真实滚动：ω_world = up × forward · v/r（与行驶方向自动匹配）
+        if (c.wheels) {
+          const ang = (Math.abs(c.v) * dt) / (c.wheelR || 0.33);
+          _axis.set(0, 1, 0).cross(_fwdv.set(c.f.x, 0, c.f.z)).multiplyScalar(Math.sign(c.v));
+          for (const w of c.wheels) w.rotateOnWorldAxis(_axis, ang);
+        }
       }
     },
   };

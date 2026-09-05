@@ -13,6 +13,8 @@ import { normalizeCarClone } from './CarModel.js';
 const rand = (a, b) => a + Math.random() * (b - a);
 const std = (color, opts = {}) =>
   new THREE.MeshStandardMaterial({ color, roughness: 0.85, ...opts });
+const _pa = new THREE.Vector3(); // 警车车轮滚动轴复用
+const _pf = new THREE.Vector3();
 
 /* ---------------- 模型 ---------------- */
 
@@ -265,6 +267,13 @@ export class PoliceSystem {
           this._spawnCop();
         } else {
           p[key] += Math.sign(want - p[key]) * step;
+          // GLB 警车行驶轮滚动（车头朝 +方向驶来）
+          const wheels = c.group.userData?.wheels;
+          if (wheels) {
+            _pa.set(0, 1, 0).cross(_pf.set(c.axis === 'x' ? 1 : 0, 0, c.axis === 'z' ? 1 : 0));
+            const ang = (16 * dt) / (c.group.userData.wheelRadius || 0.34);
+            for (const w of wheels) w.rotateOnWorldAxis(_pa, ang);
+          }
         }
         break;
       }
