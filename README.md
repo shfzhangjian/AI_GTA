@@ -2,15 +2,32 @@
 
 AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
-| 目录 | 说明 | 技术栈 |
-| --- | --- | --- |
-| [`low-poly-city/`](./low-poly-city/) | 低多边形等距城市 + 第一人称武器沙盒（锤子/冲锋枪/狙击枪/火箭筒，NPC 生态与碰撞） | HTML + Three.js r165（原生 ES Module，零构建、离线可跑） |
+**🎮 在线试玩（GitHub Pages）：<https://shfzhangjian.github.io/AI_GTA/>**
 
-## low-poly-city 快速开始
+## 项目索引
+
+| 目录 | 说明 | 技术栈 | 在线试玩 |
+| --- | --- | --- | --- |
+| [`breakout/`](./breakout/) | **砖块破坏者**：元素级砖块自由建模（7 种材质独立破坏物理）、连锁爆炸、顶部随机英文单词砖、掉落道具（多球/挡板伸缩/火球+子弹）、连击积分、WebAudio 合成音效、调试模式事件追踪 | HTML5 Canvas 2D + 原生 ES Module + WebAudio，零依赖、零素材文件 | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/breakout/) |
+| [`low-poly-city/`](./low-poly-city/) | **低多边形等距城市 + 第一人称武器沙盒**（锤子/冲锋枪/狙击枪/火箭筒，NPC 生态与碰撞） | HTML + Three.js r165（原生 ES Module，零构建、离线可跑） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/low-poly-city/) |
+
+两个项目均为 **AI 全程生成代码**（模型：`unsloth/Qwen3.8-Flash-Next-GGUF`，经 DeepSeek Harness 代理迭代生成并自动化验证），生成介绍见各自目录内文档：
+
+- breakout → [breakout/CODE_INTRO.md](./breakout/CODE_INTRO.md)
+- low-poly-city → [low-poly-city/README.md](./low-poly-city/README.md)
+
+## 本地运行
 
 ```bash
-cd low-poly-city
-npx serve .            # 或 python -m http.server 8000
+# 砖块破坏者（推荐 start.bat，自动开浏览器）
+cd breakout && python -m http.server 8765
+
+# 低多边形城市
+cd low-poly-city && npx serve .
 ```
 
-浏览器打开终端提示的地址即可。详见 [low-poly-city/README.md](./low-poly-city/README.md)。
+> ES Module + fetch 需要 http 环境，直接双击 index.html（file://）无法运行。
+
+## GitHub Pages 部署方式
+
+仓库根目录 `index.html` 为导航落地页；Pages 采用 **Deploy from a branch → `main` / (root)**，两个子项目路径直达（见上表）。各子项目自包含、纯静态，无需构建步骤。

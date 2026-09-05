@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI_GTA · AI 生成游戏合集</title>
+<style>
+  :root { --bg:#05070f; --card:#0d1222; --line:#223055; --text:#dfe7ff; --dim:#6f7ea6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    background:radial-gradient(1100px 640px at 50% -10%, #101a3a 0%, var(--bg) 60%);
+    color:var(--text); font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .wrap { max-width:860px; width:100%; }
+  h1 { font-size:26px; letter-spacing:3px; text-align:center; }
+  h1 span { color:#4fd8ff; font-size:13px; letter-spacing:5px; display:block; margin-top:6px; }
+  .sub { text-align:center; color:var(--dim); font-size:13px; margin:10px 0 28px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
+  a.card {
+    display:block; background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:22px; text-decoration:none; color:var(--text); transition:.18s;
+  }
+  a.card:hover { transform:translateY(-3px); border-color:#4fd8ff; box-shadow:0 10px 34px rgba(60,140,255,.22); }
+  .card b { font-size:18px; display:block; margin-bottom:8px; }
+  .card p { color:var(--dim); font-size:13px; line-height:1.7; }
+  .card em { font-style:normal; color:#4fd8ff; }
+  .foot { text-align:center; color:var(--dim); font-size:12px; margin-top:26px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>AI_GTA<span>AI-GENERATED WEB GAMES</span></h1>
+    <p class="sub">全部代码由 AI 生成（unsloth/Qwen3.8-Flash-Next-GGUF · DeepSeek Harness）· 点击卡片直接开玩</p>
+    <div class="grid">
+      <a class="card" href="./breakout/">
+        <b>🧱 砖块破坏者 Breakout</b>
+        <p>元素级砖块自由建模 · 7 种材质独立破坏物理 · 连锁爆炸 · 顶部随机英文单词砖 · 掉落道具（多球 / 挡板伸缩 / 火球+子弹）· 连击积分 · WebAudio 合成音效 · F2 调试模式</p>
+      </a>
+      <a class="card" href="./low-poly-city/">
+        <b>🏙️ Low-Poly City 武器沙盒</b>
+        <p>低多边形等距城市 · 点击城区进入第一人称 · 锤子/冲锋枪/狙击枪/火箭筒四种武器 · NPC 生态与循环车流 · Three.js r165 零构建离线可跑</p>
+      </a>
+    </div>
+    <p class="foot">GitHub: <a href="https://github.com/shfzhangjian/AI_GTA" style="color:#4fd8ff">shfzhangjian/AI_GTA</a></p>
+  </div>
+</body>
+</html>
