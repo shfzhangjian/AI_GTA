@@ -12,7 +12,11 @@ import { buildTrees, buildBushes } from './NatureBuilder.js';
 import { buildStreetlights, buildBench, createTraffic } from './PropBuilder.js';
 import { buildAgents } from './AgentBuilder.js';
 
-export function buildCity(scene) {
+/**
+ * @param {THREE.Scene} scene
+ * @param {{carTemplate?:THREE.Object3D|null}} [opts] 肌肉车 GLB 模板（给定则车流第一帧即真模型）
+ */
+export function buildCity(scene, opts = {}) {
   /** 第一人称碰撞体：建筑用 AABB(Box3)，树/路灯用圆形 */
   const colliders = { boxes: [], circles: [] };
   const addCircle = (x, z, r) => colliders.circles.push({ x, z, r });
@@ -25,7 +29,7 @@ export function buildCity(scene) {
   buildBushes(scene, BUSHES);
   buildStreetlights(scene, addCircle);
   BENCHES.forEach((b) => buildBench(scene, b.x, b.z, b.rotY));
-  const traffic = createTraffic(scene, LANES);
+  const traffic = createTraffic(scene, LANES, opts.carTemplate ?? null);
 
   // 场景图矩阵更新后，把带 collider 标记的主体网格换算成世界 AABB
   scene.updateMatrixWorld(true);

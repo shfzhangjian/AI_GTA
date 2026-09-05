@@ -46,6 +46,7 @@ function createPoliceCar() {
 /** 警车（GLB 肌肉车模板版）：白漆 + 车顶红蓝警灯 */
 function createPoliceCarGLB(template) {
   const car = normalizeCarClone(template, 4.5, '#f2f4f7');
+  if (!car) return null; // 模板损坏 -> 调用方回退程序化警车
   const h = car.userData.height || 1.3;
   const lightR = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0xff2d2d }));
   lightR.position.set(-0.1, h + 0.08, -0.24);
@@ -193,7 +194,7 @@ export class PoliceSystem {
       ? { x: cand.lane, z: clampC(c.z) }
       : { x: clampC(c.x), z: cand.lane };
 
-    const car = this.template ? createPoliceCarGLB(this.template) : createPoliceCar();
+    const car = (this.template && createPoliceCarGLB(this.template)) || createPoliceCar();
     const dir = -1; // 从负方向驶来（车头朝向 dest）
     const start = cand.axis === 'z'
       ? { x: cand.lane, z: -78 }

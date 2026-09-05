@@ -106,11 +106,33 @@ function rotFor(axis, dir) {
 /**
  * 创建循环车流（带让行刹车）。lane 定义：axis=行驶轴，lane=横向坐标，dir=方向。
  * 刹车条件：① 车道正前方 5.4m 内有行人/狗（attachAvoid 注入）；② 同车道同向前车 <6m（防追尾）。
- * @returns {{update:(dt:number)=>void, attachAvoid:(list:Array)=>void}}
+ * @param {{mesh:THREE.Object3D}|null} [carTemplate] 肌肉车 GLB 模板：给定则车流第一帧即为真模型
+ * @returns {{update:(dt:number)=>void, attachAvoid:(list:Array)=>void, carRects:Function, damageAt:Function, setCarTemplate:Function}}
  */
-export function createTraffic(scene, lanes) {
+export function createTraffic(scene, lanes, carTemplate = null) {
   const cars = [];
   const g = new THREE.Group();
+
+  /** 把程序化占位车替换为 GLB 真模型（逐车换漆 + 尾灯 + 轮毂枢轴）；失败保持占位 */
+  function fitTemplate(c, template) {
+    if (!template) return false;
+    const wrap = normalizeCarClone(template, 4.3, c.color);
+    if (!wrap) return false;
+    for (const tz of [-0.45, 0.45]) { // 尾灯跟到新模型车尾（-x）
+      const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 0.22), c.tailMat);
+      tl.position.set(-2.05, 0.8, tz);
+      wrap.add(tl);
+    }
+    const old = c.mesh;
+    wrap.position.copy(old.position);
+    wrap.rotation.y = old.rotation.y;
+    g.remove(old);
+    g.add(wrap);
+    c.mesh = wrap;
+    c.wheels = wrap.userData.wheels || null; // 供逐帧滚动
+    c.wheelR = wrap.userData.wheelRadius || 0.33;
+    return true;
+  }
   for (const lane of lanes) {
     for (let i = 0; i < lane.count; i++) {
       const color = PALETTE.car[(i + Math.round(Math.abs(lane.lane))) % PALETTE.car.length];
@@ -135,6 +157,7 @@ export function createTraffic(scene, lanes) {
         dead: false,      // 被火箭弹摧毁
         deadT: 0,         // 残骸剩余存在时间
       });
+      if (carTemplate) fitTemplate(cars[cars.length - 1], carTemplate); // 第一帧即真模型
     }
   }
   scene.add(g);
@@ -164,21 +187,7 @@ export function createTraffic(scene, lanes) {
      */
     setCarTemplate(template) {
       for (const c of cars) {
-        if (c.dead) continue;
-        const wrap2 = normalizeCarClone(template, 4.3, c.color);
-        for (const tz of [-0.45, 0.45]) { // 尾灯跟到新模型车尾（-x）
-          const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 0.22), c.tailMat);
-          tl.position.set(-2.05, 0.8, tz);
-          wrap2.add(tl);
-        }
-        const old = c.mesh;
-        wrap2.position.copy(old.position);
-        wrap2.rotation.y = old.rotation.y;
-        g.remove(old);
-        g.add(wrap2);
-        c.mesh = wrap2;
-        c.wheels = wrap2.userData.wheels || null; // 供逐帧滚动
-        c.wheelR = wrap2.userData.wheelRadius || 0.33;
+        if (!c.dead && !c.wheels) fitTemplate(c, template);
       }
     },
 

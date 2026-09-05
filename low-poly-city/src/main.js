@@ -15,7 +15,11 @@ import { Minimap } from './ui/Minimap.js';
 import { FP } from './config.js';
 
 const app = new App(document.getElementById('app'));
-const city = buildCity(app.scene);
+
+// ---- 真车模型先行：加载肌肉车 GLB（失败自动回退盒装车），车流第一帧即真模型 ----
+const carTemplate = await loadMuscleCarTemplate();
+
+const city = buildCity(app.scene, { carTemplate });
 
 const mode = new ModeManager(app, city, {
   overhead: document.getElementById('hud-overhead'),
@@ -32,6 +36,7 @@ const sfx = new Sfx();
 
 // 警匪对抗：袭击路人 -> 警车出警 -> 警察持枪反击；玩家中 5 弹阵亡退出第一人称
 const police = new PoliceSystem({ scene: app.scene, colliders: city.colliders, sfx });
+police.template = carTemplate; // 警车同款模型（白漆），null 则程序化警车
 const health = new PlayerHealth({
   sfx,
   hud: {
@@ -63,13 +68,6 @@ const playerProxy = { x: 999, z: 999 };
 city.traffic.attachAvoid([...city.agents.list, playerProxy, police.proxy]);
 
 minimap.police = police; // 小地图显示警察与闪烁警车
-
-// 异步换装：simple-muscle-car（MIT）肌肉车 GLB 到位后替换车流与警车的占位模型
-loadMuscleCarTemplate().then((t) => {
-  if (!t) return; // 加载失败保持程序化盒装车身，游戏照常运行
-  city.traffic.setCarTemplate(t);
-  police.template = t;
-});
 
 window.__cityBooted = true; // 通知 index.html 的错误兜底：启动成功
 

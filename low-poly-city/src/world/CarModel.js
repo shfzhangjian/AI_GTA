@@ -32,11 +32,26 @@ export function loadMuscleCarTemplate(url = './libs/car/car_draco.glb', dracoPat
   return templatePromise;
 }
 
-/** 剔除展示转盘（幂等，加载与每次克隆都会执行） */
+/**
+ * 剔除展示转盘（幂等，加载与每次克隆都会执行）。
+ * 注意：GLB 里"旋转底座"是网格节点且车身挂在它下面 —— 只丢弃自身几何、
+ * 用空 Group 容器保留子树，直接 remove 会连车带轮全部消失。
+ */
 function stripBases(root) {
   for (const name of ['固定底座', '旋转底座']) {
     const n = root.getObjectByName(name);
-    if (n) n.parent?.remove(n);
+    if (!n || !n.parent) continue;
+    if (n.children.length) {
+      const holder = new THREE.Group();
+      holder.position.copy(n.position);
+      holder.rotation.copy(n.rotation);
+      holder.scale.copy(n.scale);
+      for (const ch of [...n.children]) holder.add(ch);
+      n.parent.add(holder);
+      n.parent.remove(n); // 不 dispose 几何：原模板还可能被再次克隆
+    } else {
+      n.parent.remove(n);
+    }
   }
 }
 
@@ -161,6 +176,11 @@ function splitWheels(root) {
 export function normalizeCarClone(template, targetLen = 4.3, paint = null) {
   const inner = template.clone(true);
   stripBases(inner); // 幂等兜底：模板处理与否都安全
+
+  let hasMesh = false;
+  inner.traverse((o) => { if (o.isMesh) hasMesh = true; });
+  if (!hasMesh) return null; // 空/损坏模板 -> 调用方回退程序化车身
+
   inner.traverse((o) => {
     if (!o.isMesh) return;
     o.material = o.material.clone(); // 实例独立材质：逐车换漆/黑化互不影响
