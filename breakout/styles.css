@@ -18,7 +18,13 @@ body {
   justify-content: center;
 }
 
-.wrap { width: min(98vw, 1020px); padding: 14px 10px 26px; }
+.wrap {
+  /* 容器收缩为内容(画布)宽度，随 body flex 整体居中；
+     避免画布按视口计算变宽后溢出定宽容器导致右偏、左侧留黑 */
+  width: fit-content;
+  max-width: 100%;
+  padding: 14px 10px 26px;
+}
 
 .titlebar {
   display: flex; align-items: baseline; justify-content: space-between;
