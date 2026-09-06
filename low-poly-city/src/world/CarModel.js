@@ -18,6 +18,14 @@ import * as THREE from 'three';
 
 const SPECS = [
   {
+    id: 'police', // 自建低多边形警车（Blender GEO-* 命名，四轮独立节点 + 内置发光警灯条）
+    detect: (root) => !!root.getObjectByName('GEO-police_car_root'),
+    wheelNode: (o) => /^GEO-(tire|rim)_/.test(o.name || ''), // FL/FR/RL/RR 已是单轮节点，聚类直接命中
+    paintMat: 'MAT-paint_white',
+    frontMats: ['MAT-emis_white'], // 前照灯（警灯白条居中不偏置，质心仍指车头）
+    strip: [],
+  },
+  {
     id: 'porsche911',
     detect: (root) => !!findMeshByMat(root, 'paint'),
     wheelNode: (o) => /^Cylinder\.\d+$/.test(o.name || ''), // 每个节点 = 一根轴（左右两轮并框）
@@ -79,6 +87,13 @@ function tuneMaterials(root) {
         m.emissive = new THREE.Color(0xfff2d8); m.emissiveIntensity = 0.9; break;
       case 'tex_shiny': // 车尾 LED 灯带贴图：熄自发光，白天避免怪光圈
         m.emissive = new THREE.Color(0x000000); break;
+      case 'MAT-paint_white': // 警车涂装件
+        m.metalness = 0.6; m.roughness = 0.35; break;
+      case 'MAT-rim_silver':
+        m.metalness = 0.9; m.roughness = 0.3; break;
+      case 'MAT-black_trim': case 'MAT-tire_rubber': case 'MAT-glass_dark': case 'MAT-text_navy':
+        m.metalness = 0.25; m.roughness = 0.7; break;
+      // MAT-emis_* 已带 emissiveFactor（GLTFLoader 解析），车灯/警灯自发光保留
       default: break;
     }
   });
@@ -201,35 +216,44 @@ function splitWheels(head, inner, spec) {
 
 /* ---------------- 加载与归一化 ---------------- */
 
+/** 依序尝试候选 URL，命中即做规格适配（剔道具 + 材质调校）；全失败返回 null */
+async function loadGltfCandidates(urls, dracoPath) {
+  const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+  const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
+  const draco = new DRACOLoader();
+  draco.setDecoderPath(dracoPath);
+  const loader = new GLTFLoader();
+  loader.setDRACOLoader(draco);
+  for (const url of urls) {
+    try {
+      const gltf = await loader.loadAsync(url);
+      const root = gltf.scene;
+      const spec = SPECS.find((s) => s.detect(root));
+      if (spec) stripProps(root, spec.strip);
+      tuneMaterials(root); // 与材质名白名单外者无副作用
+      return root;
+    } catch (e) { /* 尝试下一个候选 */ }
+  }
+  return null;
+}
+
 let templatePromise = null;
 
 /**
- * 异步加载车辆模板（仅浏览器）：优先保时捷 911，失败回退肌肉车；双双失败返回 null -> 盒装车。
+ * 异步加载民用车辆模板（仅浏览器）：优先保时捷 911，失败回退肌肉车；双双失败返回 null -> 盒装车。
  * @param {string[]} urls
  */
 export function loadCarTemplate(urls = ['./libs/car/porsche911.glb', './libs/car/car_draco.glb'], dracoPath = './libs/draco/') {
-  if (!templatePromise) {
-    templatePromise = (async () => {
-      const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
-      const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
-      const draco = new DRACOLoader();
-      draco.setDecoderPath(dracoPath);
-      const loader = new GLTFLoader();
-      loader.setDRACOLoader(draco);
-      for (const url of urls) {
-        try {
-          const gltf = await loader.loadAsync(url);
-          const root = gltf.scene;
-          const spec = SPECS.find((s) => s.detect(root));
-          if (spec) stripProps(root, spec.strip);
-          tuneMaterials(root); // 肌肉车无同名材质，switch 全部落空，无害
-          return root;
-        } catch (e) { /* 尝试下一个候选 */ }
-      }
-      return null;
-    })();
-  }
+  if (!templatePromise) templatePromise = loadGltfCandidates(urls, dracoPath);
   return templatePromise;
+}
+
+let policePromise = null;
+
+/** 警车专用模板（自建低多边形 police_car.glb，内置发光警灯条）；失败返回 null -> 白漆保时捷/盒装车 */
+export function loadPoliceCarTemplate(url = './libs/car/police_car.glb', dracoPath = './libs/draco/') {
+  if (!policePromise) policePromise = loadGltfCandidates([url], dracoPath);
+  return policePromise;
 }
 
 /** @deprecated 兼容旧调用名 */

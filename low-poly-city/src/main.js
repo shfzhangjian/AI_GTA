@@ -10,14 +10,14 @@ import { Sfx } from './core/Sfx.js';
 import { buildCity } from './world/CityBuilder.js';
 import { PoliceSystem } from './world/PoliceSystem.js';
 import { CombatFx } from './world/CombatFx.js';
-import { loadCarTemplate } from './world/CarModel.js';
+import { loadCarTemplate, loadPoliceCarTemplate } from './world/CarModel.js';
 import { Minimap } from './ui/Minimap.js';
 import { FP } from './config.js';
 
 const app = new App(document.getElementById('app'));
 
-// ---- 真车模型先行：保时捷911（3d-car-showcase, MIT），失败回退肌肉车/盒装车；车流第一帧即真模型 ----
-const carTemplate = await loadCarTemplate();
+// ---- 真车模型先行：保时捷911（3d-car-showcase, MIT）+ 自建警车；失败各自回退，车流第一帧即真模型 ----
+const [carTemplate, policeTemplate] = await Promise.all([loadCarTemplate(), loadPoliceCarTemplate()]);
 
 const city = buildCity(app.scene, { carTemplate, camPos: app.camera.position });
 
@@ -36,7 +36,7 @@ const sfx = new Sfx();
 
 // 警匪对抗：袭击路人 -> 警车出警 -> 警察持枪反击；玩家中 5 弹阵亡退出第一人称
 const police = new PoliceSystem({ scene: app.scene, colliders: city.colliders, sfx });
-police.template = carTemplate; // 警车同款模型（白漆），null 则程序化警车
+police.template = policeTemplate || carTemplate; // 专用警车模型优先，缺失回退白漆保时捷/程序化警车
 const health = new PlayerHealth({
   sfx,
   hud: {

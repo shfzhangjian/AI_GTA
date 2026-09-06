@@ -43,17 +43,22 @@ function createPoliceCar() {
   return { group: g, lightR, lightB };
 }
 
-/** 警车（GLB 肌肉车模板版）：白漆 + 车顶红蓝警灯 */
-function createPoliceCarGLB(template) {
+/** 警车（GLB 模板版）：优先用模型内置警灯条（GEO-light_red/blue，发光强度脉冲），无则外挂红蓝灯盒 */
+export function createPoliceCarGLB(template) {
   const car = normalizeCarClone(template, 4.5, '#f2f4f7');
   if (!car) return null; // 模板损坏 -> 调用方回退程序化警车
+  const lightR = car.getObjectByName('GEO-light_red');
+  const lightB = car.getObjectByName('GEO-light_blue');
+  if (lightR && lightB) {
+    return { group: car, lightR, lightB, pulseMat: true }; // 材质已在 normalizeCarClone 逐实例克隆，可安全脉冲
+  }
   const h = car.userData.height || 1.3;
-  const lightR = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0xff2d2d }));
-  lightR.position.set(-0.1, h + 0.08, -0.24);
-  const lightB = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0x1f5fff }));
-  lightB.position.set(-0.1, h + 0.08, 0.24);
-  car.add(lightR, lightB);
-  return { group: car, lightR, lightB };
+  const boxR = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0xff2d2d }));
+  boxR.position.set(-0.1, h + 0.08, -0.24);
+  const boxB = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0x1f5fff }));
+  boxB.position.set(-0.1, h + 0.08, 0.24);
+  car.add(boxR, boxB);
+  return { group: car, lightR: boxR, lightB: boxB };
 }
 
 /** 警察（面朝 +z）：深蓝制服 + 警帽 + 手枪。返回 {group, parts:{legs,mats}} */
@@ -247,8 +252,13 @@ export class PoliceSystem {
     // 警灯闪烁（行驶/驻停期间）
     if (this.car && this.state !== 'leaving') {
       const on = Math.sin(this.clock * 14) > 0;
-      this.car.lightR.visible = on;   // 红蓝交替旋转报警
-      this.car.lightB.visible = !on;
+      if (this.car.pulseMat) { // 内置发光灯带：红蓝交替爆闪（emissive 强度）
+        this.car.lightR.material.emissiveIntensity = on ? 3.2 : 0.1;
+        this.car.lightB.material.emissiveIntensity = on ? 0.1 : 3.2;
+      } else {
+        this.car.lightR.visible = on;   // 红蓝交替旋转报警
+        this.car.lightB.visible = !on;
+      }
     }
 
     switch (this.state) {
