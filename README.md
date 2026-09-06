@@ -10,11 +10,13 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 | --- | --- | --- | --- |
 | [`breakout/`](./breakout/) | **砖块破坏者**：元素级砖块自由建模（7 种材质独立破坏物理）、连锁爆炸、顶部随机英文单词砖、掉落道具（多球/挡板伸缩/火球+子弹）、连击积分、WebAudio 合成音效、调试模式事件追踪 | HTML5 Canvas 2D + 原生 ES Module + WebAudio，零依赖、零素材文件 | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/breakout/) |
 | [`low-poly-city/`](./low-poly-city/) | **低多边形等距城市 + 第一人称武器沙盒**（锤子/冲锋枪/狙击枪/火箭筒，NPC 生态与碰撞） | HTML + Three.js r165（原生 ES Module，零构建、离线可跑） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/low-poly-city/) |
+| [`zelda-like/`](./zelda-like/) | **塞尔达风格开放世界动作游戏**：随机刷怪、武器拾取（树枝/火炬/刀/弓/火焰连弓/石头）、营火点枝成火炬、扇面攻击+自动锁敌+血条、鼠标瞄准、怪物先手硬直、WebAudio 合成音效、小地图与 L 键调试面板 | HTML + Three.js 0.160（原生 ES Module，零构建） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/zelda-like/) |
 
 两个项目均为 **AI 全程生成代码**（模型：`unsloth/Qwen3.8-Flash-Next-GGUF`，经 DeepSeek Harness 代理迭代生成并自动化验证），生成介绍见各自目录内文档：
 
 - breakout → [breakout/CODE_INTRO.md](./breakout/CODE_INTRO.md)
 - low-poly-city → [low-poly-city/README.md](./low-poly-city/README.md)
+- zelda-like → [zelda-like/README.md](./zelda-like/README.md)
 
 ## 本地运行
 
@@ -24,6 +26,9 @@ cd breakout && python -m http.server 8765
 
 # 低多边形城市
 cd low-poly-city && npx serve .
+
+# 塞尔达风格开放世界
+cd zelda-like && python3 -m http.server 8080
 ```
 
 > ES Module + fetch 需要 http 环境，直接双击 index.html（file://）无法运行。
