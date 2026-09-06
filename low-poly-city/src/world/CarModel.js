@@ -216,6 +216,20 @@ function splitWheels(head, inner, spec) {
 
 /* ---------------- 加载与归一化 ---------------- */
 
+const _rwq = new THREE.Quaternion();
+const _rwa = new THREE.Vector3();
+
+/**
+ * 精确的世界轴车轮旋转：把世界轴变换进"枢轴自身姿态"的局部系后右乘（rotateOnAxis）。
+ * 数学上 P·q·Q(q⁻¹P⁻¹aθ) ≡ W_a(θ)·P·q —— 对任意父级旋转与累计自转都精确。
+ * 不可用 Object3D.rotateOnWorldAxis：它注释假定"无旋转父级"，而枢轴挂在 head/outer 两层 Y 旋转之下。
+ */
+export function rollWheel(pivot, worldAxis, angle) {
+  pivot.getWorldQuaternion(_rwq).invert(); // 含自身累计自转 => 变换严格
+  _rwa.copy(worldAxis).applyQuaternion(_rwq);
+  pivot.rotateOnAxis(_rwa, angle);
+}
+
 /** 依序尝试候选 URL，命中即做规格适配（剔道具 + 材质调校）；全失败返回 null */
 async function loadGltfCandidates(urls, dracoPath) {
   const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');

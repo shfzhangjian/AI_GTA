@@ -3,7 +3,7 @@
  */
 import * as THREE from 'three';
 import { PALETTE, WORLD } from '../config.js';
-import { normalizeCarClone } from './CarModel.js';
+import { normalizeCarClone, rollWheel } from './CarModel.js';
 
 const std = (color, opts = {}) =>
   new THREE.MeshStandardMaterial({ color, roughness: 0.85, metalness: 0.05, ...opts });
@@ -301,11 +301,11 @@ export function createTraffic(scene, lanes, carTemplate = null, camPos = null) {
         if (c.axis === 'x') c.mesh.position.x = c.p;
         else c.mesh.position.z = c.p;
 
-        // GLB 车轮真实滚动：ω_world = up × forward · v/r（与行驶方向自动匹配）
+        // GLB 车轮真实滚动（无滑移）：ω = up × v_c / R。c.f 已含行驶方向，绝不能再乘 sign(v) —— 那会 dir² ≡ +1 使对向车道倒滚
         if (c.wheels) {
           const ang = (Math.abs(c.v) * dt) / (c.wheelR || 0.33);
-          _axis.set(0, 1, 0).cross(_fwdv.set(c.f.x, 0, c.f.z)).multiplyScalar(Math.sign(c.v));
-          for (const w of c.wheels) w.rotateOnWorldAxis(_axis, ang);
+          _axis.set(0, 1, 0).cross(_fwdv.set(c.f.x, 0, c.f.z));
+          for (const w of c.wheels) rollWheel(w, _axis, ang);
         }
 
         // 远距 LOD：>38m 切回低模盒车（14×130万三角全显会压垮 GPU），位置保持同步

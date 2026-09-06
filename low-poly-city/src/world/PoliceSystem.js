@@ -8,7 +8,7 @@
  */
 import * as THREE from 'three';
 import { WORLD } from '../config.js';
-import { normalizeCarClone } from './CarModel.js';
+import { normalizeCarClone, rollWheel } from './CarModel.js';
 
 const rand = (a, b) => a + Math.random() * (b - a);
 const std = (color, opts = {}) =>
@@ -283,7 +283,7 @@ export class PoliceSystem {
           if (wheels) {
             _pa.set(0, 1, 0).cross(_pf.set(c.axis === 'x' ? 1 : 0, 0, c.axis === 'z' ? 1 : 0));
             const ang = (16 * dt) / (c.group.userData.wheelRadius || 0.34);
-            for (const w of wheels) w.rotateOnWorldAxis(_pa, ang);
+            for (const w of wheels) rollWheel(w, _pa, ang);
           }
         }
         break;
