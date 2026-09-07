@@ -1,0 +1,568 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+  background: #10150f;
+  color: #f4ecd2;
+  letter-spacing: 0;
+  --ink: #171915;
+  --panel: rgba(39, 25, 18, 0.88);
+  --panel-strong: rgba(24, 16, 12, 0.94);
+  --paper: #f4e4bd;
+  --bamboo: #5f8d54;
+  --jade: #71c99a;
+  --gold: #e5b85c;
+  --red: #b94e44;
+  --blue: #62b9d7;
+  --line: rgba(244, 228, 189, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  min-width: 320px;
+}
+
+button {
+  border: 1px solid rgba(244, 228, 189, 0.28);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f1d38b, #b76c35);
+  color: #24140d;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  min-height: 38px;
+  padding: 0 14px;
+  box-shadow: 0 8px 18px rgba(12, 8, 4, 0.25);
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.85) brightness(0.7);
+  opacity: 0.62;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  background: #d9eac8;
+}
+
+.top-hud,
+.bottom-panel,
+.left-wheel,
+.center-overlay {
+  position: absolute;
+  z-index: 3;
+  user-select: none;
+}
+
+.top-hud {
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(260px, 560px) minmax(128px, 1fr);
+  align-items: start;
+  gap: 14px;
+  pointer-events: none;
+}
+
+.resource-strip,
+.level-strip,
+.round-actions,
+.hero-card,
+.upgrade-card,
+.skill-card,
+.battle-log {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(255, 246, 217, 0.06), transparent 34%),
+    var(--panel);
+  box-shadow: 0 12px 28px rgba(7, 5, 3, 0.28);
+  backdrop-filter: blur(10px);
+}
+
+.resource-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  width: fit-content;
+  min-height: 42px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.resource-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 26px;
+  border-radius: 6px;
+  background: rgba(12, 18, 13, 0.56);
+  padding: 0 9px;
+  font-size: 0.86rem;
+  color: #f7e7bd;
+}
+
+.resource-strip b {
+  color: var(--gold);
+}
+
+.level-strip {
+  min-height: 54px;
+  padding: 8px 12px 10px;
+  border-radius: 8px;
+}
+
+.level-strip strong {
+  display: block;
+  margin-bottom: 6px;
+  text-align: center;
+  color: #f8e8c8;
+  font-size: 0.92rem;
+}
+
+.seal-meter {
+  position: relative;
+  height: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(26, 15, 13, 0.75);
+  border-radius: 999px;
+  background: #251711;
+}
+
+#seal-fill {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #7cbf6d, #e5b85c 48%, #b94e44);
+  transform-origin: left center;
+  transition: transform 180ms ease;
+}
+
+#seal-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff6d8;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-shadow: 0 1px 2px #000;
+}
+
+.round-actions {
+  justify-self: end;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  pointer-events: auto;
+}
+
+.round-actions button {
+  min-width: 58px;
+  min-height: 34px;
+  padding: 0 10px;
+}
+
+.left-wheel {
+  left: 18px;
+  top: 92px;
+  display: grid;
+  gap: 8px;
+  place-items: center;
+  pointer-events: none;
+}
+
+.wheel-ring {
+  position: relative;
+  width: clamp(72px, 10vw, 112px);
+  aspect-ratio: 1;
+  border: 6px solid rgba(244, 228, 189, 0.74);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 33%, rgba(229, 184, 92, 0.24) 34% 39%, transparent 40%),
+    conic-gradient(from 22deg, rgba(113, 201, 154, 0.88), rgba(229, 184, 92, 0.9), rgba(98, 185, 215, 0.9), rgba(113, 201, 154, 0.88));
+  box-shadow:
+    0 0 0 4px rgba(37, 23, 17, 0.52),
+    0 0 36px rgba(229, 184, 92, 0.45);
+  animation: wheelPulse 2.8s ease-in-out infinite;
+}
+
+.wheel-ring span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 74%;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(24, 17, 11, 0.72);
+  transform-origin: left center;
+}
+
+.wheel-ring span:nth-child(1) {
+  transform: rotate(0deg) translateX(-50%);
+}
+
+.wheel-ring span:nth-child(2) {
+  transform: rotate(60deg) translateX(-50%);
+}
+
+.wheel-ring span:nth-child(3) {
+  transform: rotate(120deg) translateX(-50%);
+}
+
+#grandpa-status {
+  margin: 0;
+  border-radius: 999px;
+  background: rgba(20, 16, 13, 0.74);
+  padding: 5px 10px;
+  color: #fff0c8;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.bottom-panel {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: minmax(190px, 0.9fr) minmax(280px, 1.45fr) minmax(280px, 1.6fr) minmax(180px, 0.8fr);
+  gap: 10px;
+  min-height: 214px;
+  padding: 10px 12px 12px;
+  background:
+    linear-gradient(90deg, rgba(98, 64, 42, 0.36), rgba(32, 20, 15, 0.9)),
+    var(--panel-strong);
+  border-top: 2px solid rgba(205, 142, 76, 0.46);
+  box-shadow: 0 -18px 38px rgba(9, 6, 4, 0.38);
+}
+
+.hero-card,
+.battle-log {
+  border-radius: 8px;
+  padding: 13px;
+}
+
+.hero-card {
+  display: grid;
+  align-content: space-between;
+  min-width: 0;
+}
+
+.hero-card small,
+.ink-title small {
+  color: var(--jade);
+  font-weight: 900;
+}
+
+.hero-card h1,
+.battle-log h2,
+.ink-title h2 {
+  margin: 0;
+  color: #f6dda3;
+  letter-spacing: 0;
+}
+
+.hero-card h1 {
+  font-size: clamp(1.25rem, 1.9vw, 1.9rem);
+}
+
+.hero-card p {
+  margin: 10px 0 12px;
+  color: #e7d6b2;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.mini-stats span {
+  min-width: 0;
+  border-radius: 6px;
+  background: rgba(12, 18, 13, 0.42);
+  padding: 7px 5px;
+  text-align: center;
+  color: #f2deb0;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.upgrade-board,
+.skill-board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+.skill-board {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.upgrade-card,
+.skill-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  min-height: 92px;
+  overflow: hidden;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.upgrade-card::before,
+.skill-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.card-title strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #f2dfb2;
+  font-size: 0.94rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-title span {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(113, 201, 154, 0.18);
+  color: #8ce7ad;
+  padding: 2px 7px;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.upgrade-card p,
+.skill-card p {
+  margin: 8px 0;
+  color: #d9c4a0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.upgrade-card button,
+.skill-card button {
+  width: 100%;
+  min-height: 32px;
+  padding: 0 8px;
+  font-size: 0.82rem;
+}
+
+.skill-card.locked {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.18)),
+    rgba(30, 24, 25, 0.86);
+}
+
+.skill-card.ready {
+  border-color: rgba(229, 184, 92, 0.58);
+  box-shadow:
+    inset 0 0 20px rgba(229, 184, 92, 0.07),
+    0 12px 28px rgba(7, 5, 3, 0.28);
+}
+
+.skill-card.cooling button {
+  background: linear-gradient(180deg, #9eb1a0, #53675f);
+}
+
+.battle-log {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.battle-log h2 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+#log-lines {
+  display: grid;
+  gap: 5px;
+}
+
+#log-lines p {
+  margin: 0;
+  overflow: hidden;
+  color: #d7c5a5;
+  font-size: 0.8rem;
+  line-height: 1.32;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.center-overlay {
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(244, 228, 189, 0.12), transparent 30%),
+    rgba(13, 15, 12, 0.42);
+  pointer-events: auto;
+}
+
+.center-overlay.hidden {
+  display: none;
+}
+
+.ink-title {
+  width: min(92vw, 520px);
+  border: 1px solid rgba(244, 228, 189, 0.32);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(255, 252, 224, 0.13), transparent 40%),
+    rgba(29, 22, 16, 0.92);
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+}
+
+.ink-title h2 {
+  margin: 4px 0 10px;
+  font-size: clamp(2rem, 6vw, 4.2rem);
+  line-height: 1.02;
+}
+
+.ink-title p {
+  margin: 0 0 22px;
+  color: #e4d0aa;
+  font-size: 1rem;
+}
+
+.ink-title button {
+  min-width: 132px;
+}
+
+@keyframes wheelPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+@media (max-width: 980px) {
+  .top-hud {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .level-strip {
+    grid-column: 1 / -1;
+  }
+
+  .round-actions {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .resource-strip {
+    grid-column: 1;
+    max-width: none;
+  }
+
+  .left-wheel {
+    top: 126px;
+    left: 10px;
+  }
+
+  .bottom-panel {
+    grid-template-columns: 1fr 1fr;
+    max-height: 43vh;
+    overflow: auto;
+  }
+
+  .skill-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .battle-log {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-hud {
+    left: 8px;
+    right: 8px;
+    top: 8px;
+  }
+
+  .resource-strip {
+    gap: 5px;
+    padding: 6px;
+  }
+
+  .resource-strip span {
+    font-size: 0.75rem;
+    padding: 0 7px;
+  }
+
+  .bottom-panel {
+    grid-template-columns: 1fr;
+    min-height: 248px;
+    max-height: 48vh;
+    padding: 8px;
+  }
+
+  .upgrade-board,
+  .skill-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .hero-card {
+    min-height: 128px;
+  }
+
+  .left-wheel {
+    transform: scale(0.86);
+    transform-origin: left top;
+  }
+}

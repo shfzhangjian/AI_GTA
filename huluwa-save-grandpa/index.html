@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="葫芦娃救爷爷：水墨风 Three.js 弓箭防守游戏"
+    />
+    <title>葫芦娃救爷爷</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main id="app" aria-label="葫芦娃救爷爷游戏">
+      <canvas id="game-canvas" aria-label="战场"></canvas>
+
+      <section class="top-hud" aria-label="战况">
+        <div class="resource-strip" aria-label="资源">
+          <span><b id="coin-count">0</b> 灵豆</span>
+          <span><b id="gourd-count">0</b> 葫芦气</span>
+          <span><b id="jade-count">0</b> 山玉</span>
+        </div>
+
+        <div class="level-strip">
+          <strong id="level-name">第一关</strong>
+          <div class="seal-meter" aria-label="封印进度">
+            <div id="seal-fill"></div>
+            <span id="seal-label">封印 100%</span>
+          </div>
+        </div>
+
+        <div class="round-actions">
+          <button id="sound-button" type="button" aria-label="关闭音效">音效开</button>
+          <button id="pause-button" type="button" aria-label="暂停">暂停</button>
+          <button id="restart-button" type="button" aria-label="重新开始">重开</button>
+        </div>
+      </section>
+
+      <aside class="left-wheel" aria-label="弓阵">
+        <div class="wheel-ring">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p id="grandpa-status">爷爷安危 100%</p>
+      </aside>
+
+      <section class="bottom-panel" aria-label="养成与技能">
+        <article class="hero-card">
+          <div>
+            <small>七娃</small>
+            <h1>葫芦藤弓</h1>
+          </div>
+          <p id="combat-note">按住预览落点，松手放箭。</p>
+          <div class="mini-stats">
+            <span id="damage-stat">伤害 0</span>
+            <span id="speed-stat">箭速 0</span>
+            <span id="crit-stat">会心 0%</span>
+          </div>
+        </article>
+
+        <div class="upgrade-board" id="upgrade-board" aria-label="升级"></div>
+
+        <div class="skill-board" id="skill-board" aria-label="葫芦娃技能"></div>
+
+        <article class="battle-log" aria-label="战报">
+          <h2>战报</h2>
+          <div id="log-lines"></div>
+        </article>
+      </section>
+
+      <div class="center-overlay" id="start-screen">
+        <div class="ink-title">
+          <small>水墨弓阵</small>
+          <h2>葫芦娃救爷爷</h2>
+          <p>青藤开弓，破洞府封印。</p>
+          <button id="start-button" type="button">开弓</button>
+        </div>
+      </div>
+
+      <div class="center-overlay hidden" id="result-screen">
+        <div class="ink-title">
+          <small id="result-kicker">战局</small>
+          <h2 id="result-title">胜利</h2>
+          <p id="result-copy">爷爷得救。</p>
+          <button id="result-restart" type="button">再战一局</button>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
