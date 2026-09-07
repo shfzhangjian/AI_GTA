@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1024" />
+<title>SPACE RAGE · 六边形星域空战</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; background: #05070f; }
+  body {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    color: #dbe9ff; -webkit-font-smoothing: antialiased;
+    touch-action: none; user-select: none; -webkit-user-select: none;
+  }
+  canvas { position: fixed; inset: 0; display: block; width: 100%; height: 100%; }
+  #hex { z-index: 0; }
+  #game { z-index: 1; touch-action: none; }
+
+  /* ---------- HUD ---------- */
+  #hud {
+    position: fixed; z-index: 3; inset: 0; pointer-events: none;
+    padding: max(14px, env(safe-area-inset-top)) clamp(12px, 3vw, 26px);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .row { display: flex; align-items: flex-start; gap: clamp(14px, 3vw, 30px); }
+  .row.bottom { align-items: flex-end; }
+  .stat { line-height: 1.05; }
+  .stat .k { font-size: 10px; letter-spacing: .22em; color: #6f8bb5; text-transform: uppercase; }
+  .stat .v { font-size: clamp(20px, 4.4vw, 34px); font-weight: 800; color: #fff; text-shadow: 0 0 18px rgba(110,220,255,.55); }
+  .stat.right { margin-left: auto; text-align: right; }
+  .stat.mid .v { font-size: clamp(16px, 3vw, 22px); color: #8ef0ff; }
+  #v-mult { font-size: clamp(16px, 3vw, 24px); font-weight: 800; color: #7fa9d8; transition: color .2s; }
+  #v-mult.hot { color: #ffd166; text-shadow: 0 0 14px rgba(255,209,102,.7); }
+
+  #hp { display: flex; gap: 5px; margin-top: 8px; }
+  #hp i {
+    width: clamp(18px, 3.6vw, 28px); height: 9px; border-radius: 2px;
+    background: rgba(120,160,210,.2); box-shadow: inset 0 0 0 1px rgba(140,190,240,.35);
+  }
+  #hp i.on { background: linear-gradient(90deg,#4de0a8,#8ef5b4); box-shadow: 0 0 12px rgba(110,240,170,.65); }
+  #weapon { margin-top: 7px; font-size: 11px; letter-spacing: .18em; color: #9fd8ff; }
+
+  #btn-mute {
+    pointer-events: auto; position: fixed; z-index: 4; right: max(12px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(130,180,240,.28);
+    background: rgba(12,20,40,.55); color: #cfe4ff; font-size: 18px; cursor: pointer;
+    backdrop-filter: blur(6px); transition: .18s;
+  }
+  #btn-mute:hover { border-color: #6fe3ff; transform: translateY(-1px); }
+  #btn-mute.off { opacity: .5; }
+  #btn-pause {
+    pointer-events: auto; position: fixed; z-index: 4; left: max(12px, env(safe-area-inset-left));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(130,180,240,.28);
+    background: rgba(12,20,40,.55); color: #cfe4ff; font-size: 15px; cursor: pointer;
+    backdrop-filter: blur(6px); transition: .18s;
+  }
+  #btn-pause:hover { border-color: #6fe3ff; transform: translateY(-1px); }
+
+  #pause-hint {
+    position: fixed; z-index: 4; inset: 0; display: grid; place-items: center;
+    background: rgba(4,8,20,.62); backdrop-filter: blur(3px);
+    font-size: clamp(28px,7vw,58px); font-weight: 800; letter-spacing: .3em; color: #6fe3ff;
+    text-shadow: 0 0 40px rgba(110,220,255,.6);
+  }
+  .hidden { display: none !important; }
+
+  /* ---------- overlay cards ---------- */
+  #overlay {
+    position: fixed; z-index: 5; inset: 0; display: grid; place-items: center;
+    padding: 24px; background: radial-gradient(ellipse at 50% 40%, rgba(10,20,48,.55), rgba(3,5,14,.9));
+    animation: fade .35s ease both;
+  }
+  @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+  #ocard {
+    width: min(560px, 100%); text-align: center; padding: clamp(24px, 5vw, 42px);
+    border: 1px solid rgba(110,180,255,.22); border-radius: 20px;
+    background: linear-gradient(160deg, rgba(18,28,58,.9), rgba(8,12,28,.94));
+    box-shadow: 0 30px 90px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.07);
+    animation: pop .4s cubic-bezier(.2,1.3,.4,1) both;
+  }
+  @keyframes pop { from { transform: translateY(18px) scale(.96); opacity: 0 } to { transform: none; opacity: 1 } }
+  .badge {
+    display: inline-block; font-size: 10px; letter-spacing: .3em; padding: 6px 12px; border-radius: 999px;
+    color: #8ef0ff; border: 1px solid rgba(110,227,255,.35); background: rgba(30,60,110,.35); margin-bottom: 18px;
+  }
+  .badge.danger { color: #ff90a8; border-color: rgba(255,84,112,.4); background: rgba(110,30,50,.35); }
+  h1 { font-size: clamp(42px, 12vw, 76px); line-height: .92; letter-spacing: -.02em; color: #fff; font-weight: 800; }
+  h1.small { font-size: clamp(34px, 9vw, 56px); }
+  h1 em { font-style: normal; color: #6fe3ff; text-shadow: 0 0 32px rgba(110,227,255,.75); display: block; }
+  .sub { margin-top: 14px; color: #8fa9cd; font-size: 13px; letter-spacing: .1em; }
+  .keys { margin: 26px auto 8px; display: grid; gap: 9px; font-size: 12.5px; color: #a7c1e4; }
+  kbd {
+    display: inline-block; padding: 3px 8px; margin: 0 2px; border-radius: 6px; font-size: 11px;
+    background: rgba(90,140,210,.16); border: 1px solid rgba(130,180,240,.3); color: #d7ecff;
+  }
+  .cta {
+    margin-top: 26px; padding: 15px 34px; font: inherit; font-weight: 800; font-size: 16px; letter-spacing: .12em;
+    color: #04101f; background: linear-gradient(135deg, #6fe3ff, #4de0a8); border: 0; border-radius: 12px;
+    cursor: pointer; box-shadow: 0 12px 34px rgba(90,220,255,.35); transition: .16s;
+  }
+  .cta:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 18px 44px rgba(90,220,255,.5); }
+  .cta span { font-size: 11px; opacity: .6; margin-left: 8px; }
+  .foot { margin-top: 16px; font-size: 11px; color: #647f9f; letter-spacing: .12em; }
+  .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 26px; }
+  .stats div { padding: 12px 4px; border-radius: 10px; background: rgba(70,110,180,.13); border: 1px solid rgba(120,170,235,.16); }
+  .stats span { display: block; font-size: 9.5px; letter-spacing: .18em; color: #6f8bb5; }
+  .stats b { display: block; margin-top: 6px; font-size: clamp(14px,3.6vw,20px); color: #fff; }
+  .newbest { margin-top: 14px; color: #ffd166; letter-spacing: .25em; font-size: 13px; animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: .35 } }
+
+  /* ---------- loading ---------- */
+  #loading {
+    position: fixed; z-index: 9; inset: 0; display: grid; place-items: center; gap: 18px;
+    background: #05070f; transition: opacity .5s ease;
+  }
+  #loading.hidden { opacity: 0; pointer-events: none; }
+  .spin { width: 46px; height: 46px; border-radius: 50%; border: 2px solid rgba(110,227,255,.18); border-top-color: #6fe3ff; animation: sp .8s linear infinite; }
+  @keyframes sp { to { transform: rotate(360deg) } }
+  #load-text { font-size: 11.5px; letter-spacing: .2em; color: #6f8bb5; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+  <canvas id="hex"></canvas>
+  <canvas id="game"></canvas>
+
+  <div id="hud">
+    <div class="row top">
+      <div class="stat">
+        <div class="k">Score</div>
+        <div class="v" id="v-score">0</div>
+        <div id="hp"></div>
+        <div id="weapon">VULCAN</div>
+      </div>
+      <div class="stat mid" style="margin-left:auto;text-align:right">
+        <div class="k">Wave</div><div class="v" id="v-wave">1</div>
+      </div>
+    </div>
+    <div class="row bottom">
+      <div class="stat">
+        <div class="k">Combo</div>
+        <div id="v-mult">×1</div>
+      </div>
+      <div class="stat right">
+        <div class="k">Best</div>
+        <div class="v" id="v-best" style="font-size:clamp(15px,3vw,20px);color:#8fa9cd;text-shadow:none">0</div>
+      </div>
+    </div>
+  </div>
+
+  <button id="btn-pause" title="暂停 (P)">❙❙</button>
+  <button id="btn-mute" title="静音 (M)">🔊</button>
+  <div id="pause-hint" class="hidden">PAUSED</div>
+
+  <div id="overlay"><div id="ocard"></div></div>
+
+  <div id="loading">
+    <div class="spin"></div>
+    <div id="load-text">初始化…</div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
