@@ -82,8 +82,9 @@ export class GameScene {
     nearHills.position.set(-28, -86, -4);
     this.scene.add(nearHills);
 
-    const ground = createPlane(groundTexture(), WORLD.width * 1.08, 260, 0);
-    ground.position.set(0, WORLD.groundY + 40, 0);
+    const groundHeight = 1700;
+    const ground = createPlane(groundTexture(), WORLD.width * 1.08, groundHeight, 0);
+    ground.position.set(0, -68 - groundHeight / 2, 0);
     this.scene.add(ground);
 
     const treeA = createPlane(treeTexture(), 230, 300, 2);

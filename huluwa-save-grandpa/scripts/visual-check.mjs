@@ -1,7 +1,8 @@
 import { chromium, devices } from '@playwright/test';
-import { existsSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
 
 const target = process.env.PREVIEW_URL ?? 'http://127.0.0.1:5173/';
+mkdirSync('artifacts', { recursive: true });
 const browser = await launchBrowser();
 
 try {
@@ -56,6 +57,16 @@ async function checkViewport(name, viewport) {
   await page.screenshot({ path: `artifacts/${name}-aim.png`, fullPage: true });
   await page.mouse.up();
   await page.waitForTimeout(300);
+
+  await page.locator('#panel-toggle').click();
+  await page.waitForTimeout(350);
+  const collapsed = await page.locator('#bottom-panel').evaluate((node) => node.classList.contains('is-collapsed'));
+  if (!collapsed) {
+    throw new Error(`${name} bottom panel did not collapse`);
+  }
+  await page.screenshot({ path: `artifacts/${name}-collapsed.png`, fullPage: true });
+  await page.evaluate(() => document.activeElement?.blur());
+
   await page.keyboard.press('Space');
   await page.waitForTimeout(600);
 

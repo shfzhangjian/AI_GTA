@@ -82,10 +82,11 @@ export function mountainTexture(layer = 0) {
 }
 
 export function groundTexture() {
-  return makeTexture(1400, 240, (ctx, w, h) => {
+  return makeTexture(1400, 1200, (ctx, w, h) => {
     const gradient = ctx.createLinearGradient(0, 0, 0, h);
     gradient.addColorStop(0, '#7fb86f');
-    gradient.addColorStop(0.46, '#426a45');
+    gradient.addColorStop(0.18, '#426a45');
+    gradient.addColorStop(0.5, '#263321');
     gradient.addColorStop(1, '#221916');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, w, h);
@@ -102,11 +103,20 @@ export function groundTexture() {
     }
 
     ctx.fillStyle = 'rgba(18,25,19,0.48)';
-    for (let i = 0; i < 90; i += 1) {
+    for (let i = 0; i < 230; i += 1) {
       const x = (i * 47) % w;
-      const y = h - 40 - ((i * 13) % 38);
+      const y = h - 44 - ((i * 13) % 540);
       ctx.beginPath();
       ctx.ellipse(x, y, 7 + (i % 6), 16 + (i % 9), -0.5 + (i % 5) * 0.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = 'rgba(9,13,10,0.24)';
+    for (let i = 0; i < 88; i += 1) {
+      const x = (i * 91) % w;
+      const y = h - 420 + ((i * 23) % 330);
+      ctx.beginPath();
+      ctx.ellipse(x, y, 28 + (i % 5) * 9, 9 + (i % 4) * 5, -0.4 + (i % 7) * 0.12, 0, Math.PI * 2);
       ctx.fill();
     }
   });

@@ -16,6 +16,10 @@ export class GameUI {
       speed: document.querySelector('#speed-stat'),
       crit: document.querySelector('#crit-stat'),
       note: document.querySelector('#combat-note'),
+      bottomPanel: document.querySelector('#bottom-panel'),
+      panelToggle: document.querySelector('#panel-toggle'),
+      panelToggleIcon: document.querySelector('#panel-toggle-icon'),
+      panelToggleText: document.querySelector('#panel-toggle-text'),
       upgrades: document.querySelector('#upgrade-board'),
       skills: document.querySelector('#skill-board'),
       logs: document.querySelector('#log-lines'),
@@ -32,8 +36,10 @@ export class GameUI {
     };
     this.logLines = [];
     this.raf = null;
+    this.panelCollapsed = readPanelPreference();
     this.bind();
     this.renderCards();
+    this.renderPanelToggle();
     this.pushLog('青藤已醒。');
   }
 
@@ -42,10 +48,12 @@ export class GameUI {
     this.nodes.restartButton.addEventListener('click', this.actions.onRestart);
     this.nodes.pauseButton.addEventListener('click', this.actions.onPause);
     this.nodes.resultRestart.addEventListener('click', this.actions.onRestart);
+    this.nodes.panelToggle.addEventListener('click', () => this.togglePanel());
     this.nodes.soundButton.addEventListener('click', () => {
       this.actions.onToggleSound();
       this.renderSoundButton();
     });
+    window.addEventListener('resize', () => this.syncPanelHeight());
 
     this.state.addEventListener('change', () => this.render());
     this.state.addEventListener('upgrade', (event) => {
@@ -212,6 +220,28 @@ export class GameUI {
     this.nodes.soundButton.setAttribute('aria-label', enabled ? '关闭音效' : '开启音效');
   }
 
+  togglePanel() {
+    this.panelCollapsed = !this.panelCollapsed;
+    writePanelPreference(this.panelCollapsed);
+    this.renderPanelToggle();
+  }
+
+  renderPanelToggle() {
+    const collapsed = this.panelCollapsed;
+    this.syncPanelHeight();
+    this.nodes.bottomPanel.classList.toggle('is-collapsed', collapsed);
+    this.nodes.panelToggle.classList.toggle('is-collapsed', collapsed);
+    this.nodes.panelToggle.setAttribute('aria-expanded', String(!collapsed));
+    this.nodes.panelToggle.setAttribute('aria-label', collapsed ? '展开底部属性' : '收起底部属性');
+    this.nodes.panelToggleIcon.textContent = collapsed ? '⌃' : '⌄';
+    this.nodes.panelToggleText.textContent = collapsed ? '展开' : '收起';
+  }
+
+  syncPanelHeight() {
+    const height = this.nodes.bottomPanel.offsetHeight;
+    document.documentElement.style.setProperty('--bottom-panel-height', `${height}px`);
+  }
+
   getPhaseNote() {
     if (this.state.phase === 'ready') {
       return '按住预览落点，松手放箭。';
@@ -234,4 +264,20 @@ function formatNumber(value) {
     return `${(value / 1000).toFixed(1)}K`;
   }
   return Math.floor(value).toString();
+}
+
+function readPanelPreference() {
+  try {
+    return window.localStorage.getItem('huluwa-bottom-panel') === 'collapsed';
+  } catch {
+    return false;
+  }
+}
+
+function writePanelPreference(collapsed) {
+  try {
+    window.localStorage.setItem('huluwa-bottom-panel', collapsed ? 'collapsed' : 'expanded');
+  } catch {
+    // Ignore private browsing storage restrictions.
+  }
 }

@@ -71,6 +71,7 @@ button:disabled {
 
 .top-hud,
 .bottom-panel,
+.panel-toggle,
 .left-wheel,
 .center-overlay {
   position: absolute;
@@ -260,6 +261,50 @@ button:disabled {
     var(--panel-strong);
   border-top: 2px solid rgba(205, 142, 76, 0.46);
   box-shadow: 0 -18px 38px rgba(9, 6, 4, 0.38);
+  transition: transform 220ms ease;
+  will-change: transform;
+}
+
+.bottom-panel.is-collapsed {
+  transform: translateY(calc(100% - 10px));
+}
+
+.bottom-panel.is-collapsed > * {
+  pointer-events: none;
+}
+
+.panel-toggle {
+  left: 50%;
+  bottom: calc(var(--bottom-panel-height, 214px) + 8px);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  min-width: 88px;
+  transform: translateX(-50%);
+  border-color: rgba(244, 228, 189, 0.48);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(247, 221, 157, 0.98), rgba(178, 101, 50, 0.98));
+  box-shadow:
+    0 10px 24px rgba(8, 5, 3, 0.34),
+    0 0 0 1px rgba(38, 22, 12, 0.28);
+  transition: bottom 220ms ease;
+}
+
+.panel-toggle.is-collapsed {
+  bottom: 12px;
+}
+
+#panel-toggle-icon {
+  display: inline-grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  font-size: 1.05rem;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
 .hero-card,
@@ -436,6 +481,7 @@ button:disabled {
 }
 
 .center-overlay {
+  z-index: 5;
   inset: 0;
   display: grid;
   place-items: center;
@@ -518,6 +564,10 @@ button:disabled {
     overflow: auto;
   }
 
+  .bottom-panel.is-collapsed {
+    overflow: visible;
+  }
+
   .skill-board {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -549,6 +599,12 @@ button:disabled {
     min-height: 248px;
     max-height: 48vh;
     padding: 8px;
+  }
+
+  .panel-toggle {
+    min-height: 32px;
+    min-width: 82px;
+    padding: 0 12px;
   }
 
   .upgrade-board,

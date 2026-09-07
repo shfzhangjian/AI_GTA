@@ -45,7 +45,19 @@
         <p id="grandpa-status">爷爷安危 100%</p>
       </aside>
 
-      <section class="bottom-panel" aria-label="养成与技能">
+      <button
+        class="panel-toggle"
+        id="panel-toggle"
+        type="button"
+        aria-controls="bottom-panel"
+        aria-expanded="true"
+        aria-label="收起底部属性"
+      >
+        <span id="panel-toggle-icon" aria-hidden="true">⌄</span>
+        <span id="panel-toggle-text">收起</span>
+      </button>
+
+      <section class="bottom-panel" id="bottom-panel" aria-label="养成与技能">
         <article class="hero-card">
           <div>
             <small>七娃</small>
