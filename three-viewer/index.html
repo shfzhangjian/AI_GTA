@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UAL 动作角色 — Three.js</title>
+<style>
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+	html, body { height: 100%; overflow: hidden; background: #14161a; font-family: -apple-system, "PingFang SC", sans-serif; }
+	#app { width: 100%; height: 100%; }
+
+	.panel {
+		position: fixed; top: 12px; left: 12px; z-index: 10;
+		background: rgba(18, 20, 24, .85); backdrop-filter: blur(8px);
+		border: 1px solid rgba(255,255,255,.08); border-radius: 10px;
+		color: #dfe3e8; padding: 14px 16px; width: 272px;
+		max-height: calc(100vh - 24px); display: flex; flex-direction: column;
+	}
+	.panel h1 { font-size: 15px; margin-bottom: 2px; }
+	.panel .sub { font-size: 11px; color: #8a919b; margin-bottom: 10px; }
+	.keys { font-size: 11.5px; line-height: 1.7; color: #aab1ba; border-bottom: 1px solid rgba(255,255,255,.07); padding-bottom: 10px; margin-bottom: 8px; }
+	.keys b { color: #e8b44a; font-weight: 600; }
+	#animList { overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 3px; scrollbar-width: thin; padding-bottom: 4px; }
+	.group-head {
+		font-size: 11px; color: #7d90a8; margin: 8px 2px 2px; user-select: none;
+		display: flex; align-items: center; gap: 6px;
+	}
+	.group-head::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,.07); }
+	#animList button {
+		text-align: left; font-size: 12px; padding: 5px 9px; border-radius: 6px;
+		border: 1px solid transparent; background: rgba(255,255,255,.05); color: #ccd2d9; cursor: pointer;
+		display: flex; justify-content: space-between; align-items: center;
+	}
+	#animList button .dur { font-size: 10px; color: #6b737e; }
+	#animList button:hover { background: rgba(255,255,255,.12); }
+	#animList button.active { background: #2f6feb; border-color: #5b8ff5; color: #fff; }
+	#animList button.active .dur { color: #bcd2ff; }
+
+	/* 状态 HUD */
+	#hud {
+		position: fixed; bottom: 14px; left: 14px; z-index: 10; display: flex; flex-direction: column; gap: 6px;
+	}
+	#stateBadge {
+		align-self: flex-start; background: rgba(18,20,24,.85); border: 1px solid rgba(255,255,255,.1);
+		border-radius: 8px; padding: 7px 12px; font-size: 13px; color: #9fd89f; min-width: 160px;
+	}
+	#chargeBarWrap {
+		width: 160px; height: 8px; border-radius: 4px; background: rgba(255,255,255,.1); overflow: hidden; display: none;
+	}
+	#chargeBar { height: 100%; width: 0%; background: linear-gradient(90deg, #e8b44a, #ff5d5d); transition: width .05s linear; }
+	#combo {
+		position: fixed; top: 50%; right: 32px; transform: translateY(-50%); z-index: 10;
+		font-size: 34px; font-weight: 800; color: #e8b44a; text-shadow: 0 2px 12px rgba(0,0,0,.7);
+		opacity: 0; transition: opacity .25s; pointer-events: none;
+	}
+	#loading {
+		position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+		background: #14161a; color: #9aa1ab; font-size: 14px; z-index: 20;
+	}
+</style>
+<script type="importmap">
+{
+	"imports": {
+		"three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+		"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+	}
+}
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="loading">正在加载模型…</div>
+
+<div class="panel">
+	<h1>UAL 动作角色</h1>
+	<div class="sub">assets/UAL1_Standard.glb · 动作游戏控制</div>
+	<div class="keys">
+		<b>W A S D</b> 走动 · <b>Shift + WASD</b> 跑步<br>
+		<b>空格（按住）</b> 蓄力下蹲，<b>松开</b> 跳起，空中可继续移动<br>
+		<b>K</b> 打拳（连按出组合拳） · <b>J</b> 释放魔法<br>
+		<b>左键拖动</b> 旋转视角 · <b>滚轮</b> 缩放 · <b>右键</b> 平移<br>
+		动作可组合：跑动中跳、空中转向、落地后继续移动
+	</div>
+	<div id="animList"></div>
+</div>
+
+<div id="hud">
+	<div id="stateBadge">▶ Idle</div>
+	<div id="chargeBarWrap"><div id="chargeBar"></div></div>
+</div>
+<div id="combo"></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+// ---------- 渲染器 / 场景 / 相机 ----------
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+document.getElementById('app').appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x14161a);
+scene.fog = new THREE.Fog(0x14161a, 12, 30);
+
+const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(2.4, 1.7, 2.8);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0.9, 0);
+controls.enableDamping = true;
+controls.maxPolarAngle = Math.PI * 0.52;
+controls.minDistance = 1;
+controls.maxDistance = 12;
+
+// ---------- 灯光 / 地面 ----------
+scene.add(new THREE.HemisphereLight(0xbfd4ff, 0x3a2f28, 0.9));
+const sun = new THREE.DirectionalLight(0xfff2df, 2.2);
+sun.position.set(4, 7, 3);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = sun.shadow.camera.bottom = -5;
+sun.shadow.camera.right = sun.shadow.camera.top = 5;
+scene.add(sun);
+
+const ground = new THREE.Mesh(
+	new THREE.CircleGeometry(14, 64),
+	new THREE.MeshStandardMaterial({ color: 0x22262c, roughness: 0.95 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+const grid = new THREE.GridHelper(28, 56, 0x3a4150, 0x262b34);
+grid.position.y = 0.002;
+scene.add(grid);
+
+// ---------- 动画分组（列表仅用于浏览；状态机自动播放） ----------
+const ANIM_GROUPS = [
+	['🧍 站立',   ['Idle_Loop', 'Idle_Talking_Loop', 'Idle_Torch_Loop', 'Walk_Loop', 'Walk_Formal_Loop', 'Sprint_Loop']],
+	['🏃 移动',   ['Jog_Fwd_Loop', 'Roll', 'Jump_Start', 'Jump_Loop', 'Jump_Land']],
+	['🫎 蹲伏',   ['Crouch_Idle_Loop', 'Crouch_Fwd_Loop']],
+	['🤜 格斗',   ['Punch_Jab', 'Punch_Cross', 'Hit_Chest', 'Hit_Head', 'Death01']],
+	['🗡️ 武器',   ['Sword_Idle', 'Sword_Attack',
+	               'Pistol_Idle_Loop', 'Pistol_Aim_Neutral', 'Pistol_Aim_Up', 'Pistol_Aim_Down',
+	               'Pistol_Shoot', 'Pistol_Reload']],
+	['🪑 坐姿',   ['Sitting_Enter', 'Sitting_Idle_Loop', 'Sitting_Talking_Loop', 'Sitting_Exit']],
+	['🔮 施法',   ['Spell_Simple_Enter', 'Spell_Simple_Idle_Loop', 'Spell_Simple_Shoot', 'Spell_Simple_Exit']],
+	['🏊 游泳',   ['Swim_Idle_Loop', 'Swim_Fwd_Loop']],
+	['🛠️ 交互',   ['Interact', 'PickUp_Table', 'Push_Loop', 'Fixing_Kneeling', 'Driving_Loop', 'Dance_Loop']],
+];
+
+// ---------- 状态机参数 ----------
+const P = {
+	WALK: 2.0, RUN: 4.6, CROUCH_WALK: 1.1, AIR_ACC: 3.2, MAX_SPEED_AIR: 3.4,
+	GRAVITY: 22, JUMP_V_MIN: 4.2, JUMP_V_MAX: 7.0, CHARGE_TIME: 0.65, LAND_LOCK: 0.18,
+	COMBO_WINDOW: 0.9,
+};
+
+const state = {
+	mode: 'idle',          // idle | walk | run | crouch_walk | charge | air | land | skill
+	velX: 0, velZ: 0, velY: 0, pos: new THREE.Vector3(), grounded: true,
+	chargeT: 0, landT: 0, lockT: 0,
+	punchIdx: 0, lastPunchT: -10,
+};
+
+const badge = document.getElementById('stateBadge');
+const chargeWrap = document.getElementById('chargeBarWrap');
+	const chargeBar = document.getElementById('chargeBar');
+const comboEl = document.getElementById('combo');
+
+// ---------- 动画管理 ----------
+const actions = new Map();   // name -> { action, loop }
+let mixer = null, model = null, current = null;
+let activeSkill = null;      // 'punch' | 'spell' | null（锁定期内不切移动动画）
+let skillTimer = null;
+
+function setAnim(name, fade = 0.18) {
+	const entry = actions.get(name);
+	if (!entry || entry.action === current) return;
+	const prev = current;
+	const action = entry.action;
+	action.enabled = true;
+	action.setEffectiveTimeScale(1);
+	action.setEffectiveWeight(1);
+	action.time = 0;
+	action.play();
+	if (prev) prev.crossFadeTo(action, fade, false);
+	current = action;
+	if (!activeSkill) badge.dataset.forceAnim = name; // 徽章由 update() 统一刷新，这里只同步列表高亮
+	listEl.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.anim === name));
+}
+
+function playOneShot(name, lockDur, kind) {
+	clearTimeout(skillTimer);
+	setAnim(name, 0.12);
+	activeSkill = kind;
+	state.lockT = lockDur;
+	skillTimer = setTimeout(() => { activeSkill = null; }, lockDur * 1000);
+}
+
+// ---------- 输入 ----------
+const keys = new Set();
+let spaceHeld = false, shiftHeld = false;
+
+addEventListener('keydown', (e) => {
+	if (e.repeat) return;
+	const c = e.code;
+	if (c === 'Space') { e.preventDefault(); if (!spaceHeld && state.grounded && !activeSkill) beginCharge(); spaceHeld = true; return; }
+	if (c === 'ShiftLeft' || c === 'ShiftRight') { shiftHeld = true; return; }
+	if (c === 'KeyK' && !e.getModifierState('Control')) tryPunch();
+	if (c === 'KeyJ' && !e.getModifierState('Control')) trySpell();
+	keys.add(c);
+});
+addEventListener('keyup', (e) => {
+	const c = e.code;
+	if (c === 'Space') { spaceHeld = false; if (state.mode === 'charge') releaseJump(); return; }
+	if (c === 'ShiftLeft' || c === 'ShiftRight') shiftHeld = keys.has('ShiftLeft') || keys.has('ShiftRight');
+	keys.delete(c);
+});
+addEventListener('blur', () => { keys.clear(); shiftHeld = false; if (state.mode === 'charge') releaseJump(); });
+
+const moveDir = new THREE.Vector2(0, 0); // x=right, y=forward(W)
+function readMove() {
+	moveDir.set(0, 0);
+	if (keys.has('KeyW')) moveDir.y += 1;
+	if (keys.has('KeyS')) moveDir.y -= 1;
+	if (keys.has('KeyA')) moveDir.x -= 1;
+	if (keys.has('KeyD')) moveDir.x += 1;
+	if (moveDir.lengthSq() > 0) moveDir.normalize();
+	return moveDir.lengthSq() > 0;
+}
+
+// ---------- 技能 ----------
+function tryPunch() {
+	if (!state.grounded || activeSkill || state.mode === 'charge') return;
+	const now = performance.now() / 1000;
+	// 连段窗口：距上一拳出拳时刻 < 出拳时长 + 窗口 → 接下一段；超时重开为第 1 段
+	const lastDur = state.punchIdx === 1 ? 0.87 : 1.0; // Jab 0.87s / Cross 1.0s
+	const inWindow = now - state.lastPunchT <= lastDur + P.COMBO_WINDOW && state.punchIdx > 0;
+	state.punchIdx = inWindow ? Math.min(state.punchIdx + 1, 3) : 1;
+	state.lastPunchT = now;
+	const name = (state.punchIdx % 2 === 1) ? 'Punch_Jab' : 'Punch_Cross';
+	playOneShot(name, actions.get(name).clip.duration * 0.6, 'punch');
+	showCombo(state.punchIdx);
+}
+function trySpell() {
+	if (!state.grounded || activeSkill || state.mode === 'charge') return;
+	playOneShot('Spell_Simple_Shoot', actions.get('Spell_Simple_Shoot').clip.duration * 0.8, 'spell');
+	spawnMagicOrb();
+}
+function showCombo(n) {
+	comboEl.textContent = n + ' Hit!';
+	comboEl.style.opacity = 1;
+	clearTimeout(comboEl._t);
+	comboEl._t = setTimeout(() => comboEl.style.opacity = 0, 700);
+}
+
+// ---------- 魔法粒子 ----------
+const orbGeo = new THREE.SphereGeometry(0.06, 12, 12);
+const orbs = [];
+function spawnMagicOrb() {
+	const mat = new THREE.MeshBasicMaterial({ color: 0x7ab8ff });
+	const orb = new THREE.Mesh(orbGeo, mat);
+	const fwd = new THREE.Vector3(Math.sin(model.rotation.y), 0, Math.cos(model.rotation.y));
+	orb.position.copy(state.pos).add(new THREE.Vector3(0, 1.25, 0)).addScaledVector(fwd, 0.4);
+	orb.userData = { dir: fwd.clone(), life: 1.4 };
+	const light = new THREE.PointLight(0x7ab8ff, 6, 4);
+	orb.add(light);
+	scene.add(orb);
+	orbs.push(orb);
+}
+
+// ---------- 跳跃 ----------
+function beginCharge() {
+	state.mode = 'charge'; state.chargeT = 0;
+	chargeWrap.style.display = 'block';
+	setAnim('Crouch_Idle_Loop', 0.12);
+}
+function releaseJump() {
+	if (state.mode !== 'charge') return;
+	const t = Math.min(state.chargeT / P.CHARGE_TIME, 1);
+	state.velY = THREE.MathUtils.lerp(P.JUMP_V_MIN, P.JUMP_V_MAX, t * t); // 蓄力越久跳越高
+	// 出跳惯性：沿当前朝向保留部分地面速度
+	const spd = shiftHeld ? P.RUN : P.WALK;
+	state.velX = Math.sin(model.rotation.y) * spd * 0.55;
+	state.velZ = Math.cos(model.rotation.y) * spd * 0.55;
+	state.grounded = false; state.mode = 'air';
+	chargeWrap.style.display = 'none'; chargeBar.style.width = '0%';
+	setAnim('Jump_Start', 0.1);
+}
+
+// ---------- 主更新 ----------
+const _camFwd = new THREE.Vector3(), _right = new THREE.Vector3();
+const _up = new THREE.Vector3(0, 1, 0), _wish = new THREE.Vector3();
+
+function update(dt) {
+	if (!model) return;
+	const moving = readMove();
+
+	// 相机相对基向量
+	camera.getWorldDirection(_camFwd); _camFwd.y = 0;
+	if (_camFwd.lengthSq() < 1e-6) _camFwd.set(0, 0, -1);
+	_camFwd.normalize();
+	_right.crossVectors(_camFwd, _up).normalize();
+	const fwdComp = moveDir.y, rightComp = moveDir.x;
+
+	state.lockT = Math.max(0, state.lockT - dt);
+	if (activeSkill && state.lockT <= 0) activeSkill = null;
+
+	let vx = 0, vz = 0;                 // 本帧地面速度
+	let animName = null;                // 要切换的循环动画（null=保持）
+
+	if (state.mode === 'charge') {
+		state.chargeT += dt;
+		chargeBar.style.width = Math.min(state.chargeT / P.CHARGE_TIME, 1) * 100 + '%';
+		if (!spaceHeld) releaseJump();
+	} else if (!state.grounded) {
+		// ---------- 腾空：惯性 + 空中操控（动作游戏手感） ----------
+		state.pos.x += state.velX * dt; state.pos.z += state.velZ * dt;
+		if (moving) {
+			_wish.copy(_camFwd).multiplyScalar(fwdComp).addScaledVector(_right, rightComp);
+			if (_wish.lengthSq() > 0) _wish.normalize();
+			const boost = shiftHeld ? 1.4 : 1;
+			state.velX += _wish.x * P.AIR_ACC * boost * dt;
+			state.velZ += _wish.z * P.AIR_ACC * boost * dt;
+			// 水平速度封顶
+			const hs = Math.hypot(state.velX, state.velZ);
+			if (hs > P.MAX_SPEED_AIR) { state.velX *= P.MAX_SPEED_AIR / hs; state.velZ *= P.MAX_SPEED_AIR / hs; }
+			// 空中转向输入方向
+			const t = Math.atan2(_wish.x, _wish.z);
+			let d = t - model.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d));
+			model.rotation.y += d * Math.min(1, 6 * dt);
+		}
+		if (animName === null && current?.getClip().name === 'Jump_Start' && state.pos.y > 0.3) setAnim('Jump_Loop', 0.15);
+	} else if (state.mode === 'land') {
+		state.landT -= dt;
+		if (moving) {
+			vx = _camFwd.x * fwdComp + _right.x * rightComp;
+			vz = _camFwd.z * fwdComp + _right.z * rightComp;
+			const l = Math.hypot(vx, vz); if (l > 0) { vx /= l; vz /= l; }
+			vx *= P.WALK * 0.45; vz *= P.WALK * 0.45;
+			const t = facingYawFromMove(fwdComp, rightComp);
+			if (t !== null) { let d = t - model.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); model.rotation.y += d * Math.min(1, 8 * dt); }
+		}
+		if (state.landT <= 0) state.mode = 'idle';
+	} else if (activeSkill === 'spell') {
+		// 站桩施法：不移动
+	} else if (activeSkill === 'punch') {
+		// 出拳漂移跟随：25% 速度，可继续转向（组合感）
+		if (moving) {
+			vx = _camFwd.x * fwdComp + _right.x * rightComp;
+			vz = _camFwd.z * fwdComp + _right.z * rightComp;
+			const l = Math.hypot(vx, vz); if (l > 0) { vx /= l; vz /= l; }
+			vx *= P.WALK * 0.25; vz *= P.WALK * 0.25;
+			const t = facingYawFromMove(fwdComp, rightComp);
+			if (t !== null) { let d = t - model.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); model.rotation.y += d * Math.min(1, 8 * dt); }
+		}
+	} else {
+		// ---------- 地面常规 ----------
+		const crouchMove = moving && shiftHeld === false && keys.has('KeyS') && fwdComp < -0.5 && Math.abs(rightComp) < 0.1;
+		if (crouchMove) {
+			vx = _camFwd.x * fwdComp + _right.x * rightComp; vz = _camFwd.z * fwdComp + _right.z * rightComp;
+			const l = Math.hypot(vx, vz); if (l > 0) { vx /= l; vz /= l; }
+			vx *= P.CROUCH_WALK; vz *= P.CROUCH_WALK; animName = 'Crouch_Fwd_Loop'; state.mode = 'crouch_walk';
+		} else if (moving && shiftHeld) {
+			vx = _camFwd.x * fwdComp + _right.x * rightComp; vz = _camFwd.z * fwdComp + _right.z * rightComp;
+			const l = Math.hypot(vx, vz); if (l > 0) { vx /= l; vz /= l; }
+			vx *= P.RUN; vz *= P.RUN; animName = 'Jog_Fwd_Loop'; state.mode = 'run';
+		} else if (moving) {
+			vx = _camFwd.x * fwdComp + _right.x * rightComp; vz = _camFwd.z * fwdComp + _right.z * rightComp;
+			const l = Math.hypot(vx, vz); if (l > 0) { vx /= l; vz /= l; }
+			vx *= P.WALK; vz *= P.WALK; animName = 'Walk_Loop'; state.mode = 'walk';
+		} else {
+			state.mode = 'idle'; animName = 'Idle_Loop';
+		}
+		if (moving) {
+			const t = facingYawFromMove(fwdComp, rightComp);
+			if (t !== null) { let d = t - model.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); model.rotation.y += d * Math.min(1, 10 * dt); }
+		}
+	}
+
+	// 地面位移积分（非腾空、非蓄力）
+	if (state.grounded && state.mode !== 'charge') {
+		state.pos.x += vx * dt; state.pos.z += vz * dt;
+	}
+
+	// ---------- 垂直物理 ----------
+	if (!state.grounded) {
+		state.velY -= P.GRAVITY * dt;
+		state.pos.y += state.velY * dt;
+		if (state.pos.y <= 0) {
+			state.pos.y = 0; state.velY = 0; state.grounded = true;
+			state.mode = 'land'; state.landT = P.LAND_LOCK;
+			setAnim('Jump_Land', 0.1);
+		}
+	}
+
+	// ---------- 动画选择（地面、非技能锁定期） ----------
+	if (state.grounded && !activeSkill) {
+		if (state.mode === 'land' && state.landT > 0) { /* 保持 Jump_Land */ }
+		else if (animName) setAnim(animName);
+	}
+
+	// 活动范围限制
+	const r = Math.hypot(state.pos.x, state.pos.z);
+	if (r > 12) { state.pos.x *= 12 / r; state.pos.z *= 12 / r; }
+	model.position.copy(state.pos);
+
+	// 相机跟随
+	controls.target.lerp(_targetV.copy(state.pos).setY(0.9), Math.min(1, 5 * dt));
+
+	// 魔法粒子
+	for (let i = orbs.length - 1; i >= 0; i--) {
+		const o = orbs[i];
+		o.position.addScaledVector(o.userData.dir, 6 * dt);
+		o.userData.life -= dt;
+		if (o.userData.life <= 0) { scene.remove(o); o.material.dispose(); orbs.splice(i, 1); }
+	}
+
+	// HUD（技能/腾空优先于移动状态）
+	const skillLabel = activeSkill === 'punch' ? '👊 拳击' : activeSkill === 'spell' ? '🔮 施法' : null;
+	const modeLabel = state.mode === 'charge' ? '⚡ 蓄力中…松开跳' :
+		!state.grounded ? '🌙 腾空（可空中移动）' :
+		state.mode === 'run' ? '🏃 跑步' :
+		state.mode === 'crouch_walk' ? '🫎 蹲行' :
+		state.mode === 'walk' ? '🚶 走动' :
+		state.mode === 'land' ? '🛬 落地缓冲' : '🧍 待机';
+	const label = skillLabel ?? modeLabel;
+	if (badge.dataset.s !== label) { badge.textContent = label; badge.dataset.s = label; }
+}
+
+const _targetV = new THREE.Vector3();
+
+function facingYawFromMove(fwdComp, rightComp) {
+	_wish.copy(_camFwd).multiplyScalar(fwdComp).addScaledVector(_right, rightComp);
+	if (_wish.lengthSq() < 1e-6) return null;
+	return Math.atan2(_wish.x, _wish.z);
+}
+
+// ---------- 加载模型 ----------
+const listEl = document.getElementById('animList');
+new GLTFLoader().load('assets/UAL1_Standard.glb', (gltf) => {
+	model = gltf.scene;
+	model.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+	scene.add(model);
+	mixer = new THREE.AnimationMixer(model);
+
+	for (const clip of gltf.animations) {
+		if (/tpose/i.test(clip.name)) continue;
+		const loop = /loop/i.test(clip.name);
+		const action = mixer.clipAction(clip);
+		action.setLoop(loop ? THREE.LoopRepeat : THREE.LoopOnce, Infinity);
+		actions.set(clip.name, { action, loop, clip });
+	}
+
+	// 分组按钮（浏览用；点击=手动预览）
+	const grouped = new Set(); const sections = [];
+	for (const [title, names] of ANIM_GROUPS) {
+		const found = names.filter((n) => actions.has(n));
+		found.forEach((n) => grouped.add(n));
+		if (found.length) sections.push([title, found]);
+	}
+	const others = [...actions.keys()].filter((n) => !grouped.has(n)).sort();
+	if (others.length) sections.push(['📦 其他', others]);
+	for (const [title, names] of sections) {
+		const head = document.createElement('div');
+		head.className = 'group-head';
+		head.textContent = `${title} · ${names.length}`;
+		listEl.appendChild(head);
+		for (const name of names) {
+			const { action, loop } = actions.get(name);
+			const btn = document.createElement('button');
+			btn.dataset.anim = name;
+			btn.innerHTML = `<span>${name}${loop ? '' : ' ⟳'}</span><span class="dur">${action.getClip().duration.toFixed(1)}s</span>`;
+			btn.onclick = () => { clearTimeout(skillTimer); activeSkill = null; setAnim(name); };
+			listEl.appendChild(btn);
+		}
+	}
+
+	window.__state = state; // 调试/测试钩子
+	setAnim('Idle_Loop');
+	document.getElementById('loading').remove();
+}, undefined, (err) => {
+	document.getElementById('loading').textContent = '加载失败: ' + err;
+});
+
+// ---------- 主循环 ----------
+const timer = new THREE.Timer();
+renderer.setAnimationLoop(() => {
+	timer.update();
+	const dt = Math.min(timer.getDelta(), 0.05);
+	if (mixer) mixer.update(dt);
+	update(dt);
+	controls.update();
+	renderer.render(scene, camera);
+});
+
+addEventListener('resize', () => {
+	camera.aspect = innerWidth / innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
