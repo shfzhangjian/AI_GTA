@@ -14,6 +14,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 | [`huluwa-save-grandpa/`](./huluwa-save-grandpa/) | **葫芦娃救爷爷**：水墨弓阵防守、免费精灵素材、葫芦娃技能养成、洞府封印、虚线落点预览、低抛物线射击、WebAudio 合成音效 | HTML + Three.js r165（原生 ES Module，零构建） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/huluwa-save-grandpa/) |
 | [`three-viewer/`](./three-viewer/) | **UAL 动作角色 · 动作游戏控制演示**：WASD 走 / Shift 跑 / 空格蓄力跳（含腾空移动）/ K 组合拳连段 / J 魔法弹道，43 段动画姿态分组浏览，GLB 骨骼动画状态机 | HTML + Three.js r185（原生 ES Module，零构建） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/three-viewer/) |
 | [`space-shooter/`](./space-shooter/) | **Space Rage 六边形星域空战**：竖版打飞机、波次编队与旋转水雷、每 5 波多阶段 Boss、连击倍率（最高 ×8）、强化掉落（等离子炮/速射/修甲）、屏幕震动与死亡慢镜、WebAudio 合成音效与动态配乐、Three.js + KayKit 六边形无限滚动地表 | HTML + Three.js 0.169 + Canvas 2D（原生 ES Module，零构建） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/space-shooter/) |
+| [`billiards-3d/`](./billiards-3d/) | **3D 台球**：真实比例球桌（球径 63.5mm、台面 2.375m×1.155m）、480Hz 子步弹性碰撞物理、鼠标瞄准+蓄力击球、幽灵球落点预测、几何 AI 对手（假想接触点求解+路径遮挡）、落袋/库边/击球/犯规 WebAudio 程序化音效、你 vs 电脑回合制清台赛 | HTML + Three.js r165（原生 ES Module，零构建、音效全程序合成零素材） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/billiards-3d/) |
 
 项目均为 **AI 全程生成代码**（模型：`unsloth/Qwen3.8-Flash-Next-GGUF`，经 DeepSeek Harness 代理迭代生成并自动化验证），生成介绍见各自目录内文档：
 
@@ -23,6 +24,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 - huluwa-save-grandpa → [huluwa-save-grandpa/README.md](./huluwa-save-grandpa/README.md)
 - three-viewer → [three-viewer/README.md](./three-viewer/README.md)
 - space-shooter → [space-shooter/README.md](./space-shooter/README.md)
+- billiards-3d → [billiards-3d/README.md](./billiards-3d/README.md)
 
 ## 本地运行
 
@@ -41,6 +43,9 @@ cd huluwa-save-grandpa && python3 -m http.server 8080
 
 # Space Rage 六边形星域空战
 cd space-shooter && python3 -m http.server 8080
+
+# 3D 台球
+cd billiards-3d && node serve.js   # 或 python -m http.server 8765
 ```
 
 > ES Module + fetch 需要 http 环境，直接双击 index.html（file://）无法运行。
