@@ -722,21 +722,21 @@ renderer.setAnimationLoop(() => {
   }
   syncBalls(dt);
 
-  // 瞄准辅助 + 球杆
-  const aiming = (G.phase === 'aim' || G.phase === 'charging') && cueBall.alive && G.turn === 'you';
+  // 瞄准辅助 + 球杆（仅在已开局、白球存活、轮到玩家时显示）
+  const aiming = G.started && (G.phase === 'aim' || G.phase === 'charging') && cueBall.alive && G.turn === 'you';
   cueGroup.visible = aiming;
   aimLine.visible = ghost.visible = aiming;
   if (aiming) {
     const dir = new THREE.Vector3(Math.cos(G.aimAngle), 0, Math.sin(G.aimAngle));
     // 球杆：杆尖在母球瞄准反方向 R+gap 处。rotation.y=θ 把局部 +X 映到 (cosθ,0,-sinθ)，
-    // 故取 θ=-aimAngle 时杆身指向世界 dir，杆尾自然拖在 -dir 一侧
+    // 故取 θ=-aimAngle 时杆身指向世界 dir；杆尾下倾 ~5°（局部 Z 轴）更像真实架杆
     const gap = 0.006 + (G.phase === 'charging' ? G.power * 0.14 : 0.012 + Math.sin(t * 2) * 0.004);
     cueGroup.position.set(
       cueBall.pos.x - dir.x * (R + gap),
-      R,
+      R + 0.008,
       cueBall.pos.z - dir.z * (R + gap));
-    cueGroup.rotation.y = -G.aimAngle;
-    // 瞄准线：打到目标球就停
+    cueGroup.rotation.set(0, -G.aimAngle, -0.09);
+    // 瞄准线：打到目标球就停；虚线从白球边缘起画，不穿过球体
     ray.set(new THREE.Vector3(cueBall.pos.x, 0.01, cueBall.pos.z), dir);
     let end = cueBall.pos.clone().addScaledVector(dir, 1.6);
     let hitB = null, minT = Infinity;
@@ -752,14 +752,15 @@ renderer.setAnimationLoop(() => {
       }
     }
     if (hitB) {
-      end = cueBall.pos.clone().addScaledVector(dir, Math.max(0.01, minT));
+      end = cueBall.pos.clone().addScaledVector(dir, Math.max(R + 0.01, minT));
       ghost.position.set(end.x, 0.004, end.z);
       ghost.visible = true;
     } else {
       ghost.visible = false;
     }
+    const start = cueBall.pos.clone().addScaledVector(dir, R + 0.004);
     const pts = aimGeo.attributes.position;
-    pts.setXYZ(0, cueBall.pos.x, 0.004, cueBall.pos.z);
+    pts.setXYZ(0, start.x, 0.004, start.z);
     pts.setXYZ(1, end.x, 0.004, end.z);
     pts.needsUpdate = true;
     aimLine.computeLineDistances();
