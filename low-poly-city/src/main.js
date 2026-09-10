@@ -11,15 +11,23 @@ import { buildCity } from './world/CityBuilder.js';
 import { PoliceSystem } from './world/PoliceSystem.js';
 import { CombatFx } from './world/CombatFx.js';
 import { loadCarTemplate, loadPoliceCarTemplate } from './world/CarModel.js';
+import { loadCartoonCar } from './world/CartoonCar.js';
+import { loadAllCartoonNpcs } from './world/CartoonNpc.js';
+import { loadAllCartoonWeapons } from './world/CartoonWeapon.js';
 import { Minimap } from './ui/Minimap.js';
 import { FP } from './config.js';
 
 const app = new App(document.getElementById('app'));
 
-// ---- 真车模型先行：保时捷911（3d-car-showcase, MIT）+ 自建警车；失败各自回退，车流第一帧即真模型 ----
-const [carTemplate, policeTemplate] = await Promise.all([loadCarTemplate(), loadPoliceCarTemplate()]);
+// ---- 资产先行：卡通车辆/ NPC / 武器（ComfyUI 生成集），写实档保留为降级回退 ----
+const [cartoonCars, npcTemplates, weaponTemplates, legacyCar, legacyPolice] = await Promise.all([
+  loadCartoonCar(), loadAllCartoonNpcs(), loadAllCartoonWeapons(),
+  loadCarTemplate(), loadPoliceCarTemplate(),
+]);
+const carTemplates = cartoonCars && (cartoonCars.small || cartoonCars.truck)
+  ? cartoonCars : (legacyPolice || legacyCar); // 首选卡通车型，缺失回退写实/自建
 
-const city = buildCity(app.scene, { carTemplate, camPos: app.camera.position });
+const city = buildCity(app.scene, { carTemplates, npcTemplates, camPos: app.camera.position });
 
 const mode = new ModeManager(app, city, {
   overhead: document.getElementById('hud-overhead'),
@@ -36,7 +44,8 @@ const sfx = new Sfx();
 
 // 警匪对抗：袭击路人 -> 警车出警 -> 警察持枪反击；玩家中 5 弹阵亡退出第一人称
 const police = new PoliceSystem({ scene: app.scene, colliders: city.colliders, sfx });
-police.template = policeTemplate || carTemplate; // 专用警车模型优先，缺失回退白漆保时捷/程序化警车
+police.template = carTemplates; // 警车：卡通 police 优先，逐级回退
+police.npcTemplate = npcTemplates && npcTemplates.police_officer; // 警员 GLB，缺失回退程序化
 const health = new PlayerHealth({
   sfx,
   hud: {
@@ -53,7 +62,7 @@ police.onPlayerHit = () => health.takeHit(20); // 警察子弹：5 枪阵亡
 const combatFx = new CombatFx(app.scene);
 
 const weapons = new WeaponSystem({
-  app, city, mode, sfx, police, health, fx: combatFx,
+  app, city, mode, sfx, police, health, fx: combatFx, weaponTemplates,
   hud: {
     bar: document.getElementById('weapon-hud'),
     slots: Array.from(document.querySelectorAll('.wslot')),

@@ -1,0 +1,12 @@
+Cartoon first-person weapon GLB asset set
+Purpose: stylized Three.js runtime assets, not mechanical reference models.
+Every weapon is an independent GLB file.
+Runtime parts are separated and named: scope, lens, magazine, bullets, trigger, muzzle, flash socket, rocket, pull ring.
+glTF extras include threejs_role, runtime_part, detachable, ammo_related, and visible_by_default where useful.
+
+Files:
+- cartoon_sniper_rifle.glb
+- cartoon_ak47.glb
+- cartoon_m14.glb
+- cartoon_grenade.glb
+- cartoon_rocket_launcher.glb

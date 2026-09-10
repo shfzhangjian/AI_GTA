@@ -10,6 +10,11 @@
 import * as THREE from 'three';
 import { WORLD } from '../config.js';
 import { buildHammer, buildSmg, buildSniper, buildRpg, buildRocketMesh } from '../world/WeaponModels.js';
+import { buildCartoonWeapon } from '../world/CartoonWeapon.js';
+
+// GLB 视图模型槽位映射 + 目标 FP 长度（锤子保持程序化）
+const GLB_WEAPON = { smg: 'smg', sniper: 'sniper', rocket: 'rocket' };
+const GLB_LEN = { smg: 0.82, sniper: 0.95, rocket: 1.0 };
 
 const WEAPONS = {
   hammer: { name: '锤子', model: buildHammer, rate: 0.55, dmg: 45, range: 2.2, arc: 0.72, ammo: Infinity, muzzle: [0, 0.3, -0.5] },
@@ -27,19 +32,22 @@ export class WeaponSystem {
    * @param {{app, city, mode, sfx, police?:object, health?:object, fx?:object,
    *          hud:{bar:HTMLElement, slots:HTMLElement[], ammo:HTMLElement, scope:HTMLElement, flash:HTMLElement}}} opts
    */
-  constructor({ app, city, mode, sfx, police = null, health = null, fx = null, hud }) {
+  constructor({ app, city, mode, sfx, police = null, health = null, fx = null, hud, weaponTemplates = null }) {
     this.app = app; this.city = city; this.mode = mode; this.sfx = sfx; this.hud = hud;
     this.police = police; // 袭击路人触发报案；射线可命中警察
     this.health = health; // 火箭近爆伤及玩家自身
     this.fx = fx;         // CombatFx：火球/粒子/弹坑/残骸燃烧
     this.camera = app.camera;
 
-    // —— 枪械视图模型（相机子物体）——
+    // —— 枪械视图模型（相机子物体）：有 GLB 用卡通武器，缺失回退程序化 ——
     this.view = new THREE.Group();
     this.camera.add(this.view);
     this.models = {};
+    const wt = weaponTemplates || {};
     for (const key of ORDER) {
-      const m = WEAPONS[key].model();
+      const gk = GLB_WEAPON[key];
+      const tpl = gk ? wt[gk] : null;
+      const m = tpl ? buildCartoonWeapon(tpl, GLB_LEN[gk]) : WEAPONS[key].model();
       m.visible = false;
       this.view.add(m);
       this.models[key] = m;

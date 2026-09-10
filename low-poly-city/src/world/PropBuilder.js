@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { PALETTE, WORLD } from '../config.js';
 import { normalizeCarClone, rollWheel } from './CarModel.js';
+import { normalizeCartoonCar, rollCartoonWheel } from './CartoonCar.js';
 
 const std = (color, opts = {}) =>
   new THREE.MeshStandardMaterial({ color, roughness: 0.85, metalness: 0.05, ...opts });
@@ -133,19 +134,26 @@ function fakeShadow() {
  * @param {THREE.Vector3} [camPos] 相机位置引用：提供则按距离 LOD —— 近(≤38m)GLB 高模，远自动切回低模盒车
  * @returns {{update:(dt:number)=>void, attachAvoid:(list:Array)=>void, carRects:Function, damageAt:Function, setCarTemplate:Function}}
  */
-export function createTraffic(scene, lanes, carTemplate = null, camPos = null) {
+export function createTraffic(scene, lanes, carTemplates = null, camPos = null) {
   const cars = [];
   const g = new THREE.Group();
 
+  // carTemplates：优先卡通资产 {small, truck, police}；兼容旧参数（单个模板对象）走写实档
+  const cartoon = carTemplates && (carTemplates.small || carTemplates.truck) ? carTemplates : null;
+  const legacyTemplate = cartoon ? null : carTemplates;
+
   /** 把程序化占位车替换为 GLB 真模型（逐车换漆 + 尾灯 + 假阴影）；原盒车降为远距 LOD 档 */
   function fitTemplate(c, template) {
-    if (!template) return false;
-    const wrap = normalizeCarClone(template, 4.5, c.color);
+    const wrap = cartoon
+      ? normalizeCartoonCar(template, 4.7, c.color)
+      : normalizeCarClone(template, 4.5, c.color);
     if (!wrap) return false;
-    for (const tz of [-0.45, 0.45]) { // 尾灯跟到新模型车尾（-x）
-      const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 0.22), c.tailMat);
-      tl.position.set(-2.15, 0.7, tz);
-      wrap.add(tl);
+    if (!cartoon) {
+      for (const tz of [-0.45, 0.45]) { // 写实车自带尾灯角色不全，补两枚尾灯到新模型车尾（-x）
+        const tl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.16, 0.22), c.tailMat);
+        tl.position.set(-2.15, 0.7, tz);
+        wrap.add(tl);
+      }
     }
     wrap.add(fakeShadow());
     const old = c.mesh;
@@ -159,6 +167,7 @@ export function createTraffic(scene, lanes, carTemplate = null, camPos = null) {
     c.mesh = wrap;
     c.wheels = wrap.userData.wheels || null; // 供逐帧滚动
     c.wheelR = wrap.userData.wheelRadius || 0.33;
+    c.cartoon = !!cartoon;
     return true;
   }
   for (const lane of lanes) {
@@ -185,7 +194,9 @@ export function createTraffic(scene, lanes, carTemplate = null, camPos = null) {
         dead: false,      // 被火箭弹摧毁
         deadT: 0,         // 残骸剩余存在时间
       });
-      if (carTemplate) fitTemplate(cars[cars.length - 1], carTemplate); // 第一帧即真模型
+      const tpl = cartoon ? (Math.random() < 0.72 ? cartoon.small : cartoon.truck) || cartoon.small || cartoon.truck
+        : legacyTemplate; // 轿车为主、卡车点缀
+      if (tpl) fitTemplate(cars[cars.length - 1], tpl); // 第一帧即真模型
     }
   }
   scene.add(g);
@@ -304,12 +315,13 @@ export function createTraffic(scene, lanes, carTemplate = null, camPos = null) {
         // GLB 车轮真实滚动（无滑移）：ω = up × v_c / R。c.f 已含行驶方向，绝不能再乘 sign(v) —— 那会 dir² ≡ +1 使对向车道倒滚
         if (c.wheels) {
           const ang = (Math.abs(c.v) * dt) / (c.wheelR || 0.33);
-          _axis.set(0, 1, 0).cross(_fwdv.set(c.f.x, 0, c.f.z));
-          for (const w of c.wheels) rollWheel(w, _axis, ang);
+          _axis.set(0, 1, 0).cross(_fwdv.set(c.f.x, 0, c.f.z)).normalize();
+          const fn = c.cartoon ? rollCartoonWheel : rollWheel;
+          for (const w of c.wheels) fn(w, _axis, ang);
         }
 
-        // 远距 LOD：>38m 切回低模盒车（14×130万三角全显会压垮 GPU），位置保持同步
-        if (c.proxy) {
+        // 远距 LOD：>38m 切回低模盒车（写实 911 档才生效，卡通车轻量常驻），位置保持同步
+        if (c.proxy && !c.cartoon) {
           c.proxy.position.copy(c.mesh.position);
           if (camPos) {
             const dx = c.mesh.position.x - camPos.x;

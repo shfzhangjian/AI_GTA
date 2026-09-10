@@ -18,7 +18,7 @@
 | 模块化方式 | 浏览器原生 `<script type="importmap">` + ES Modules，无打包器、无 npm 依赖安装 |
 | 音效 | Web Audio API 实时合成（零音频素材文件） |
 | 纹理 | Canvas 2D 程序化生成窗格/玻璃幕墙（零图片资源） |
-| 验证 | Node.js v24 无头冒烟测试（stub DOM/AudioContext，33 项断言全过：装配、碰撞、战斗、弹道、开镜、毁车燃烧、弹坑、车型规格归一化/拆轮/判向免疫根旋转、车轮世界系无滑移轴向、警车内置警灯、警匪对抗、玩家阵亡） |
+| 验证 | Node.js v24 无头冒烟测试（stub DOM/AudioContext，26 项断言全过：卡通车归一化/拆轮/判向/无滑移轮轴、警灯爆闪接线、NPC 关节步态/朝向/受击倒地重生、武器 muzzle 归一到 -z 与挂点、警匪对抗全流程、玩家阵亡） |
 
 ## 🚀 运行
 
@@ -55,14 +55,14 @@ python -m http.server 8000     # 方式二（Python）
 
 ## 🚗 真实车辆模型与破坏特效
 
-- **真车模型**：集成 [3d-car-showcase](https://github.com/TotoroZuo/3d-car-showcase)（MIT, © 2022 Fat Totoro）的保时捷 911 GLB
-  （Draco 压缩 + clearcoat，解码器已本地化 `libs/draco/`）。规格驱动双车型适配（simple-muscle-car 保留为回退档）：
-  **剔除展台背景板/反光地板/LED 灯带**，以真实几何归一化（车长 4.5m、轮胎接地、车头按前杠判定朝行驶向），
-  按材质名 "paint" 逐车换漆；Sketchfab 导出缺 metallic/roughness 因子，加载时统一调校并加 **RoomEnvironment HDR 环境反射**还原车漆高光；
-  **Cylinder.000/001"轴对"节点按象限聚类拆成 4 个轮毂枢轴，行驶中按 ω=up×v/r 真实滚动**。
-  模型在建城前预加载，车流第一帧即真模型；>38m 自动切回低模盒车（距离 LOD，14×130万三角全显会压垮 GPU），
-  GLB 档用径向渐变**贴地假阴影**替代实时投影。警车为自建低多边形模型 `libs/car/police_car.glb`（黑白格涂装 + POLICE 字样 +
-  推杠 + 内置发光警灯条，红蓝交替爆闪走 emissiveIntensity 脉冲；四轮独立节点直接支持滚动），缺失时回退白漆保时捷/程序化警车。
+- **卡通资产集（ComfyUI 生成）**：车辆、行人/警员、第一人称武器统一改用 ComfyUI/Blender 程序化 GLB
+  （`libs/{car,npcs,weapons}/cartoon/`，运行时靠 glTF `extras.threejs_role` 标记驱动，见各 `*manifest.txt`）。
+  **车辆** `cartoon_small_car/truck/police_car`：按 `threejs_role==="wheel"` 轮节点 + `spin_axis` 直接成枢轴，剔 `shadow_proxy`，
+  车头按 `headlight` 判向朝行驶向，行驶按 ω=up×v/r 无滑移真实滚动（兼容任意父级旋转）。
+  **NPC** 5 人形 + dog/cat 自带 **48 帧 walk_cycle**，命名关节映射到既有步态契约，可选 AnimationMixer 播原生走态。
+  **武器** ak47/sniper/rocket（+grenade）以 `first_person_mount` 为持枪原点、`muzzle` 归一到 -z，`muzzle_fx_anchor`/`scope_lens_rear` 作挂点。
+  写实档（保时捷 911 [3d-car-showcase](https://github.com/TotoroZuo/3d-car-showcase) MIT © 2022 Fat Totoro / 肌肉车 / 自建警车）作为降级回退保留。
+  警车 `cartoon_police_car` 内置 `siren_red/blue` 发光灯条，红蓝交替爆闪走 emissiveIntensity 脉冲。
 - **爆炸升级**：火球 + 上升火焰精灵群 + 黑烟柱（膨胀消散）+ 碎石飞溅 + PointLight 光闪，纹理全 Canvas 程序化生成。
 - **地面弹坑**：不规则边缘焦土贴花（多层随机径向渐变 + 飞溅斑点），空爆也投影到地面；上限 26 个滚动清除。
 - **残骸燃烧**：被摧毁的汽车持续喷火冒烟约 16 秒、火光随机闪烁、火势渐弱，末期塌缩消失（期间始终作为路障阻挡通行）。
@@ -132,8 +132,9 @@ low-poly-city/
 ## ⚖️ 许可与致谢
 
 - three.js r165（MIT License, © three.js authors）— 随仓库 `libs/` 本地分发
-- 车辆模型：[3d-car-showcase](https://github.com/TotoroZuo/3d-car-showcase)（MIT License, © 2022 Fat Totoro）— `libs/car/porsche911.glb`，许可证副本见 `libs/car/CAR_SHOWCASE_LICENSE.txt`
-- 警车模型：自建模低多边形警车 — `libs/car/police_car.glb`（Blender GEO-* 命名规范，内置发光警灯条与涂装）
+- **卡通资产集（本项目自建，ComfyUI/Blender 程序化生成）** — `libs/{car,npcs,weapons}/cartoon/`：车辆 3 款、NPC 7 款（含 48 帧 walk_cycle）、武器 5 款；生成脚本与 `threejs_role` 运行时约定见各 `*.py` / `*manifest.txt`，说明见 `libs/cartoon_assets_NOTICE.txt`
+- 车辆模型（写实回退档）：[3d-car-showcase](https://github.com/TotoroZuo/3d-car-showcase)（MIT License, © 2022 Fat Totoro）— `libs/car/porsche911.glb`，许可证副本见 `libs/car/CAR_SHOWCASE_LICENSE.txt`
+- 警车模型（回退档）：自建模低多边形警车 — `libs/car/police_car.glb`（Blender GEO-* 命名规范，内置发光警灯条与涂装）
 - 备用车型：[simple-muscle-car](https://github.com/ASouthernCat/simple-muscle-car)（MIT License, © 2024 ASouthernCat）— `libs/car/car_draco.glb`，许可证副本见 `libs/car/MUSCLE_CAR_LICENSE.txt`
 - Draco 压缩解码器（Apache-2.0, © Google）— `libs/draco/`
 - 其余代码由 AI 生成，供学习研究使用

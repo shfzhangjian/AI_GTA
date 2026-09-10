@@ -12,6 +12,7 @@
 import * as THREE from 'three';
 import { PALETTE, WORLD } from '../config.js';
 import { blockedCircle } from '../core/Collision.js';
+import { buildCartoonNpc } from './CartoonNpc.js';
 
 const SKINS = [0xf1c27d, 0xe8b98a, 0xc68642];
 const SHIRTS = [0xd94b41, 0x4a90d9, 0xf4c127, 0x3fb37f, 0x8e6fc0, 0xff8c5a, 0xf2f4f6];
@@ -370,17 +371,28 @@ class Agent {
  * @returns {{update:(dt:number,playerPos?:{x,z})=>void, bumpAt:(x,z,r)=>boolean,
  *            attack:(x,z,dx,dz)=>boolean, list:Agent[], count:number}}
  */
-export function buildAgents(scene, colliders, { humans = 14, dogs = 7 } = {}) {
+export function buildAgents(scene, colliders, { humans = 14, dogs = 7, npcTemplates = null } = {}) {
   const agents = [];
+
+  // 人形外观轮换（有 GLB 用 citizen/athlete/rioter，缺失回退程序化盒装人）
+  const humanKinds = ['citizen_male', 'citizen_female', 'athlete', 'rioter'];
+  const quadKinds = ['dog', 'cat'];
+  const npcs = npcTemplates || {};
 
   for (let i = 0; i < humans; i++) {
     const p = sidewalkPoint();
-    agents.push(new Agent(createHuman(), scene, colliders, p.x, p.z, rand(1.1, 1.9), humanTarget,
+    const hk = humanKinds[i % humanKinds.length];
+    const tpl = npcs[hk];
+    const model = (tpl && buildCartoonNpc(tpl, 'human')) || createHuman();
+    agents.push(new Agent(model, scene, colliders, p.x, p.z, rand(1.1, 1.9), humanTarget,
       { kind: 'human' }));
   }
   for (let i = 0; i < dogs; i++) {
     const p = dogTarget(colliders);
-    agents.push(new Agent(createDog(), scene, colliders, p.x, p.z, rand(2.0, 3.2),
+    const qk = quadKinds[i % quadKinds.length];
+    const tpl = npcs[qk];
+    const model = (tpl && buildCartoonNpc(tpl, 'dog')) || createDog();
+    agents.push(new Agent(model, scene, colliders, p.x, p.z, rand(2.0, 3.2),
       () => dogTarget(colliders), { kind: 'dog' }));
   }
 

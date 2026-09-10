@@ -1,0 +1,14 @@
+卡通资产集（ComfyUI / Blender 程序化生成）
+Cartoon asset set generated via Blender Python scripts (ComfyUI pipeline).
+
+本目录（及 ../npcs/cartoon、../weapons/cartoon）下的 .glb 与 *.py、*manifest.txt
+由本项目工作流自建，非第三方发行资产；无外部许可证约束，可随本仓库一并分发。
+
+生成脚本：
+  vehicles/generate_cartoon_vehicles.py  ->  cartoon_small_car / cartoon_truck / cartoon_police_car
+  npcs/generate_cartoon_npcs.py          ->  5 人形 + dog + cat（含 48 帧 walk_cycle）
+  weapons/generate_cartoon_weapons.py    ->  ak47 / m14 / sniper / rocket_launcher / grenade
+
+运行时约定（glTF extras.threejs_role）见各 *_manifest.txt。
+写实参考资产（保时捷 911、肌肉车）见 ../CAR_SHOWCASE_LICENSE.txt 与 ../MUSCLE_CAR_LICENSE.txt，
+与本次卡通资产集相互独立。

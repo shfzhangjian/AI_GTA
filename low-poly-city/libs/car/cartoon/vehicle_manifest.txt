@@ -1,0 +1,10 @@
+Cartoon vehicle GLB asset set
+Units: meters. Blender forward axis exports as glTF/Three.js friendly +Z up.
+Every vehicle is an independent GLB file.
+Objects named *_window_*, *_wheel_*, *_light_* and police_siren_* are separated for runtime control.
+Custom glTF extras: threejs_role, destructible, hit_points, optional spin_axis/detachable.
+
+Files:
+- cartoon_small_car.glb
+- cartoon_police_car.glb
+- cartoon_truck.glb

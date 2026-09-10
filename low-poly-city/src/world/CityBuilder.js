@@ -29,7 +29,7 @@ export function buildCity(scene, opts = {}) {
   buildBushes(scene, BUSHES);
   buildStreetlights(scene, addCircle);
   BENCHES.forEach((b) => buildBench(scene, b.x, b.z, b.rotY));
-  const traffic = createTraffic(scene, LANES, opts.carTemplate ?? null, opts.camPos ?? null);
+  const traffic = createTraffic(scene, LANES, opts.carTemplates ?? opts.carTemplate ?? null, opts.camPos ?? null);
 
   // 场景图矩阵更新后，把带 collider 标记的主体网格换算成世界 AABB
   scene.updateMatrixWorld(true);
@@ -40,7 +40,7 @@ export function buildCity(scene, opts = {}) {
   });
 
   // 随机行人与狗（依赖碰撞体做目标采样，须在汇总之后创建）
-  const agents = buildAgents(scene, colliders);
+  const agents = buildAgents(scene, colliders, { npcTemplates: opts.npcTemplates ?? null });
   traffic.attachAvoid(agents.list); // 车流为行人/狗让行刹车
 
   // ---- 四个“点击进入”区域标记（发光圆环）----

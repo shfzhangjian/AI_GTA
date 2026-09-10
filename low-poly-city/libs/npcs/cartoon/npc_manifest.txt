@@ -1,0 +1,14 @@
+Cartoon NPC GLB asset set
+Each character is an independent GLB with named runtime parts and animated joint anchors.
+Humanoids share joint names: root_motion, hips, spine, head_joint, shoulder/elbow/hand L/R, knee/foot L/R.
+Quadrupeds use: root_motion, body_joint, head_joint, tail_joint, front/back paw L/R.
+Every file includes a 48-frame walk_cycle-style animation and anchors for navigation/look targeting.
+
+Files:
+- cartoon_police_officer.glb
+- cartoon_athlete.glb
+- cartoon_citizen_male.glb
+- cartoon_citizen_female.glb
+- cartoon_rioter.glb
+- cartoon_dog.glb
+- cartoon_cat.glb

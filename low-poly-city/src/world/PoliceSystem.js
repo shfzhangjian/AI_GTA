@@ -9,6 +9,8 @@
 import * as THREE from 'three';
 import { WORLD } from '../config.js';
 import { normalizeCarClone, rollWheel } from './CarModel.js';
+import { normalizeCartoonCar, rollCartoonWheel } from './CartoonCar.js';
+import { buildCartoonNpc } from './CartoonNpc.js';
 
 const rand = (a, b) => a + Math.random() * (b - a);
 const std = (color, opts = {}) =>
@@ -43,22 +45,44 @@ function createPoliceCar() {
   return { group: g, lightR, lightB };
 }
 
-/** 警车（GLB 模板版）：优先用模型内置警灯条（GEO-light_red/blue，发光强度脉冲），无则外挂红蓝灯盒 */
+/**
+ * 警车模型：优先卡通警车 GLB（内置 siren_blue/red 发光爆闪），再退回自建 GLB（GEO-light_*），
+ * 再退回程序化盒装车。返回 {group, lightR, lightB, pulseMat?, cartoon?}。
+ */
 export function createPoliceCarGLB(template) {
-  const car = normalizeCarClone(template, 4.5, '#f2f4f7');
-  if (!car) return null; // 模板损坏 -> 调用方回退程序化警车
-  const lightR = car.getObjectByName('GEO-light_red');
-  const lightB = car.getObjectByName('GEO-light_blue');
-  if (lightR && lightB) {
-    return { group: car, lightR, lightB, pulseMat: true }; // 材质已在 normalizeCarClone 逐实例克隆，可安全脉冲
+  const cartoonCar = template && (template.small || template.truck || template.police)
+    ? normalizeCartoonCar(template.police || template.small || template.truck, 4.7, '#f2f4f7')
+    : null;
+  if (cartoonCar) {
+    const sirens = cartoonCar.userData.sirens;
+    if (sirens && sirens.red && sirens.blue) {
+      return { group: cartoonCar, lightR: { material: sirens.red }, lightB: { material: sirens.blue }, pulseMat: true, cartoon: true, car: cartoonCar };
+    }
+    // 卡通车但灯材质不齐：外挂红蓝灯盒（随车顶高度）
+    const h = cartoonCar.userData.height || 1.4;
+    const boxR = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0xff2d2d }));
+    boxR.position.set(-0.1, h + 0.06, -0.24);
+    const boxB = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0x1f5fff }));
+    boxB.position.set(-0.1, h + 0.06, 0.24);
+    cartoonCar.add(boxR, boxB);
+    return { group: cartoonCar, lightR: boxR, lightB: boxB, cartoon: true, car: cartoonCar };
   }
-  const h = car.userData.height || 1.3;
-  const boxR = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0xff2d2d }));
-  boxR.position.set(-0.1, h + 0.08, -0.24);
-  const boxB = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0x1f5fff }));
-  boxB.position.set(-0.1, h + 0.08, 0.24);
-  car.add(boxR, boxB);
-  return { group: car, lightR: boxR, lightB: boxB };
+
+  // —— 旧自建 GLB（GEO-light_red/blue）——
+  const car = template ? normalizeCarClone(template, 4.5, '#f2f4f7') : null;
+  if (car) {
+    const lightR = car.getObjectByName('GEO-light_red');
+    const lightB = car.getObjectByName('GEO-light_blue');
+    if (lightR && lightB) return { group: car, lightR, lightB, pulseMat: true };
+    const h = car.userData.height || 1.3;
+    const boxR = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0xff2d2d }));
+    boxR.position.set(-0.1, h + 0.08, -0.24);
+    const boxB = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.5), new THREE.MeshBasicMaterial({ color: 0x1f5fff }));
+    boxB.position.set(-0.1, h + 0.08, 0.24);
+    car.add(boxR, boxB);
+    return { group: car, lightR: boxR, lightB: boxB };
+  }
+  return null; // 调用方回退程序化警车
 }
 
 /** 警察（面朝 +z）：深蓝制服 + 警帽 + 手枪。返回 {group, parts:{legs,mats}} */
@@ -137,14 +161,16 @@ class Cop {
     }
     m.group.position.set(this.x, WORLD.surfGrass, this.z);
     m.group.rotation.y = this.angle;
+    const legs = m.parts.legs || m.parts.pivots; // 程序化用 legs，GLB 用 pivots（前二为双腿）
+    if (!legs || legs.length < 2) return;
     if (this.moving) {
       this.phase += dt * 9;
       const s = Math.sin(this.phase) * 0.55;
-      m.parts.legs[0].rotation.x = s;
-      m.parts.legs[1].rotation.x = -s;
+      legs[0].rotation.x = s;
+      legs[1].rotation.x = -s;
     } else {
-      m.parts.legs[0].rotation.x *= 0.85;
-      m.parts.legs[1].rotation.x *= 0.85;
+      legs[0].rotation.x *= 0.85;
+      legs[1].rotation.x *= 0.85;
     }
   }
 }
@@ -169,7 +195,8 @@ export class PoliceSystem {
     this.leaveT = 0;
     this.clock = 0;
     this.onPlayerHit = () => {}; // main 注入：扣血回调
-    this.template = null;        // main 注入：肌肉车 GLB 模板（有则警车也用真模型）
+    this.template = null;        // main 注入：车辆模板（卡通 {small,truck,police} 或自建 GLB 或 null）
+    this.npcTemplate = null;     // main 注入：警员 GLB 模板（police_officer）；null 回退程序化警察
     this.proxy = { x: 999, z: 999 }; // 供车流避让（警察横穿马路不被撞）
     this._ray = new THREE.Ray();
   }
@@ -220,7 +247,7 @@ export class PoliceSystem {
     const side = this.crime.x - p.x || 1;
     const cx = Math.max(-60, Math.min(60, p.x + (this.car.axis === 'z' ? Math.sign(side) * 2.4 : 0)));
     const cz = Math.max(-60, Math.min(60, p.z + (this.car.axis === 'x' ? Math.sign(this.crime.z - p.z || 1) * 2.4 : 0)));
-    this.cop = new Cop(createCopMesh(), cx, cz);
+    this.cop = new Cop(this.npcTemplate ? buildCartoonNpc(this.npcTemplate, 'human') : createCopMesh(), cx, cz);
     this.scene.add(this.cop.model.group);
     this.state = 'arrived';
   }
@@ -278,12 +305,13 @@ export class PoliceSystem {
           this._spawnCop();
         } else {
           p[key] += Math.sign(want - p[key]) * step;
-          // GLB 警车行驶轮滚动（车头朝 +方向驶来）
+          // 警车行驶轮滚动（车头朝 +方向驶来）
           const wheels = c.group.userData?.wheels;
           if (wheels) {
-            _pa.set(0, 1, 0).cross(_pf.set(c.axis === 'x' ? 1 : 0, 0, c.axis === 'z' ? 1 : 0));
+            _pa.set(0, 1, 0).cross(_pf.set(c.axis === 'x' ? 1 : 0, 0, c.axis === 'z' ? 1 : 0)).normalize();
             const ang = (16 * dt) / (c.group.userData.wheelRadius || 0.34);
-            for (const w of wheels) rollWheel(w, _pa, ang);
+            const fn = c.cartoon ? rollCartoonWheel : rollWheel;
+            for (const w of wheels) fn(w, _pa, ang);
           }
         }
         break;
