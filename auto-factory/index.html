@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>汽车智慧工厂数字孪生可视化平台</title>
+<link rel="stylesheet" href="css/datav.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <!-- ======== 顶部标题栏 ======== -->
+  <header id="topbar">
+    <div class="top-left">
+      <span id="clock-date">2026-09-11</span>
+      <span id="clock-time">08:00:00</span>
+      <span class="weather">☀ 晴 22℃</span>
+    </div>
+    <div class="top-title">
+      <div class="title-deco left"></div>
+      <h1>汽 车 智 慧 工 厂 数 字 孪 生 可 视 化 平 台</h1>
+      <div class="title-deco right"></div>
+    </div>
+    <nav id="main-nav">
+      <button class="nav-btn active" data-view="overview">工厂总览</button>
+      <button class="nav-btn" data-view="biz">经营概况</button>
+      <button class="nav-btn" data-view="prod">生产概况</button>
+      <button class="nav-btn" data-view="shop">车间概况</button>
+      <button class="nav-btn" data-view="equip">设备概况</button>
+    </nav>
+  </header>
+
+  <!-- ======== 中央三维视口 ======== -->
+  <div id="viewport">
+    <canvas id="canvas3d"></canvas>
+    <div id="view-hint">左键旋转 · 滚轮缩放 · 右键平移 · 点击建筑进入车间</div>
+    <div id="breadcrumb"></div>
+    <!-- 三维中标签气泡层 -->
+    <div id="labels"></div>
+    <!-- 设备信息浮窗 -->
+    <div id="equip-popup" class="hidden">
+      <div class="popup-head"><span id="popup-title">设备信息</span><span id="popup-close">✕</span></div>
+      <div class="popup-body" id="popup-body"></div>
+    </div>
+  </div>
+
+  <!-- ======== 左侧面板 ======== -->
+  <aside id="panel-left">
+    <!-- ===== 工厂总览 ===== -->
+    <section class="panel-page" data-page="overview">
+      <div class="panel">
+        <div class="panel-title"><span>车间生产流程</span></div>
+        <div class="panel-body">
+          <div class="flow-chain" id="flow-chain">
+            <div class="flow-node" data-shop="stamping"><i>冲压</i><em>Stamping</em></div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node" data-shop="welding"><i>焊装</i><em>Welding</em></div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node" data-shop="painting"><i>涂装</i><em>Painting</em></div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node" data-shop="assembly"><i>总装</i><em>Assembly</em></div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node" data-shop="logistics"><i>仓储物流</i><em>Logistics</em></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span>企业营收情况（年度）</span></div>
+        <div class="panel-body"><div class="chart" id="chart-revenue"></div></div>
+      </div>
+      <div class="panel grow">
+        <div class="panel-title"><span>产品销量统计</span></div>
+        <div class="panel-body"><div class="chart" id="chart-sales"></div></div>
+      </div>
+    </section>
+
+    <!-- ===== 经营概况 ===== -->
+    <section class="panel-page hidden" data-page="biz">
+      <div class="panel">
+        <div class="panel-title"><span>企业整体经营概况</span></div>
+        <div class="panel-body">
+          <div class="kpi-grid" id="kpi-overall"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span>各区域经营概况（营收 / 利润）</span></div>
+        <div class="panel-body"><div class="chart" id="chart-region"></div></div>
+      </div>
+      <div class="panel grow">
+        <div class="panel-title"><span>各区域企业经营指标完成率</span></div>
+        <div class="panel-body"><div class="chart" id="chart-region-rate"></div></div>
+      </div>
+    </section>
+
+    <!-- ===== 生产概况 ===== -->
+    <section class="panel-page hidden" data-page="prod">
+      <div class="panel">
+        <div class="panel-title"><span>生产计划完成对比</span></div>
+        <div class="panel-body"><div class="chart" id="chart-plan"></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span>产品生产状态分布</span></div>
+        <div class="panel-body"><div class="chart" id="chart-status"></div></div>
+      </div>
+      <div class="panel grow">
+        <div class="panel-title"><span>产品出入库趋势</span></div>
+        <div class="panel-body"><div class="chart" id="chart-stock"></div></div>
+      </div>
+    </section>
+
+    <!-- ===== 车间概况 ===== -->
+    <section class="panel-page hidden" data-page="shop">
+      <div class="panel">
+        <div class="panel-title"><span>车间选择</span></div>
+        <div class="panel-body">
+          <div class="shop-tabs" id="shop-tabs"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span id="shop-detail-title">车间详细数据</span></div>
+        <div class="panel-body"><div class="shop-detail" id="shop-detail"></div></div>
+      </div>
+      <div class="panel grow">
+        <div class="panel-title"><span>车间产量 / 节拍趋势</span></div>
+        <div class="panel-body"><div class="chart" id="chart-shop"></div></div>
+      </div>
+      <div class="panel action">
+        <button class="big-btn" id="btn-enter-shop">▶ 进入车间室内空间</button>
+      </div>
+    </section>
+
+    <!-- ===== 设备概况 ===== -->
+    <section class="panel-page hidden" data-page="equip">
+      <div class="panel">
+        <div class="panel-title"><span>设备总体概况</span></div>
+        <div class="panel-body">
+          <div class="kpi-grid" id="kpi-equip"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span>各车间设备数量 / 状态</span></div>
+        <div class="panel-body"><div class="chart" id="chart-equip-bar"></div></div>
+      </div>
+      <div class="panel grow">
+        <div class="panel-title"><span>设备状态分布（OEE）</span></div>
+        <div class="panel-body"><div class="chart" id="chart-equip-pie"></div></div>
+      </div>
+    </section>
+  </aside>
+
+  <!-- ======== 右侧面板 ======== -->
+  <aside id="panel-right">
+    <div class="panel">
+      <div class="panel-title"><span>实时监控</span></div>
+      <div class="panel-body">
+        <div class="cam-grid">
+          <div class="cam"><div class="cam-feed cam1"><span>CAM-01 冲压车间</span><b class="rec"></b></div></div>
+          <div class="cam"><div class="cam-feed cam2"><span>CAM-02 焊装车间</span><b class="rec"></b></div></div>
+          <div class="cam"><div class="cam-feed cam3"><span>CAM-03 总装线</span><b class="rec"></b></div></div>
+          <div class="cam"><div class="cam-feed cam4"><span>CAM-04 成品库</span><b class="rec"></b></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span>实时告警</span></div>
+      <div class="panel-body"><ul class="alarm-list" id="alarm-list"></ul></div>
+    </div>
+    <div class="panel grow">
+      <div class="panel-title"><span>产线实时工位状态</span></div>
+      <div class="panel-body"><div class="station-grid" id="station-grid"></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span>今日关键指标</span></div>
+      <div class="panel-body"><div class="mini-kpi" id="mini-kpi"></div></div>
+    </div>
+  </aside>
+
+  <!-- 底部数据滚动条 -->
+  <footer id="ticker-bar">
+    <span class="ticker-label">实时生产播报</span>
+    <div class="ticker-track"><div class="ticker-inner" id="ticker-inner"></div></div>
+  </footer>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -15,6 +15,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 | [`three-viewer/`](./three-viewer/) | **UAL 动作角色 · 动作游戏控制演示**：WASD 走 / Shift 跑 / 空格蓄力跳（含腾空移动）/ K 组合拳连段 / J 魔法弹道，43 段动画姿态分组浏览，GLB 骨骼动画状态机 | HTML + Three.js r185（原生 ES Module，零构建） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/three-viewer/) |
 | [`space-shooter/`](./space-shooter/) | **Space Rage 六边形星域空战**：竖版打飞机、波次编队与旋转水雷、每 5 波多阶段 Boss、连击倍率（最高 ×8）、强化掉落（等离子炮/速射/修甲）、屏幕震动与死亡慢镜、WebAudio 合成音效与动态配乐、Three.js + KayKit 六边形无限滚动地表 | HTML + Three.js 0.169 + Canvas 2D（原生 ES Module，零构建） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/space-shooter/) |
 | [`billiards-3d/`](./billiards-3d/) | **3D 台球**：真实比例球桌（球径 63.5mm、台面 2.375m×1.155m）、480Hz 子步弹性碰撞物理、鼠标瞄准+蓄力击球、幽灵球落点预测、几何 AI 对手（假想接触点求解+路径遮挡）、落袋/库边/击球/犯规 WebAudio 程序化音效、你 vs 电脑回合制清台赛 | HTML + Three.js r165（原生 ES Module，零构建、音效全程序合成零素材） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/billiards-3d/) |
+| [`auto-factory/`](./auto-factory/) | **汽车智慧工厂数字孪生可视化大屏**：厂区五大车间三维全景 + 车间室内一镜到底进入；冲压滑块往复/焊装机器人集群+焊花粒子/涂装连续输送/总装合装岛升降四条产线动画、AGV 环线与跨车间物流光带、五大监控面板（工厂总览/经营概况/生产概况/车间概况/设备概况）+ ECharts 实时联动、设备点选监管浮窗与故障告警 | HTML + Three.js 0.160 + ECharts 5.5（原生 ES Module，零构建；three/echarts 走 CDN 需联网） | [🕹️ 立即体验](https://shfzhangjian.github.io/AI_GTA/auto-factory/) |
 
 项目均为 **AI 全程生成代码**（模型：`unsloth/Qwen3.8-Flash-Next-GGUF`，经 DeepSeek Harness 代理迭代生成并自动化验证），生成介绍见各自目录内文档：
 
@@ -25,6 +26,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 - three-viewer → [three-viewer/README.md](./three-viewer/README.md)
 - space-shooter → [space-shooter/README.md](./space-shooter/README.md)
 - billiards-3d → [billiards-3d/README.md](./billiards-3d/README.md)
+- auto-factory → [auto-factory/README.md](./auto-factory/README.md)
 
 ## 本地运行
 
@@ -46,6 +48,9 @@ cd space-shooter && python3 -m http.server 8080
 
 # 3D 台球
 cd billiards-3d && node serve.js   # 或 python -m http.server 8765
+
+# 汽车智慧工厂数字孪生大屏
+cd auto-factory && python3 -m http.server 8080
 ```
 
 > ES Module + fetch 需要 http 环境，直接双击 index.html（file://）无法运行。
