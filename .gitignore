@@ -1,5 +1,7 @@
 node_modules/
 dist/
+!sketch-wave-racer/dist/
+!sketch-wave-racer/dist/**
 artifacts/
 .DS_Store
 Thumbs.db

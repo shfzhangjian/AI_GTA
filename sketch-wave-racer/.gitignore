@@ -1,0 +1,4 @@
+node_modules/
+.DS_Store
+*.log
+# 注意：dist/ 已提交（GitHub Pages 直接发布编译产物）

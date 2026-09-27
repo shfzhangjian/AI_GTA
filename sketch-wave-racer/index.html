@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sketch Wave Racer</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+      <div id="hud">
+        <div id="hud-title"></div>
+        <div id="hud-fps">FPS: --</div>
+        <div id="hud-controls"></div>
+      </div>
+      <canvas id="hud-gauge" width="196" height="180"></canvas>
+      <div id="hud-item"></div>
+      <div id="hud-item-status"></div>
+      <div id="hud-countdown"></div>
+      <canvas id="minimap" width="150" height="150"></canvas>
+      <div id="hud-warn"></div>
+      <div id="hud-event"></div>
+      <div id="speedbar-wrap"><div id="speedbar"></div><div id="driftcharge"></div></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

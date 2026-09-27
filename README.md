@@ -16,6 +16,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 | [`space-shooter/`](./space-shooter/) | **Space Rage 六边形星域空战**：竖版打飞机、波次编队与旋转水雷、每 5 波多阶段 Boss、连击倍率（最高 ×8）、强化掉落（等离子炮/速射/修甲）、屏幕震动与死亡慢镜、WebAudio 合成音效与动态配乐、Three.js + KayKit 六边形无限滚动地表 | HTML + Three.js 0.169 + Canvas 2D（原生 ES Module，零构建） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/space-shooter/) |
 | [`billiards-3d/`](./billiards-3d/) | **3D 台球**：真实比例球桌（球径 63.5mm、台面 2.375m×1.155m）、480Hz 子步弹性碰撞物理、鼠标瞄准+蓄力击球、幽灵球落点预测、几何 AI 对手（假想接触点求解+路径遮挡）、落袋/库边/击球/犯规 WebAudio 程序化音效、你 vs 电脑回合制清台赛 | HTML + Three.js r165（原生 ES Module，零构建、音效全程序合成零素材） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/billiards-3d/) |
 | [`auto-factory/`](./auto-factory/) | **汽车智慧工厂数字孪生可视化大屏**：厂区五大车间三维全景 + 车间室内一镜到底进入；冲压滑块往复/焊装机器人集群+焊花粒子/涂装连续输送/总装合装岛升降四条产线动画、AGV 环线与跨车间物流光带、五大监控面板（工厂总览/经营概况/生产概况/车间概况/设备概况）+ ECharts 实时联动、设备点选监管浮窗与故障告警 | HTML + Three.js 0.160 + ECharts 5.5（原生 ES Module，零构建；three/echarts 走 CDN 需联网） | [🕹️ 立即体验](https://shfzhangjian.github.io/AI_GTA/auto-factory/) |
+| [`sketch-wave-racer/`](./sketch-wave-racer/) | **简笔画浪速赛艇**：第三人称 3D 水上赛艇——手绘卡通简笔画世界 + 高质感动态水面（多层波/菲涅耳反射/泡沫/水花粒子）；转速定命运的起步玩法（绿区完美弹射 / 轰过爆缸线爆缸熄火）、3 圈 10 检查点、漂移蓄力小加速、6 道具 + 3 AI 对手、飞鱼障碍、程序化赛道生成、卡通转速表、中英双语、本地最佳纪录、音效全 WebAudio 程序合成 | Three.js 0.169 + Vite 5（npm run build；本目录 dist/ 已提交直接发布；npm test 61 项 headless 断言；全资产程序化原创零素材） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/sketch-wave-racer/) |
 
 项目均为 **AI 全程生成代码**（模型：`unsloth/Qwen3.8-Flash-Next-GGUF`，经 DeepSeek Harness 代理迭代生成并自动化验证），生成介绍见各自目录内文档：
 
@@ -27,6 +28,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 - space-shooter → [space-shooter/README.md](./space-shooter/README.md)
 - billiards-3d → [billiards-3d/README.md](./billiards-3d/README.md)
 - auto-factory → [auto-factory/README.md](./auto-factory/README.md)
+- sketch-wave-racer → [sketch-wave-racer/README.md](./sketch-wave-racer/README.md)
 
 ## 本地运行
 
@@ -51,10 +53,13 @@ cd billiards-3d && node serve.js   # 或 python -m http.server 8765
 
 # 汽车智慧工厂数字孪生大屏
 cd auto-factory && python3 -m http.server 8080
+
+# 简笔画浪速赛艇（构建版直接开玩；源码开发用 npm install && npm run dev）
+cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > ES Module + fetch 需要 http 环境，直接双击 index.html（file://）无法运行。
 
 ## GitHub Pages 部署方式
 
-仓库根目录 `index.html` 为导航落地页；Pages 采用 **Deploy from a branch → `main` / (root)**，各子项目路径直达（见上表）。各子项目自包含、纯静态，无需构建步骤。
+仓库根目录 `index.html` 为导航落地页；Pages 采用 **Deploy from a branch → `main` / (root)**，各子项目路径直达（见上表）。各子项目自包含、纯静态，无需构建步骤（例外：sketch-wave-racer 源码需 Vite 构建，但其 `dist/` 已随仓库提交，Pages 直接可用）。
