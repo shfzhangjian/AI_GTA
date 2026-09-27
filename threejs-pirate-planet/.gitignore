@@ -1,5 +1,5 @@
 node_modules/
-dist/
+# dist/ 已提交：随 AI_GTA 仓库直接发布（GitHub Pages）
 *.log
 .DS_Store
 src/**/*.tmp.mjs
