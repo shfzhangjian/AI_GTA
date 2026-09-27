@@ -1,7 +1,7 @@
 node_modules/
-dist/
-!sketch-wave-racer/dist/
-!sketch-wave-racer/dist/**
+# 例外：sketch-wave-racer 的编译产物直接发布（子目录任意层级 dist）
+!sketch-wave-racer/**/dist/
+!sketch-wave-racer/**/dist/**
 artifacts/
 .DS_Store
 Thumbs.db

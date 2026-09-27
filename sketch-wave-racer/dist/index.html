@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sketch Wave Racer</title>
+    <script>
+      // 旧链接兼容：/sketch-wave-racer/dist/ 已迁移到 /sketch-wave-racer/
+      if (location.pathname.indexOf("/dist") !== -1) {
+        location.replace(location.pathname.replace("/dist", "/") + location.search + location.hash);
+      }
+    </script>
     <script type="module" crossorigin src="/AI_GTA/sketch-wave-racer/assets/index-C-iYV7h9.js"></script>
     <link rel="stylesheet" crossorigin href="/AI_GTA/sketch-wave-racer/assets/index-C6ZYSON1.css">
   </head>
