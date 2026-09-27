@@ -1,7 +1,11 @@
 node_modules/
-# 例外：sketch-wave-racer 的编译产物直接发布（子目录任意层级 dist）
+# 例外：以下项目的编译产物 dist/ 直接随仓库发布（子目录任意层级 dist）
 !sketch-wave-racer/**/dist/
 !sketch-wave-racer/**/dist/**
+!threejs-pirate-planet/**/dist/
+!threejs-pirate-planet/**/dist/**
+!cartoon-brawler/**/dist/
+!cartoon-brawler/**/dist/**
 artifacts/
 .DS_Store
 Thumbs.db

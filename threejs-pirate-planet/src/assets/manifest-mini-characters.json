@@ -1,0 +1,903 @@
+{
+ "note": "Generated from real files in kenney_mini-characters (public/assets/mini-characters). Do not hand-edit.",
+ "atlas": "assets/mini-characters/Textures/colormap.png",
+ "models": {
+  "aid-cane-blind": {
+   "file": "assets/mini-characters/aid-cane-blind.glb",
+   "size": [
+    0.096,
+    0.31,
+    0.096
+   ],
+   "base": 0,
+   "tris": 64,
+   "parts": [
+    "aid-cane-blind"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-cane-low-vision": {
+   "file": "assets/mini-characters/aid-cane-low-vision.glb",
+   "size": [
+    0.096,
+    0.31,
+    0.096
+   ],
+   "base": 0,
+   "tris": 64,
+   "parts": [
+    "aid-cane-low-vision"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-cane": {
+   "file": "assets/mini-characters/aid-cane.glb",
+   "size": [
+    0.096,
+    0.315,
+    0.23
+   ],
+   "base": 0,
+   "tris": 80,
+   "parts": [
+    "aid-cane"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-crutch": {
+   "file": "assets/mini-characters/aid-crutch.glb",
+   "size": [
+    0.196,
+    0.31,
+    0.187
+   ],
+   "base": 0,
+   "tris": 144,
+   "parts": [
+    "aid-crutch",
+    "Group"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-defibrillator-green": {
+   "file": "assets/mini-characters/aid-defibrillator-green.glb",
+   "size": [
+    0.225,
+    0.29,
+    0.14
+   ],
+   "base": 0,
+   "tris": 86,
+   "parts": [
+    "aid-defibrillator-green",
+    "Group"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-defibrillator-red": {
+   "file": "assets/mini-characters/aid-defibrillator-red.glb",
+   "size": [
+    0.225,
+    0.29,
+    0.14
+   ],
+   "base": 0,
+   "tris": 86,
+   "parts": [
+    "aid-defibrillator-red",
+    "Group"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-glasses": {
+   "file": "assets/mini-characters/aid-glasses.glb",
+   "size": [
+    0.33,
+    0.096,
+    0.184
+   ],
+   "base": 0,
+   "tris": 52,
+   "parts": [
+    "aid-glasses"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-mask": {
+   "file": "assets/mini-characters/aid-mask.glb",
+   "size": [
+    0.336,
+    0.203,
+    0.21
+   ],
+   "base": -0.05,
+   "tris": 176,
+   "parts": [
+    "aid-mask"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid-sunglasses": {
+   "file": "assets/mini-characters/aid-sunglasses.glb",
+   "size": [
+    0.33,
+    0.096,
+    0.184
+   ],
+   "base": 0,
+   "tris": 62,
+   "parts": [
+    "aid-sunglasses"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "aid_hearing": {
+   "file": "assets/mini-characters/aid_hearing.glb",
+   "size": [
+    0.05,
+    0.124,
+    0.157
+   ],
+   "base": 0,
+   "tris": 48,
+   "parts": [
+    "aid_hearing"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "character-female-a": {
+   "file": "assets/mini-characters/character-female-a.glb",
+   "size": [
+    1.099,
+    0.776,
+    0.5
+   ],
+   "base": 0,
+   "tris": 876,
+   "parts": [
+    "character-female-a",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-female-b": {
+   "file": "assets/mini-characters/character-female-b.glb",
+   "size": [
+    0.767,
+    0.723,
+    0.419
+   ],
+   "base": 0,
+   "tris": 742,
+   "parts": [
+    "character-female-b",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-female-c": {
+   "file": "assets/mini-characters/character-female-c.glb",
+   "size": [
+    0.767,
+    0.776,
+    0.5
+   ],
+   "base": 0,
+   "tris": 732,
+   "parts": [
+    "character-female-c",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-female-d": {
+   "file": "assets/mini-characters/character-female-d.glb",
+   "size": [
+    0.767,
+    0.776,
+    0.5
+   ],
+   "base": 0,
+   "tris": 797,
+   "parts": [
+    "character-female-d",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-female-e": {
+   "file": "assets/mini-characters/character-female-e.glb",
+   "size": [
+    0.767,
+    0.716,
+    0.527
+   ],
+   "base": 0,
+   "tris": 756,
+   "parts": [
+    "character-female-e",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-female-f": {
+   "file": "assets/mini-characters/character-female-f.glb",
+   "size": [
+    0.767,
+    0.671,
+    0.441
+   ],
+   "base": 0,
+   "tris": 788,
+   "parts": [
+    "character-female-f",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-male-a": {
+   "file": "assets/mini-characters/character-male-a.glb",
+   "size": [
+    0.767,
+    0.671,
+    0.34
+   ],
+   "base": 0,
+   "tris": 723,
+   "parts": [
+    "character-male-a",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-male-b": {
+   "file": "assets/mini-characters/character-male-b.glb",
+   "size": [
+    0.767,
+    0.661,
+    0.389
+   ],
+   "base": 0,
+   "tris": 690,
+   "parts": [
+    "character-male-b",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-male-c": {
+   "file": "assets/mini-characters/character-male-c.glb",
+   "size": [
+    0.767,
+    0.793,
+    0.461
+   ],
+   "base": 0,
+   "tris": 793,
+   "parts": [
+    "character-male-c",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-male-d": {
+   "file": "assets/mini-characters/character-male-d.glb",
+   "size": [
+    0.767,
+    0.722,
+    0.34
+   ],
+   "base": 0,
+   "tris": 711,
+   "parts": [
+    "character-male-d",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-male-e": {
+   "file": "assets/mini-characters/character-male-e.glb",
+   "size": [
+    0.767,
+    0.676,
+    0.342
+   ],
+   "base": 0,
+   "tris": 710,
+   "parts": [
+    "character-male-e",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "character-male-f": {
+   "file": "assets/mini-characters/character-male-f.glb",
+   "size": [
+    0.767,
+    0.671,
+    0.34
+   ],
+   "base": 0,
+   "tris": 701,
+   "parts": [
+    "character-male-f",
+    "root",
+    "leg-left",
+    "leg-right",
+    "torso",
+    "arm-left",
+    "arm-right",
+    "head",
+    "body-mesh",
+    "head-mesh"
+   ],
+   "skinned": true,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "sprint",
+    "jump",
+    "fall",
+    "crouch",
+    "sit",
+    "drive",
+    "die",
+    "pick-up",
+    "emote-yes",
+    "emote-no",
+    "holding-right",
+    "holding-left",
+    "holding-both",
+    "holding-right-shoot",
+    "holding-left-shoot",
+    "holding-both-shoot",
+    "attack-melee-right",
+    "attack-melee-left",
+    "attack-kick-right",
+    "attack-kick-left",
+    "interact-right",
+    "interact-left",
+    "wheelchair-sit",
+    "wheelchair-look-left",
+    "wheelchair-look-right",
+    "wheelchair-move-forward",
+    "wheelchair-move-back",
+    "wheelchair-move-left",
+    "wheelchair-move-right"
+   ]
+  },
+  "wheelchair-deluxe": {
+   "file": "assets/mini-characters/wheelchair-deluxe.glb",
+   "size": [
+    0.579,
+    0.495,
+    0.592
+   ],
+   "base": 0,
+   "tris": 696,
+   "parts": [
+    "wheelchair-deluxe"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "wheelchair-power-deluxe": {
+   "file": "assets/mini-characters/wheelchair-power-deluxe.glb",
+   "size": [
+    0.48,
+    0.625,
+    0.511
+   ],
+   "base": 0,
+   "tris": 1040,
+   "parts": [
+    "wheelchair-power-deluxe"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "wheelchair-power": {
+   "file": "assets/mini-characters/wheelchair-power.glb",
+   "size": [
+    0.48,
+    0.572,
+    0.511
+   ],
+   "base": 0,
+   "tris": 880,
+   "parts": [
+    "wheelchair-power"
+   ],
+   "skinned": false,
+   "animations": []
+  },
+  "wheelchair": {
+   "file": "assets/mini-characters/wheelchair.glb",
+   "size": [
+    0.5,
+    0.495,
+    0.582
+   ],
+   "base": 0,
+   "tris": 656,
+   "parts": [
+    "wheelchair"
+   ],
+   "skinned": false,
+   "animations": []
+  }
+ }
+}

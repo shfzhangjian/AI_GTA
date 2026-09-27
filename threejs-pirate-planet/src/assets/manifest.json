@@ -1,0 +1,984 @@
+{
+ "note": "Generated from real files in public/assets/pirate-kit. Do not hand-edit.",
+ "atlas": "assets/pirate-kit/Textures/colormap.png",
+ "models": {
+  "barrel": {
+   "file": "assets/pirate-kit/barrel.glb",
+   "size": [
+    1.336,
+    1.229,
+    1.336
+   ],
+   "base": 0,
+   "tris": 148,
+   "parts": [
+    "barrel"
+   ]
+  },
+  "boat-row-large": {
+   "file": "assets/pirate-kit/boat-row-large.glb",
+   "size": [
+    2.749,
+    0.848,
+    2.852
+   ],
+   "base": 0,
+   "tris": 174,
+   "parts": [
+    "boat-row-large",
+    "paddles"
+   ]
+  },
+  "boat-row-small": {
+   "file": "assets/pirate-kit/boat-row-small.glb",
+   "size": [
+    2.749,
+    0.848,
+    2.372
+   ],
+   "base": 0,
+   "tris": 168,
+   "parts": [
+    "boat-row-small",
+    "paddles"
+   ]
+  },
+  "bottle-large": {
+   "file": "assets/pirate-kit/bottle-large.glb",
+   "size": [
+    0.466,
+    0.89,
+    0.466
+   ],
+   "base": 0,
+   "tris": 108,
+   "parts": [
+    "bottle-large"
+   ]
+  },
+  "bottle": {
+   "file": "assets/pirate-kit/bottle.glb",
+   "size": [
+    0.364,
+    0.89,
+    0.364
+   ],
+   "base": 0,
+   "tris": 124,
+   "parts": [
+    "bottle"
+   ]
+  },
+  "cannon-ball": {
+   "file": "assets/pirate-kit/cannon-ball.glb",
+   "size": [
+    0.637,
+    0.67,
+    0.552
+   ],
+   "base": -0.335,
+   "tris": 48,
+   "parts": [
+    "cannon-ball"
+   ]
+  },
+  "cannon-mobile": {
+   "file": "assets/pirate-kit/cannon-mobile.glb",
+   "size": [
+    1.679,
+    1.38,
+    1.925
+   ],
+   "base": 0,
+   "tris": 472,
+   "parts": [
+    "cannon-mobile",
+    "Group"
+   ]
+  },
+  "cannon": {
+   "file": "assets/pirate-kit/cannon.glb",
+   "size": [
+    1.402,
+    1.055,
+    1.925
+   ],
+   "base": 0,
+   "tris": 232,
+   "parts": [
+    "cannon",
+    "Group"
+   ]
+  },
+  "castle-door": {
+   "file": "assets/pirate-kit/castle-door.glb",
+   "size": [
+    2,
+    4.4,
+    3.2
+   ],
+   "base": 0,
+   "tris": 392,
+   "parts": [
+    "castle-door"
+   ]
+  },
+  "castle-gate": {
+   "file": "assets/pirate-kit/castle-gate.glb",
+   "size": [
+    4,
+    4.4,
+    3.6
+   ],
+   "base": 0,
+   "tris": 716,
+   "parts": [
+    "castle-gate"
+   ]
+  },
+  "castle-wall": {
+   "file": "assets/pirate-kit/castle-wall.glb",
+   "size": [
+    2,
+    4.4,
+    2.8
+   ],
+   "base": 0,
+   "tris": 306,
+   "parts": [
+    "castle-wall"
+   ]
+  },
+  "castle-window": {
+   "file": "assets/pirate-kit/castle-window.glb",
+   "size": [
+    2,
+    4.4,
+    2.8
+   ],
+   "base": 0,
+   "tris": 292,
+   "parts": [
+    "castle-window"
+   ]
+  },
+  "chest": {
+   "file": "assets/pirate-kit/chest.glb",
+   "size": [
+    1.275,
+    1.147,
+    1.275
+   ],
+   "base": 0,
+   "tris": 232,
+   "parts": [
+    "chest",
+    "lid"
+   ]
+  },
+  "crate-bottles": {
+   "file": "assets/pirate-kit/crate-bottles.glb",
+   "size": [
+    1.078,
+    1.057,
+    1.309
+   ],
+   "base": 0,
+   "tris": 572,
+   "parts": [
+    "crate-bottles"
+   ]
+  },
+  "crate": {
+   "file": "assets/pirate-kit/crate.glb",
+   "size": [
+    1.078,
+    0.77,
+    1.309
+   ],
+   "base": 0,
+   "tris": 76,
+   "parts": [
+    "crate"
+   ]
+  },
+  "flag-high-pennant": {
+   "file": "assets/pirate-kit/flag-high-pennant.glb",
+   "size": [
+    1.762,
+    3.597,
+    0.399
+   ],
+   "base": 0,
+   "tris": 118,
+   "parts": [
+    "flag-high-pennant"
+   ]
+  },
+  "flag-high": {
+   "file": "assets/pirate-kit/flag-high.glb",
+   "size": [
+    1.337,
+    3.597,
+    0.399
+   ],
+   "base": 0,
+   "tris": 144,
+   "parts": [
+    "flag-high"
+   ]
+  },
+  "flag-pennant": {
+   "file": "assets/pirate-kit/flag-pennant.glb",
+   "size": [
+    1.762,
+    2.097,
+    0.399
+   ],
+   "base": 0,
+   "tris": 118,
+   "parts": [
+    "flag-pennant"
+   ]
+  },
+  "flag-pirate-high-pennant": {
+   "file": "assets/pirate-kit/flag-pirate-high-pennant.glb",
+   "size": [
+    1.762,
+    3.597,
+    0.399
+   ],
+   "base": 0,
+   "tris": 118,
+   "parts": [
+    "flag-pirate-high-pennant"
+   ]
+  },
+  "flag-pirate-high": {
+   "file": "assets/pirate-kit/flag-pirate-high.glb",
+   "size": [
+    1.337,
+    3.597,
+    0.399
+   ],
+   "base": 0,
+   "tris": 144,
+   "parts": [
+    "flag-pirate-high"
+   ]
+  },
+  "flag-pirate-pennant": {
+   "file": "assets/pirate-kit/flag-pirate-pennant.glb",
+   "size": [
+    1.762,
+    2.097,
+    0.399
+   ],
+   "base": 0,
+   "tris": 118,
+   "parts": [
+    "flag-pirate-pennant"
+   ]
+  },
+  "flag-pirate": {
+   "file": "assets/pirate-kit/flag-pirate.glb",
+   "size": [
+    1.337,
+    2.097,
+    0.399
+   ],
+   "base": 0,
+   "tris": 144,
+   "parts": [
+    "flag-pirate"
+   ]
+  },
+  "flag": {
+   "file": "assets/pirate-kit/flag.glb",
+   "size": [
+    1.337,
+    2.097,
+    0.399
+   ],
+   "base": 0,
+   "tris": 144,
+   "parts": [
+    "flag"
+   ]
+  },
+  "grass-patch": {
+   "file": "assets/pirate-kit/grass-patch.glb",
+   "size": [
+    1.313,
+    0.471,
+    1.271
+   ],
+   "base": 0,
+   "tris": 360,
+   "parts": [
+    "grass-patch"
+   ]
+  },
+  "grass-plant": {
+   "file": "assets/pirate-kit/grass-plant.glb",
+   "size": [
+    1.114,
+    0.52,
+    1.237
+   ],
+   "base": 0,
+   "tris": 144,
+   "parts": [
+    "grass-plant"
+   ]
+  },
+  "grass": {
+   "file": "assets/pirate-kit/grass.glb",
+   "size": [
+    0.519,
+    0.314,
+    0.544
+   ],
+   "base": 0,
+   "tris": 72,
+   "parts": [
+    "grass"
+   ]
+  },
+  "hole": {
+   "file": "assets/pirate-kit/hole.glb",
+   "size": [
+    2.861,
+    0.354,
+    2.704
+   ],
+   "base": 0,
+   "tris": 286,
+   "parts": [
+    "hole"
+   ]
+  },
+  "mast-ropes": {
+   "file": "assets/pirate-kit/mast-ropes.glb",
+   "size": [
+    4.386,
+    7.888,
+    2.349
+   ],
+   "base": -0.024,
+   "tris": 350,
+   "parts": [
+    "mast-ropes",
+    "sail-a",
+    "flag-c"
+   ]
+  },
+  "mast": {
+   "file": "assets/pirate-kit/mast.glb",
+   "size": [
+    4.386,
+    7.864,
+    1.74
+   ],
+   "base": 0,
+   "tris": 302,
+   "parts": [
+    "mast",
+    "sail-a",
+    "flag-c"
+   ]
+  },
+  "palm-bend": {
+   "file": "assets/pirate-kit/palm-bend.glb",
+   "size": [
+    2.88,
+    4.251,
+    3.216
+   ],
+   "base": 0,
+   "tris": 338,
+   "parts": [
+    "palm-bend"
+   ]
+  },
+  "palm-detailed-bend": {
+   "file": "assets/pirate-kit/palm-detailed-bend.glb",
+   "size": [
+    2.88,
+    4.251,
+    3.216
+   ],
+   "base": 0,
+   "tris": 482,
+   "parts": [
+    "palm-detailed-bend"
+   ]
+  },
+  "palm-detailed-straight": {
+   "file": "assets/pirate-kit/palm-detailed-straight.glb",
+   "size": [
+    3.216,
+    4.213,
+    3.216
+   ],
+   "base": 0,
+   "tris": 482,
+   "parts": [
+    "palm-detailed-straight"
+   ]
+  },
+  "palm-straight": {
+   "file": "assets/pirate-kit/palm-straight.glb",
+   "size": [
+    2.489,
+    4.213,
+    2.489
+   ],
+   "base": 0,
+   "tris": 338,
+   "parts": [
+    "palm-straight"
+   ]
+  },
+  "patch-grass-foliage": {
+   "file": "assets/pirate-kit/patch-grass-foliage.glb",
+   "size": [
+    5.273,
+    0.564,
+    4.112
+   ],
+   "base": 0,
+   "tris": 300,
+   "parts": [
+    "patch-grass-foliage"
+   ]
+  },
+  "patch-grass": {
+   "file": "assets/pirate-kit/patch-grass.glb",
+   "size": [
+    5.273,
+    0.25,
+    4.112
+   ],
+   "base": 0,
+   "tris": 84,
+   "parts": [
+    "patch-grass"
+   ]
+  },
+  "patch-sand-foliage": {
+   "file": "assets/pirate-kit/patch-sand-foliage.glb",
+   "size": [
+    7.736,
+    0.564,
+    6.036
+   ],
+   "base": 0,
+   "tris": 636,
+   "parts": [
+    "patch-sand-foliage"
+   ]
+  },
+  "patch-sand": {
+   "file": "assets/pirate-kit/patch-sand.glb",
+   "size": [
+    7.736,
+    0.25,
+    6.036
+   ],
+   "base": 0,
+   "tris": 108,
+   "parts": [
+    "patch-sand"
+   ]
+  },
+  "platform-planks": {
+   "file": "assets/pirate-kit/platform-planks.glb",
+   "size": [
+    1.894,
+    0.428,
+    2.702
+   ],
+   "base": 0,
+   "tris": 48,
+   "parts": [
+    "platform-planks"
+   ]
+  },
+  "platform": {
+   "file": "assets/pirate-kit/platform.glb",
+   "size": [
+    2.5,
+    0.228,
+    2.513
+   ],
+   "base": 0,
+   "tris": 60,
+   "parts": [
+    "platform"
+   ]
+  },
+  "rocks-a": {
+   "file": "assets/pirate-kit/rocks-a.glb",
+   "size": [
+    5.113,
+    2.898,
+    4.386
+   ],
+   "base": 0,
+   "tris": 264,
+   "parts": [
+    "rocks-a"
+   ]
+  },
+  "rocks-b": {
+   "file": "assets/pirate-kit/rocks-b.glb",
+   "size": [
+    4.437,
+    3.654,
+    4.705
+   ],
+   "base": 0,
+   "tris": 300,
+   "parts": [
+    "rocks-b"
+   ]
+  },
+  "rocks-c": {
+   "file": "assets/pirate-kit/rocks-c.glb",
+   "size": [
+    3.643,
+    2.3,
+    3.669
+   ],
+   "base": 0,
+   "tris": 232,
+   "parts": [
+    "rocks-c"
+   ]
+  },
+  "rocks-sand-a": {
+   "file": "assets/pirate-kit/rocks-sand-a.glb",
+   "size": [
+    5.113,
+    3.212,
+    4.386
+   ],
+   "base": 0,
+   "tris": 552,
+   "parts": [
+    "rocks-sand-a"
+   ]
+  },
+  "rocks-sand-b": {
+   "file": "assets/pirate-kit/rocks-sand-b.glb",
+   "size": [
+    4.379,
+    3.714,
+    4.71
+   ],
+   "base": 0,
+   "tris": 516,
+   "parts": [
+    "rocks-sand-b"
+   ]
+  },
+  "rocks-sand-c": {
+   "file": "assets/pirate-kit/rocks-sand-c.glb",
+   "size": [
+    3.71,
+    2.614,
+    3.722
+   ],
+   "base": 0,
+   "tris": 448,
+   "parts": [
+    "rocks-sand-c"
+   ]
+  },
+  "ship-ghost": {
+   "file": "assets/pirate-kit/ship-ghost.glb",
+   "size": [
+    4.8,
+    9.964,
+    10.6
+   ],
+   "base": 0,
+   "tris": 1703,
+   "parts": [
+    "ship-ghost",
+    "flag-b",
+    "flag-c",
+    "sail-a",
+    "sail-b",
+    "flag-a"
+   ]
+  },
+  "ship-large": {
+   "file": "assets/pirate-kit/ship-large.glb",
+   "size": [
+    4.8,
+    9.964,
+    13.1
+   ],
+   "base": 0,
+   "tris": 1849,
+   "parts": [
+    "ship-large",
+    "flag-a",
+    "sail-b",
+    "sail-a",
+    "flag-c",
+    "flag-b"
+   ]
+  },
+  "ship-medium": {
+   "file": "assets/pirate-kit/ship-medium.glb",
+   "size": [
+    4.8,
+    9.964,
+    10.6
+   ],
+   "base": 0,
+   "tris": 1723,
+   "parts": [
+    "ship-medium",
+    "sail-b",
+    "sail-a",
+    "flag-c",
+    "flag-b",
+    "flag-a"
+   ]
+  },
+  "ship-pirate-large": {
+   "file": "assets/pirate-kit/ship-pirate-large.glb",
+   "size": [
+    4.8,
+    9.964,
+    13.1
+   ],
+   "base": 0,
+   "tris": 1938,
+   "parts": [
+    "ship-pirate-large",
+    "sail-b",
+    "sail-a",
+    "flag-c"
+   ]
+  },
+  "ship-pirate-medium": {
+   "file": "assets/pirate-kit/ship-pirate-medium.glb",
+   "size": [
+    4.8,
+    9.964,
+    10.6
+   ],
+   "base": 0,
+   "tris": 1812,
+   "parts": [
+    "ship-pirate-medium",
+    "flag-b",
+    "sail-b",
+    "sail-a",
+    "flag-c",
+    "flag-a"
+   ]
+  },
+  "ship-pirate-small": {
+   "file": "assets/pirate-kit/ship-pirate-small.glb",
+   "size": [
+    4.8,
+    9.964,
+    8.8
+   ],
+   "base": 0,
+   "tris": 1461,
+   "parts": [
+    "ship-pirate-small",
+    "sail-a",
+    "flag-b",
+    "flag-a"
+   ]
+  },
+  "ship-small": {
+   "file": "assets/pirate-kit/ship-small.glb",
+   "size": [
+    4.8,
+    9.964,
+    8.8
+   ],
+   "base": 0,
+   "tris": 1370,
+   "parts": [
+    "ship-small",
+    "flag-a",
+    "flag-b",
+    "sail-a"
+   ]
+  },
+  "ship-wreck": {
+   "file": "assets/pirate-kit/ship-wreck.glb",
+   "size": [
+    4.8,
+    9.964,
+    10.6
+   ],
+   "base": 0,
+   "tris": 2282,
+   "parts": [
+    "ship-wreck",
+    "grass",
+    "Group",
+    "sail-a"
+   ]
+  },
+  "structure-fence-sides": {
+   "file": "assets/pirate-kit/structure-fence-sides.glb",
+   "size": [
+    2.5,
+    2.2,
+    2.5
+   ],
+   "base": 0,
+   "tris": 436,
+   "parts": [
+    "structure-fence-sides",
+    "Group"
+   ]
+  },
+  "structure-fence": {
+   "file": "assets/pirate-kit/structure-fence.glb",
+   "size": [
+    2.5,
+    2.2,
+    2.5
+   ],
+   "base": 0,
+   "tris": 356,
+   "parts": [
+    "structure-fence"
+   ]
+  },
+  "structure-platform-dock-small": {
+   "file": "assets/pirate-kit/structure-platform-dock-small.glb",
+   "size": [
+    1.9,
+    1.312,
+    2.512
+   ],
+   "base": 0,
+   "tris": 312,
+   "parts": [
+    "structure-platform-dock-small"
+   ]
+  },
+  "structure-platform-dock": {
+   "file": "assets/pirate-kit/structure-platform-dock.glb",
+   "size": [
+    2.5,
+    1.312,
+    2.513
+   ],
+   "base": 0,
+   "tris": 324,
+   "parts": [
+    "structure-platform-dock"
+   ]
+  },
+  "structure-platform-small": {
+   "file": "assets/pirate-kit/structure-platform-small.glb",
+   "size": [
+    1.9,
+    0.9,
+    2.512
+   ],
+   "base": 0,
+   "tris": 208,
+   "parts": [
+    "structure-platform-small"
+   ]
+  },
+  "structure-platform": {
+   "file": "assets/pirate-kit/structure-platform.glb",
+   "size": [
+    2.5,
+    0.928,
+    2.513
+   ],
+   "base": 0,
+   "tris": 220,
+   "parts": [
+    "structure-platform"
+   ]
+  },
+  "structure-roof": {
+   "file": "assets/pirate-kit/structure-roof.glb",
+   "size": [
+    3.085,
+    3.4,
+    3.234
+   ],
+   "base": 0,
+   "tris": 348,
+   "parts": [
+    "structure-roof"
+   ]
+  },
+  "structure": {
+   "file": "assets/pirate-kit/structure.glb",
+   "size": [
+    2.5,
+    2.2,
+    2.5
+   ],
+   "base": 0,
+   "tris": 276,
+   "parts": [
+    "structure"
+   ]
+  },
+  "tool-paddle": {
+   "file": "assets/pirate-kit/tool-paddle.glb",
+   "size": [
+    0.658,
+    2.349,
+    0.208
+   ],
+   "base": 0,
+   "tris": 60,
+   "parts": [
+    "tool-paddle"
+   ]
+  },
+  "tool-shovel": {
+   "file": "assets/pirate-kit/tool-shovel.glb",
+   "size": [
+    0.658,
+    2.349,
+    0.283
+   ],
+   "base": 0,
+   "tris": 168,
+   "parts": [
+    "tool-shovel"
+   ]
+  },
+  "tower-base-door": {
+   "file": "assets/pirate-kit/tower-base-door.glb",
+   "size": [
+    3.16,
+    2,
+    3.56
+   ],
+   "base": 0,
+   "tris": 130,
+   "parts": [
+    "tower-base-door"
+   ]
+  },
+  "tower-base": {
+   "file": "assets/pirate-kit/tower-base.glb",
+   "size": [
+    3.16,
+    2,
+    3.16
+   ],
+   "base": 0,
+   "tris": 44,
+   "parts": [
+    "tower-base"
+   ]
+  },
+  "tower-complete-large": {
+   "file": "assets/pirate-kit/tower-complete-large.glb",
+   "size": [
+    3.628,
+    10.225,
+    3.628
+   ],
+   "base": 0,
+   "tris": 604,
+   "parts": [
+    "tower-complete-large"
+   ]
+  },
+  "tower-complete-small": {
+   "file": "assets/pirate-kit/tower-complete-small.glb",
+   "size": [
+    3.354,
+    6.785,
+    3.657
+   ],
+   "base": 0,
+   "tris": 650,
+   "parts": [
+    "tower-complete-small"
+   ]
+  },
+  "tower-middle-windows": {
+   "file": "assets/pirate-kit/tower-middle-windows.glb",
+   "size": [
+    2.834,
+    2,
+    3.072
+   ],
+   "base": 0,
+   "tris": 242,
+   "parts": [
+    "tower-middle-windows"
+   ]
+  },
+  "tower-middle": {
+   "file": "assets/pirate-kit/tower-middle.glb",
+   "size": [
+    3.053,
+    2,
+    3.053
+   ],
+   "base": 0,
+   "tris": 210,
+   "parts": [
+    "tower-middle"
+   ]
+  },
+  "tower-roof": {
+   "file": "assets/pirate-kit/tower-roof.glb",
+   "size": [
+    3.628,
+    3.44,
+    3.628
+   ],
+   "base": 0,
+   "tris": 110,
+   "parts": [
+    "tower-roof"
+   ]
+  },
+  "tower-top": {
+   "file": "assets/pirate-kit/tower-top.glb",
+   "size": [
+    3.354,
+    2.785,
+    3.354
+   ],
+   "base": 0,
+   "tris": 334,
+   "parts": [
+    "tower-top"
+   ]
+  },
+  "tower-watch": {
+   "file": "assets/pirate-kit/tower-watch.glb",
+   "size": [
+    3.049,
+    2.785,
+    3.049
+   ],
+   "base": 0,
+   "tris": 248,
+   "parts": [
+    "tower-watch"
+   ]
+  }
+ }
+}

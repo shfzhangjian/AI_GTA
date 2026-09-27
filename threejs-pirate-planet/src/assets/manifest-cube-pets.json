@@ -1,0 +1,739 @@
+{
+ "note": "Generated from real files in kenney_cube-pets_1.0 (public/assets/cube-pets). Do not hand-edit.",
+ "atlas": "assets/cube-pets/Textures/colormap.png",
+ "models": {
+  "animal-beaver": {
+   "file": "assets/cube-pets/animal-beaver.glb",
+   "size": [
+    1.25,
+    1.501,
+    1.837
+   ],
+   "base": 0,
+   "tris": 670,
+   "parts": [
+    "animal-beaver",
+    "root",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right",
+    "body",
+    "tail"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-bee": {
+   "file": "assets/cube-pets/animal-bee.glb",
+   "size": [
+    1.335,
+    2.024,
+    1.293
+   ],
+   "base": 0,
+   "tris": 742,
+   "parts": [
+    "animal-bee",
+    "root",
+    "body",
+    "wing-left",
+    "wing-right",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-bunny": {
+   "file": "assets/cube-pets/animal-bunny.glb",
+   "size": [
+    1.25,
+    2.01,
+    1.33
+   ],
+   "base": 0,
+   "tris": 575,
+   "parts": [
+    "animal-bunny",
+    "root",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-cat": {
+   "file": "assets/cube-pets/animal-cat.glb",
+   "size": [
+    1.25,
+    1.71,
+    1.806
+   ],
+   "base": 0,
+   "tris": 684,
+   "parts": [
+    "animal-cat",
+    "root",
+    "body",
+    "Group",
+    "tail",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-caterpillar": {
+   "file": "assets/cube-pets/animal-caterpillar.glb",
+   "size": [
+    1.444,
+    1.747,
+    1.332
+   ],
+   "base": 0,
+   "tris": 578,
+   "parts": [
+    "animal-caterpillar",
+    "root",
+    "leg-front-left",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-chick": {
+   "file": "assets/cube-pets/animal-chick.glb",
+   "size": [
+    2.196,
+    1.594,
+    1.35
+   ],
+   "base": 0,
+   "tris": 490,
+   "parts": [
+    "animal-chick",
+    "root",
+    "leg-front-right",
+    "leg-front-left",
+    "body",
+    "wing-left",
+    "wing-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-cow": {
+   "file": "assets/cube-pets/animal-cow.glb",
+   "size": [
+    1.539,
+    1.612,
+    1.46
+   ],
+   "base": 0,
+   "tris": 578,
+   "parts": [
+    "animal-cow",
+    "root",
+    "leg-front-right",
+    "leg-front-left",
+    "leg-back-right",
+    "leg-back-left",
+    "body",
+    "Group"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-crab": {
+   "file": "assets/cube-pets/animal-crab.glb",
+   "size": [
+    2.336,
+    1.431,
+    1.347
+   ],
+   "base": 0,
+   "tris": 676,
+   "parts": [
+    "animal-crab",
+    "root",
+    "leg-back-left",
+    "body",
+    "Group",
+    "leg-front-left",
+    "leg-back-right",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-deer": {
+   "file": "assets/cube-pets/animal-deer.glb",
+   "size": [
+    1.539,
+    1.993,
+    1.56
+   ],
+   "base": 0,
+   "tris": 760,
+   "parts": [
+    "animal-deer",
+    "root",
+    "leg-back-left",
+    "body",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-dog": {
+   "file": "assets/cube-pets/animal-dog.glb",
+   "size": [
+    1.26,
+    1.584,
+    1.501
+   ],
+   "base": 0,
+   "tris": 490,
+   "parts": [
+    "animal-dog",
+    "root",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-elephant": {
+   "file": "assets/cube-pets/animal-elephant.glb",
+   "size": [
+    1.878,
+    1.431,
+    1.675
+   ],
+   "base": 0,
+   "tris": 676,
+   "parts": [
+    "animal-elephant",
+    "root",
+    "body",
+    "tail",
+    "leg-back-left",
+    "leg-front-left",
+    "leg-back-right",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-fish": {
+   "file": "assets/cube-pets/animal-fish.glb",
+   "size": [
+    1.883,
+    1.628,
+    1.26
+   ],
+   "base": 0.104,
+   "tris": 422,
+   "parts": [
+    "animal-fish",
+    "root",
+    "body",
+    "wing-right",
+    "wing-left"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-fox": {
+   "file": "assets/cube-pets/animal-fox.glb",
+   "size": [
+    1.25,
+    1.686,
+    2.308
+   ],
+   "base": 0,
+   "tris": 568,
+   "parts": [
+    "animal-fox",
+    "root",
+    "body",
+    "tail",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-giraffe": {
+   "file": "assets/cube-pets/animal-giraffe.glb",
+   "size": [
+    1.556,
+    1.714,
+    1.416
+   ],
+   "base": 0,
+   "tris": 598,
+   "parts": [
+    "animal-giraffe",
+    "root",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-hog": {
+   "file": "assets/cube-pets/animal-hog.glb",
+   "size": [
+    1.35,
+    1.516,
+    1.501
+   ],
+   "base": 0,
+   "tris": 706,
+   "parts": [
+    "animal-hog",
+    "root",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-koala": {
+   "file": "assets/cube-pets/animal-koala.glb",
+   "size": [
+    1.943,
+    1.463,
+    1.389
+   ],
+   "base": 0,
+   "tris": 594,
+   "parts": [
+    "animal-koala",
+    "root",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-lion": {
+   "file": "assets/cube-pets/animal-lion.glb",
+   "size": [
+    1.65,
+    1.746,
+    1.899
+   ],
+   "base": 0,
+   "tris": 889,
+   "parts": [
+    "animal-lion",
+    "root",
+    "leg-front-right",
+    "body",
+    "tail",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-monkey": {
+   "file": "assets/cube-pets/animal-monkey.glb",
+   "size": [
+    1.982,
+    1.61,
+    1.782
+   ],
+   "base": 0,
+   "tris": 918,
+   "parts": [
+    "animal-monkey",
+    "root",
+    "leg-front-left",
+    "leg-front-right",
+    "leg-back-right",
+    "leg-back-left",
+    "body",
+    "tail"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-panda": {
+   "file": "assets/cube-pets/animal-panda.glb",
+   "size": [
+    1.343,
+    1.501,
+    1.44
+   ],
+   "base": 0,
+   "tris": 734,
+   "parts": [
+    "animal-panda",
+    "root",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-parrot": {
+   "file": "assets/cube-pets/animal-parrot.glb",
+   "size": [
+    2.196,
+    1.681,
+    1.902
+   ],
+   "base": 0,
+   "tris": 530,
+   "parts": [
+    "animal-parrot",
+    "root",
+    "body",
+    "Group",
+    "tail",
+    "wing-right",
+    "wing-left",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-penguin": {
+   "file": "assets/cube-pets/animal-penguin.glb",
+   "size": [
+    2.19,
+    1.594,
+    1.35
+   ],
+   "base": 0,
+   "tris": 558,
+   "parts": [
+    "animal-penguin",
+    "root",
+    "leg-front-right",
+    "body",
+    "wing-left",
+    "wing-right",
+    "leg-front-left"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-pig": {
+   "file": "assets/cube-pets/animal-pig.glb",
+   "size": [
+    1.25,
+    1.584,
+    1.46
+   ],
+   "base": 0,
+   "tris": 424,
+   "parts": [
+    "animal-pig",
+    "root",
+    "body",
+    "Group",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-polar": {
+   "file": "assets/cube-pets/animal-polar.glb",
+   "size": [
+    1.25,
+    1.501,
+    1.495
+   ],
+   "base": 0,
+   "tris": 522,
+   "parts": [
+    "animal-polar",
+    "root",
+    "body",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left",
+    "leg-front-right"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  },
+  "animal-tiger": {
+   "file": "assets/cube-pets/animal-tiger.glb",
+   "size": [
+    1.35,
+    1.71,
+    1.899
+   ],
+   "base": 0,
+   "tris": 951,
+   "parts": [
+    "animal-tiger",
+    "root",
+    "leg-front-right",
+    "body",
+    "tail",
+    "leg-back-left",
+    "leg-back-right",
+    "leg-front-left"
+   ],
+   "skinned": false,
+   "animations": [
+    "static",
+    "idle",
+    "walk",
+    "run",
+    "eat",
+    "dance",
+    "gesture-positive",
+    "gesture-negative"
+   ]
+  }
+ }
+}
