@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Underwater Explorer — 海底探索（开发中）</title>
+  <!--
+    three.js 通过 CDN importmap 引入（项目规范：three 一律走 CDN，不打包）。
+    npm 中的 three / @types/three 仅用于 TypeScript 类型检查。
+  -->
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module" crossorigin src="./assets/index-Bk0gvdDS.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-6z_EnuMJ.css">
+</head>
+<body>
+  <div id="app">
+    <div id="placeholder">
+      <h1>Underwater Explorer</h1>
+      <p>阶段 7：海底探索、鱼群与基础鱼叉捕鱼已接入。</p>
+      <p id="three-version-check">正在加载 three.js 与游戏模块…</p>
+    </div>
+  </div>
+</body>
+</html>

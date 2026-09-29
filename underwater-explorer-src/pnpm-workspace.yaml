@@ -1,0 +1,4 @@
+allowBuilds:
+  esbuild: true
+patchedDependencies:
+  rollup@4.63.5: patches/rollup@4.63.5.patch
