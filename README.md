@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`shanghai-bund/`](./shanghai-bund/) | **漫步外滩**：上海外滩像素漫步、四座陆家嘴地标、上海时间同步钟楼、昼夜与雨晴切换、撑伞人流、黄浦江游船与倒影；309 灯点无人机演绎「我 ♥ 上海」、东方明珠和「外滩 · 晚安」，四处观景打卡 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 沿江漫步](https://shfzhangjian.github.io/AI_GTA/shanghai-bund/) |
 | [`yushan-lake-pixel/`](./yushan-lake-pixel/) | **雨山湖夜游**：马鞍山金鹰红色双塔、湖面倒影与湖岸漫步；807 灯点无人机演绎“我爱马鞍山雨山湖”、爱心与双塔；昼夜、雨伞人流、游船、烟花、印记收集，支持 PNG / SVG 截图与 1080p MP4 导出 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 湖畔漫步](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/) · [🎬 成片](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/film.html) |
 | [`tilt-ball/`](./tilt-ball/) | **Tilt Lab 倾斜实验室**：倾斜球台物理闯关，木板 / 冰面 / 毛毡各一关，程序纹理与随机金属陶瓷小球，真实接球洞下落，键盘与手机摇杆 | HTML + Three.js 0.180 + Rapier 3D + Vite（源码与相对路径 dist/ 一并提交） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/tilt-ball/dist/) |
 | [`breakout/`](./breakout/) | **砖块破坏者**：元素级砖块自由建模（7 种材质独立破坏物理）、连锁爆炸、顶部随机英文单词砖、掉落道具（多球/挡板伸缩/火球+子弹）、连击积分、WebAudio 合成音效、调试模式事件追踪 | HTML5 Canvas 2D + 原生 ES Module + WebAudio，零依赖、零素材文件 | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/breakout/) |
@@ -24,7 +25,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 | [`underwater-explorer/`](./underwater-explorer/) | **Underwater Explorer 海底探索**：潜水员戴夫风格 2D/2.5D 海底探索原型，包含潜水员惯性移动、昼夜水面、氧气/生命 HUD、鱼群逃离、鱼叉瞄准蓄力发射、水底大气泡和海底装饰 | TypeScript(strict) + Vite 5 + Three.js 0.186（发布编译产物直接放在 underwater-explorer/；three 通过 CDN importmap 加载） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/underwater-explorer/) |
 | [`threejs-pirate-planet/`](./threejs-pirate-planet/dist/) | **微缩航海星球**：马里奥银河式球形小星球沙盒——球形地表（陆地/海洋/云层/大气/星空）+ Kenney Pirate Kit 全模型；港口城堡（方形城墙/角楼/大门/要塞）、球面弧线航线与船只（吃水/姿态对齐/海战炮击）、渡轮摆渡（每次载 5 人跨港）、小人漫游 + 方块宠物跟随、防重叠占位系统、环境事件与伤害系统、WebAudio 程序音效、lil-gui 调试面板 | Three.js 0.180 + Vite 5 + GSAP + lil-gui（发布编译产物 dist/ 含全部模型资源；node scripts 单元/静态检查 93+ 项断言；Kenney 海盗素材 CC0） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/threejs-pirate-planet/dist/) |
 
-项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab 和雨山湖夜游由 Codex 协助开发；具体实现与使用方式见各自文档：
+项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
+
+- shanghai-bund → [源码与操作说明](./shanghai-bund/README.md)
 
 - breakout → [breakout/CODE_INTRO.md](./breakout/CODE_INTRO.md)
 - low-poly-city → [low-poly-city/README.md](./low-poly-city/README.md)
@@ -47,6 +50,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 漫步外滩（无构建、无运行依赖）
+cd shanghai-bund && npm start
+
 # 雨山湖夜游（无构建、无运行依赖）
 cd yushan-lake-pixel && npm start
 
@@ -82,7 +88,20 @@ cd underwater-explorer && python3 -m http.server 8080
 cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
-> 使用 ES Module + fetch 的项目需要 HTTP 环境。雨山湖夜游支持直接打开 `index.html`；自动化验证和视频导出需启动本地服务。
+> 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 漫步外滩 · 云端来信
+
+把上海外滩做成一个可以自由散步的像素世界：江海关钟楼与画面上的上海时间逐秒同步，东方明珠、上海中心、环球金融中心和金茂大厦轮廓可辨；游船、行人、烟花、灯光与江面倒影持续变化。
+
+- 无人机编队循环演绎「我 ♥ 上海」→ 东方明珠与江水轮廓 →「外滩 · 晚安」，每幕停留 9 秒、换阵 5 秒，底部开关可独立控制。
+- 方向键 / WASD / 点击步道自由漫步，按 E 收藏四处观景点；手机提供触屏方向键，进度保存在当前浏览器。
+- 可切换昼夜、雨晴、人流、烟花、灯光秀、无人机与环境音效；雨天人物撑伞，江面出现涟漪。
+- 游戏场景全部由 SVG 动态绘制，环境音效由 WebAudio 合成，无需安装依赖或构建。
+
+[在线试玩](https://shfzhangjian.github.io/AI_GTA/shanghai-bund/) · [源码与启动说明](./shanghai-bund/README.md)
+
+![漫步外滩：我爱上海无人机灯阵](./shanghai-bund/preview.png)
 
 ## GitHub Pages 部署方式
 

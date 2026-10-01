@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1726">
+  <title>漫步外滩 · A little Shanghai</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="漫步外滩首页"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 27h26M6 23V12h6v11m4 0V5h5v18m4 0V10h3v13M17 2h3M5 17h8"/></svg><span>漫步外滩<small>A LITTLE SHANGHAI</small></span></a>
+      <div class="location"><span class="live-dot"></span>上海 · 黄浦江畔 <span class="coordinates">31.2400° N / 121.4900° E</span></div>
+      <div class="clock-block"><span class="clock-label">SHANGHAI TIME</span><time id="clock">00:00:00</time><span id="date">——</span></div>
+    </header>
+
+    <section class="world-shell" aria-label="可交互的上海外滩像素世界">
+      <div class="scene-heading"><div class="eyebrow"><span></span> THE BUND, IN PIXELS</div><h1>把时间，<br>留给江风。</h1><p>一座会呼吸的城市，一场没有目的地的散步。</p></div>
+      <div class="scene-status"><span id="weather-icon"></span><span id="scene-label">晴朗夜晚</span><i></i><span>江风徐徐</span></div>
+      <svg id="world" viewBox="0 0 1600 850" role="img" aria-label="上海外滩像素场景：点击步道移动，用方向键或 WASD 漫步" tabindex="0" preserveAspectRatio="xMidYMid slice"></svg>
+      <div class="exploration"><span class="explore-icon" id="compass-icon"></span><div><small id="walk-label">今晚的散步清单</small><strong>沿江拾光 <span id="progress">0 / 4</span></strong></div><button id="guide" title="查看下一个观景点" aria-label="查看下一个观景点">↗</button></div>
+      <div class="place-caption"><span>01 — SHANGHAI WATERFRONT</span><span>江风不打烊 · 漫步无终点</span></div>
+      <div id="interaction" class="interaction" hidden><kbd>E</kbd><span>记录这处风景</span><button id="collect">打卡</button></div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <div class="mobile-pad" aria-label="触屏方向控制"><button data-dir="ArrowUp" aria-label="向上">↑</button><button data-dir="ArrowLeft" aria-label="向左">←</button><button data-dir="ArrowDown" aria-label="向下">↓</button><button data-dir="ArrowRight" aria-label="向右">→</button></div>
+    </section>
+
+    <section class="controls" aria-label="场景控制">
+      <div class="time-switch" aria-label="昼夜切换"><button id="day-btn" aria-pressed="false"><span data-icon="sun"></span>白昼</button><button id="night-btn" class="active" aria-pressed="true"><span data-icon="moon"></span>夜晚</button></div>
+      <span class="control-divider"></span>
+      <div class="switches"><button id="crowd-btn" class="control active" aria-pressed="true"><span data-icon="people"></span><span>人流</span><i></i></button><button id="fireworks-btn" class="control active" aria-pressed="true"><span data-icon="spark"></span><span>烟花</span><i></i></button><button id="lights-btn" class="control active" aria-pressed="true"><span data-icon="light"></span><span>灯光秀</span><i></i></button><button id="drones-btn" class="control active" aria-pressed="true" title="云端来信：无人机编队表演"><span data-icon="drone"></span><span>无人机</span><i></i></button><button id="weather-btn" class="control" aria-pressed="false"><span data-icon="rain"></span><span>雨天</span><i></i></button></div>
+      <div class="utility"><button id="sound-btn" class="icon-button" aria-label="开启环境音效" aria-pressed="false" title="环境音效"><span data-icon="sound"></span></button><button id="fullscreen-btn" class="icon-button" aria-label="切换全屏" title="全屏"><span data-icon="expand"></span></button></div>
+    </section>
+    <footer><p><span class="key-group"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span>或方向键漫步</span><b>·</b><span>点击步道前往</span><b>·</b><span><kbd>E</kbd> 观景打卡</span></p><span class="footer-note"><span class="live-dot"></span>不必赶路，风景一直都在。</span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
