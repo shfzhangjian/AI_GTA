@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手绘五子棋</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-label="手绘风格五子棋棋盘"></canvas>
+
+    <main class="hud" aria-label="游戏控制面板">
+      <section class="top-strip" aria-label="游戏状态">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span>手绘五子棋</span>
+        </div>
+
+        <div class="mode-switch" role="tablist" aria-label="对战模式">
+          <button class="mode-button active" type="button" data-mode="ai" role="tab" aria-selected="true">人机</button>
+          <button class="mode-button" type="button" data-mode="duo" role="tab" aria-selected="false">双人</button>
+        </div>
+
+        <div class="actions" aria-label="操作">
+          <button class="icon-button hint-button" type="button" id="hint" aria-label="开启落子提示" title="提示">?</button>
+          <button class="icon-button attack-button" type="button" id="attack" aria-label="发动动物攻击" title="攻击">攻</button>
+          <button class="icon-button mischief-button" type="button" id="mischief" aria-label="触发捣乱飞机" title="捣乱">!</button>
+          <button class="icon-button" type="button" id="restart" aria-label="重新开始" title="重新开始">↻</button>
+          <button class="icon-button sound-on" type="button" id="sound" aria-label="切换音效" title="切换音效">♪</button>
+        </div>
+      </section>
+
+      <section class="score-strip" aria-label="比分">
+        <div class="score-card orange">
+          <span class="score-dot"></span>
+          <span class="score-name">角色</span>
+          <strong id="scoreOrange">0</strong>
+          <small id="captureOrange">吃子 0</small>
+        </div>
+        <div class="turn-card" id="turnCard">
+          <span id="turnText">准备落子</span>
+        </div>
+        <div class="score-card blue">
+          <span class="score-dot"></span>
+          <span class="score-name">角色</span>
+          <strong id="scoreBlue">0</strong>
+          <small id="captureBlue">吃子 0</small>
+        </div>
+      </section>
+
+      <section class="bottom-note" aria-label="最近事件">
+        <span id="eventText">准备开局</span>
+        <small id="hintText" class="hint-note hidden"></small>
+      </section>
+    </main>
+
+    <div class="floating-layer" id="floatingLayer" aria-hidden="true"></div>
+    <section class="victory-panel hidden" id="victoryPanel" aria-live="polite" aria-label="胜利提示">
+      <div class="victory-card">
+        <strong id="victoryTitle">胜利</strong>
+        <span id="victorySubtitle">是否继续下一局？</span>
+        <div class="victory-actions">
+          <button type="button" id="continueGame">继续</button>
+          <button type="button" id="watchCelebration">先看一会儿</button>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
