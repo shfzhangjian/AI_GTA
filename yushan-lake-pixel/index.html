@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101921">
+  <title>雨山湖夜游 · 湖畔像素漫步</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="capture.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="雨山湖夜游首页"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M4 27h28M7 22h22M8 17h5v-6h5v6h4V7h5v15M4 31h9m5 0h14"/></svg><span>雨山湖<span class="brand-light">夜游</span><small>YUSHAN LAKE · PIXEL WALK</small></span></a>
+    <div class="header-place"><span class="status-dot"></span> 安徽 · 马鞍山 <span class="divider">/</span> 把时间交给湖边</div>
+    <div class="header-actions"><button id="snapshot-button" class="quiet-button"><span data-icon="camera"></span><span>截图</span></button><button id="cinema-button" class="quiet-button"><span data-icon="film"></span><span>取景</span></button><button id="help-button" class="quiet-button" aria-label="查看游玩指南"><span data-icon="help"></span><span>游玩指南</span></button></div>
+  </header>
+  <main id="world-wrap">
+    <svg id="world" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="可互动的雨山湖像素夜景，金鹰双塔映照湖面，使用方向键或点击步道行走"></svg>
+    <div class="scene-status"><span id="status-icon" data-icon="moon"></span><div><b id="scene-time">20:16</b><small id="scene-weather">夜色晴朗 · 湖风轻拂</small></div><span class="live-dot"></span></div>
+    <button id="day-toggle" class="view-button" title="切换昼夜" aria-label="切换到白天"><span data-icon="sun"></span><span id="day-label">看看白天</span></button>
+    <div class="journey"><span class="journey-icon" data-icon="pin"></span><div><b id="location-label">湖畔漫步</b><span id="journey-label">发现沿岸 3 处风景 · 0 / 3</span></div><div class="stamps"><i></i><i></i><i></i></div></div>
+    <div id="interaction" class="interaction" hidden><kbd>E</kbd><span>留住此刻</span></div>
+    <div id="toast" role="status" class="toast"></div>
+    <div class="mobile-pad" aria-label="移动控制"><button data-dir="up" aria-label="向上">↑</button><div><button data-dir="left" aria-label="向左">←</button><button data-dir="down" aria-label="向下">↓</button><button data-dir="right" aria-label="向右">→</button></div></div>
+    <div class="world-caption"><span class="tiny-dot"></span> 全景 SVG 像素绘制 <span>01 / 雨山湖</span></div>
+  </main>
+  <footer class="control-deck">
+    <div class="walk-tip"><span data-icon="keys"></span><span><b>随心走走</b><small>WASD / 方向键移动 · 点击步道前往</small></span></div>
+    <nav class="controls" aria-label="场景控制">
+      <button class="control active" data-toggle="crowd" aria-pressed="true"><span data-icon="people"></span><span>人流</span><i></i></button>
+      <button class="control active" data-toggle="fireworks" aria-pressed="true"><span data-icon="spark"></span><span>烟花</span><i></i></button>
+      <button class="control active" data-toggle="lights" aria-pressed="true"><span data-icon="light"></span><span>灯光秀</span><i></i></button>
+      <button class="control active" data-toggle="drones" aria-pressed="true"><span data-icon="drone"></span><span>无人机</span><i></i></button>
+      <button class="control" data-toggle="rain" aria-pressed="false"><span data-icon="rain"></span><span id="weather-label">晴天</span><i></i></button>
+      <button class="control" data-toggle="sound" aria-pressed="false"><span data-icon="sound"></span><span>音效</span><i></i></button>
+      <span class="control-separator"></span>
+      <button class="control" id="fullscreen" aria-label="进入全屏"><span data-icon="expand"></span><span>全屏</span></button>
+    </nav>
+  </footer>
+  <div class="bottomline"><span>湖光有信，步履有声。</span><span>MA’ANSHAN, ANHUI <span class="red-square"></span> EST. 1959</span></div>
+</div>
+<dialog id="help-dialog"><button class="close-dialog" aria-label="关闭指南">×</button><div class="eyebrow">YOUR LITTLE LAKESIDE ESCAPE</div><h2>在湖边，虚度一会儿。</h2><p>用 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 或方向键移动，也可以点击湖岸步道。手机可使用右下角方向按钮。</p><p>走近带有金色标记的观景点，按 <kbd>E</kbd> 或点击“留住此刻”，收集三枚夜游印记。点击天空，可亲手放一朵烟花。</p><p>底部可以切换行人、烟花、灯光秀、雨天与音效。金鹰保留红色灯光，关闭灯光秀后转为静态亮灯。</p><small>依据雨山湖与金鹰照片进行艺术化重绘；烟花为虚拟场景效果。</small><button class="primary" id="start-walk">开始漫步 <span>→</span></button></dialog>
+<dialog id="postcard"><button class="close-dialog" aria-label="关闭风景卡">×</button><div class="eyebrow">YUSHAN LAKE · MEMORY</div><span class="card-number" id="card-number">01</span><h2 id="card-title"></h2><p id="card-description"></p><div class="card-line"></div><small>一枚湖畔印记，送给愿意停留的你。</small><button class="primary" id="keep-walking">继续散步 <span>→</span></button></dialog>
+<button id="exit-cinema" hidden>退出取景 · Esc</button>
+<script src="lettering.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

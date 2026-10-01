@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`yushan-lake-pixel/`](./yushan-lake-pixel/) | **雨山湖夜游**：马鞍山金鹰红色双塔、湖面倒影与湖岸漫步；807 灯点无人机演绎“我爱马鞍山雨山湖”、爱心与双塔；昼夜、雨伞人流、游船、烟花、印记收集，支持 PNG / SVG 截图与 1080p MP4 导出 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 湖畔漫步](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/) · [🎬 成片](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/film.html) |
 | [`tilt-ball/`](./tilt-ball/) | **Tilt Lab 倾斜实验室**：倾斜球台物理闯关，木板 / 冰面 / 毛毡各一关，程序纹理与随机金属陶瓷小球，真实接球洞下落，键盘与手机摇杆 | HTML + Three.js 0.180 + Rapier 3D + Vite（源码与相对路径 dist/ 一并提交） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/tilt-ball/dist/) |
 | [`breakout/`](./breakout/) | **砖块破坏者**：元素级砖块自由建模（7 种材质独立破坏物理）、连锁爆炸、顶部随机英文单词砖、掉落道具（多球/挡板伸缩/火球+子弹）、连击积分、WebAudio 合成音效、调试模式事件追踪 | HTML5 Canvas 2D + 原生 ES Module + WebAudio，零依赖、零素材文件 | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/breakout/) |
 | [`low-poly-city/`](./low-poly-city/) | **低多边形等距城市 + 第一人称武器沙盒**（锤子/冲锋枪/狙击枪/火箭筒，NPC 生态与碰撞） | HTML + Three.js r165（原生 ES Module，零构建、离线可跑） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/low-poly-city/) |
@@ -23,7 +24,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 | [`underwater-explorer/`](./underwater-explorer/) | **Underwater Explorer 海底探索**：潜水员戴夫风格 2D/2.5D 海底探索原型，包含潜水员惯性移动、昼夜水面、氧气/生命 HUD、鱼群逃离、鱼叉瞄准蓄力发射、水底大气泡和海底装饰 | TypeScript(strict) + Vite 5 + Three.js 0.186（发布编译产物直接放在 underwater-explorer/；three 通过 CDN importmap 加载） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/underwater-explorer/) |
 | [`threejs-pirate-planet/`](./threejs-pirate-planet/dist/) | **微缩航海星球**：马里奥银河式球形小星球沙盒——球形地表（陆地/海洋/云层/大气/星空）+ Kenney Pirate Kit 全模型；港口城堡（方形城墙/角楼/大门/要塞）、球面弧线航线与船只（吃水/姿态对齐/海战炮击）、渡轮摆渡（每次载 5 人跨港）、小人漫游 + 方块宠物跟随、防重叠占位系统、环境事件与伤害系统、WebAudio 程序音效、lil-gui 调试面板 | Three.js 0.180 + Vite 5 + GSAP + lil-gui（发布编译产物 dist/ 含全部模型资源；node scripts 单元/静态检查 93+ 项断言；Kenney 海盗素材 CC0） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/threejs-pirate-planet/dist/) |
 
-项目均为 **AI 全程生成代码**（模型：`unsloth/Qwen3.8-Flash-Next-GGUF`，经 DeepSeek Harness 代理迭代生成并自动化验证），生成介绍见各自目录内文档：
+项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab 和雨山湖夜游由 Codex 协助开发；具体实现与使用方式见各自文档：
 
 - breakout → [breakout/CODE_INTRO.md](./breakout/CODE_INTRO.md)
 - low-poly-city → [low-poly-city/README.md](./low-poly-city/README.md)
@@ -41,9 +42,14 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 - tilt-ball → [tilt-ball/README.md](./tilt-ball/README.md)（由 Codex 协助开发）
 
+- yushan-lake-pixel → [项目说明](./yushan-lake-pixel/README.md) · [配套博文](./yushan-lake-pixel/exports/博文-把雨山湖的夜色做成像素游戏.txt)
+
 ## 本地运行
 
 ```bash
+# 雨山湖夜游（无构建、无运行依赖）
+cd yushan-lake-pixel && npm start
+
 # 砖块破坏者（推荐 start.bat，自动开浏览器）
 cd breakout && python -m http.server 8765
 
@@ -76,7 +82,7 @@ cd underwater-explorer && python3 -m http.server 8080
 cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
-> ES Module + fetch 需要 http 环境，直接双击 index.html（file://）无法运行。
+> 使用 ES Module + fetch 的项目需要 HTTP 环境。雨山湖夜游支持直接打开 `index.html`；自动化验证和视频导出需启动本地服务。
 
 ## GitHub Pages 部署方式
 
@@ -85,3 +91,13 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ## Tilt Lab 倾斜实验室开发
 
 进入 tilt-ball 目录，运行 npm ci 和 npm run dev；构建运行 npm run build，物理验证运行 node tools/verify-goal.mjs。dist/ 已提交，可直接通过 GitHub Pages 试玩，详细说明见 [项目 README](./tilt-ball/README.md)。
+
+## 雨山湖夜游 · 无人机告白
+
+保留金鹰双塔的红色灯光，使用动态 SVG 绘制标题、湖岸、人流、游船、无人机与湖面倒影。支持方向键 / WASD / 点击步道漫步，以及手机方向控制。
+
+- [源码与操作说明](./yushan-lake-pixel/README.md)
+- [48 秒 1080p MP4 成片](./yushan-lake-pixel/exports/雨山湖夜游-无人机告白.mp4)（24 fps，H.264 / AAC，原创合成环境音乐）
+- [博文](./yushan-lake-pixel/exports/博文-把雨山湖的夜色做成像素游戏.txt) · [高清截图](./yushan-lake-pixel/exports/夜空告白.png) · [SVG 矢量截图](./yushan-lake-pixel/exports/夜空告白.svg)
+
+![雨山湖夜游：我爱马鞍山雨山湖](./yushan-lake-pixel/exports/文字编队.png)

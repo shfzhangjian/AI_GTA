@@ -1,0 +1,10 @@
+.header-actions{display:flex;gap:21px;align-items:center}
+#film-caption{display:none}
+#exit-cinema{position:fixed;right:20px;top:20px;z-index:20;background:#1a2d3de0;border:1px solid #aa998a66;color:#e4d9c8;font-size:11px;border-radius:4px;padding:10px 15px;opacity:.3}
+#exit-cinema:hover{opacity:1}
+.cinema #app{height:100dvh;max-width:none}
+.cinema .topbar,.cinema .control-deck,.cinema .bottomline,.cinema .scene-status,.cinema .view-button,.cinema .journey,.cinema .interaction,.cinema .toast,.cinema .mobile-pad,.cinema .world-caption{display:none!important}
+.cinema #world-wrap{height:100dvh;min-height:0}
+.cinema #film-caption{display:inline}
+@media(max-width:1100px){.header-actions{gap:14px}.walk-tip{display:none}.controls{width:100%;justify-content:center}.control-deck{justify-content:center}}
+@media(max-width:760px){.header-actions{gap:12px}.header-actions .quiet-button{font-size:9px}.header-actions .quiet-button .icon{width:17px;height:17px}.header-actions #help-button span:last-child{display:none}.controls{justify-content:space-between}.world-caption{display:none}.control-deck{padding:14px 3%}.control{font-size:8px}.brand small{letter-spacing:1px}.brand{font-size:18px}.brand-light{margin-left:5px}}

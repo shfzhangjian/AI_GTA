@@ -1,0 +1,10 @@
+node_modules/
+.venv/
+__pycache__/
+.env
+.env.*
+*.log
+preview-*.png
+exports/original-ambient.wav
+exports/截图按钮验证.png
+exports/手机版预览.png

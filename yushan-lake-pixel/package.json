@@ -1,0 +1,15 @@
+{
+  "name": "yushan-lake-pixel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "雨山湖夜游 · A living SVG pixel world",
+  "scripts": {
+    "start": "node server.cjs",
+    "check": "node --check game.js && node --check server.cjs",
+    "test": "node verify.cjs && node verify-capture.cjs",
+    "export:video": "node export-video.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  }
+}
