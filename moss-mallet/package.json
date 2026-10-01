@@ -1,0 +1,1 @@
+{"name":"moss-and-mallet","version":"1.0.0","private":true,"description":"A cozy isometric Three.js chain-mining game","scripts":{"start":"node server.cjs","test":"node --test rules.test.js","check":"node --check game.js && node --check world.js && node --check audio.js"},"type":"module"}

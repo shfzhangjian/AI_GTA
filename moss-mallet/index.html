@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f2e9">
+  <title>苔苔敲敲岛 · Moss & Mallet</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M19 4C9 2 3 7 5 14c2 7 13 5 14-10Z"/><path d="m5 21 9-12M9 15l-1-5"/></symbol>
+  <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m5 4 4-2 8 8-4 4-8-8ZM14 13l-8 9-4-3 9-9"/><path d="m15 6 4-2 3 3-4 4"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5C8 2 4 3 2 4v15c3-1 6-1 10 2 4-3 7-3 10-2V4c-2-1-6-2-10 1v16Z"/><path d="M5 8h4M15 8h4M5 12h4M15 12h4"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="M16 8c3 2 3 6 0 8M19 4c6 5 6 11 0 16"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3Zm13 0 6 6m0-6-6 6"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8V4Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 6h3c5 0 7 12 12 12h3m-4-4 4 4-4 4M3 18h3c2 0 3-2 5-5m3-5c1-1 2-2 4-2h3m-4-4 4 4-4 4"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 10A8 8 0 1 0 20 16M20 3v7h-7"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z"/></symbol>
+  <symbol id="i-gem" viewBox="0 0 24 24"><path d="m8 3 8 0 6 7-10 12L2 10 8 3ZM2 10h20M8 3l-2 7 6 12 6-12-2-7"/></symbol>
+  <symbol id="i-mushroom" viewBox="0 0 24 24"><path d="M3 13C1 3 22 1 21 13H3Zm6 0-1 7c0 3 8 3 8 0l-1-7"/><circle cx="8" cy="8" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="17" cy="10" r="1"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3ZM20 1v4M18 3h4"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8a3 3 0 0 1 6 0c0 3-3 2-3 5m0 3v1"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21 3 12C-3 3 8-1 12 6c4-7 15-3 9 6l-9 9Z"/></symbol>
+</defs></svg>
+
+<main id="app">
+  <section class="playground" aria-label="三维连锁敲砖游戏">
+    <svg class="clouds" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="#fff9e6" opacity=".48"><path d="M-40 150c20-75 100-80 127-36 32-67 112-44 119 3 72-15 98 48 49 75H-40Z"/><path d="M1200 93c18-44 66-47 83-19 27-55 90-46 107-5 53-15 88 29 60 53h-250Z"/><path d="M40 724c11-53 77-67 99-22 44-45 109-21 107 24 52-14 80 21 70 45H40Z"/></g><g fill="#749d66" opacity=".12"><circle cx="65" cy="350" r="85"/><circle cx="1317" cy="602" r="107"/><circle cx="1365" cy="700" r="80"/></g><g fill="#f8efd0" opacity=".65"><path d="m284 146 4-11 4 11 11 4-11 4-4 11-4-11-11-4Z"/><path d="m1240 340 3-8 3 8 8 3-8 3-3 8-3-8-8-3Z"/><path d="m122 558 3-8 3 8 8 3-8 3-3 8-3-8-8-3Z"/></g></svg>
+    <div id="scene"><div id="loading"><svg><use href="#i-leaf"/></svg><span>小岛正在醒来…</span></div></div>
+    <div id="float-layer" aria-hidden="true"></div>
+    <header class="game-hud">
+      <div class="island-badge"><button class="brand-mark" id="island-button" aria-label="我的小岛"><svg><use href="#i-leaf"/></svg></button><div><strong>苔苔敲敲岛</strong><span id="chapter-name">第一章 · 青苔森林</span></div><span class="level-badge" id="chapter-count">01 / 05</span></div>
+      <div class="mission-card" aria-label="本关收集目标"><div class="goal"><span class="block-icon grass-icon"></span><div class="goal-body"><div class="goal-text"><strong><span id="grass-count">0</span><span class="goal-total" id="grass-target"> / 18</span></strong></div><div class="progress"><i id="grass-progress"></i></div></div></div><span class="goal-divider"></span><div class="goal"><span class="block-icon crystal-icon"><svg><use href="#i-gem"/></svg></span><div class="goal-body"><div class="goal-text"><strong><span id="gem-count">0</span><span class="goal-total" id="gem-target"> / 12</span></strong></div><div class="progress gem-progress"><i id="gem-progress"></i></div></div></div><span id="mission-level" hidden>LEVEL 01</span></div>
+      <div class="hud-right"><div class="score-chip"><svg><use href="#i-gem"/></svg><strong id="score">0</strong></div><button class="round-button" id="sound-button" aria-label="关闭音效" title="音效 · M"><svg><use href="#i-sound"/></svg></button><button class="round-button" id="pause-button" aria-label="暂停" title="暂停 · P"><svg><use href="#i-pause"/></svg></button></div>
+    </header>
+    <div class="combo-card" id="combo-card"><span id="combo-label">点同色，连锁消除</span><strong id="combo-value" hidden>HELLO, EXPLORER</strong></div>
+    <div class="moves-card"><svg class="moves-dial" viewBox="0 0 90 90"><circle cx="45" cy="45" r="39"/><circle id="moves-ring" cx="45" cy="45" r="39"/></svg><svg class="moves-hammer"><use href="#i-hammer"/></svg><strong id="moves">32</strong><span>剩余敲击</span></div>
+    <button class="start-button island-start" id="start-button"><span>开始探险</span><svg><use href="#i-play"/></svg></button>
+    <span id="start-note" hidden></span>
+    <div class="companion-bubble"><button id="avatar-button" aria-label="小兔矿工档案">ᵔᴥᵔ</button><span id="bunny-note">准备好了吗？</span></div>
+    <div class="hover-tip" id="hover-tip"></div><div class="toast" id="toast" role="status"></div><div class="boot-error" id="boot-error" hidden></div>
+    <div class="bottom-controls">
+      <div class="utility-buttons"><button class="round-button" id="guide-button" aria-label="玩法小册" title="玩法"><svg><use href="#i-book"/></svg></button><button class="round-button" id="records-button" aria-label="探险记录" title="记录"><svg><use href="#i-star"/></svg></button><button class="round-button" id="restart-button" aria-label="重新开始" title="重开 · R"><svg><use href="#i-refresh"/></svg></button><button id="help-button" hidden aria-label="帮助"></button></div>
+      <div class="toolbox" role="group" aria-label="选择工具">
+        <button class="tool selected" data-tool="hammer" aria-label="小木锤" title="小木锤 · 1"><span class="tool-icon"><svg><use href="#i-hammer"/></svg></span><span class="tool-text">木锤</span><kbd>1</kbd></button>
+        <button class="tool" data-tool="bomb" aria-label="蘑菇炸弹" title="蘑菇炸弹 · 2"><span class="tool-icon coral"><svg><use href="#i-mushroom"/></svg></span><span class="tool-text">炸弹</span><span class="tool-count" id="bomb-count">2</span><kbd>2</kbd></button>
+        <button class="tool" data-tool="rainbow" aria-label="彩虹魔法" title="彩虹魔法 · 3"><span class="tool-icon lavender"><svg><use href="#i-sparkle"/></svg></span><span class="tool-text">彩虹</span><span class="tool-count" id="rainbow-count">1</span><kbd>3</kbd></button>
+      </div>
+      <button class="shuffle-button" id="shuffle-button" aria-label="重新排列，消耗两次敲击" title="重排 · 消耗 2 次敲击"><svg><use href="#i-shuffle"/></svg><span>重排</span><small>−2</small></button>
+    </div>
+  </section>
+</main>
+
+<div class="modal-backdrop" id="modal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button id="modal-close" class="modal-close" aria-label="关闭"><svg><use href="#i-close"/></svg></button><div class="modal-art" id="modal-art">✦</div><span class="section-label" id="modal-kicker">THE FIELD GUIDE</span><h2 id="modal-title"></h2><div id="modal-body"></div><button class="start-button" id="modal-action"></button></section></div>
+<script type="module" src="./game.js"></script>
+</body>
+</html>

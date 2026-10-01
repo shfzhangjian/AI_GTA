@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`moss-mallet/`](./moss-mallet/) | **苔苔敲敲岛 · Moss & Mallet**：可爱等角 3D 森林浮岛、小兔矿工挥锤、相邻同类连锁开采、蘑菇范围爆破与彩虹全岛消除、特殊砖接力、五关收集目标；全屏游戏 HUD、手机横竖屏与双指缩放、原创合成音效和森林旋律 | HTML + Three.js r165 + SVG + WebAudio（本地依赖、零构建、无外部素材请求） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/moss-mallet/) |
 | [`shanghai-bund/`](./shanghai-bund/) | **漫步外滩**：上海外滩像素漫步、四座陆家嘴地标、上海时间同步钟楼、昼夜与雨晴切换、撑伞人流、黄浦江游船与倒影；309 灯点无人机演绎「我 ♥ 上海」、东方明珠和「外滩 · 晚安」，四处观景打卡 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 沿江漫步](https://shfzhangjian.github.io/AI_GTA/shanghai-bund/) |
 | [`yushan-lake-pixel/`](./yushan-lake-pixel/) | **雨山湖夜游**：马鞍山金鹰红色双塔、湖面倒影与湖岸漫步；807 灯点无人机演绎“我爱马鞍山雨山湖”、爱心与双塔；昼夜、雨伞人流、游船、烟花、印记收集，支持 PNG / SVG 截图与 1080p MP4 导出 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 湖畔漫步](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/) · [🎬 成片](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/film.html) |
 | [`tilt-ball/`](./tilt-ball/) | **Tilt Lab 倾斜实验室**：倾斜球台物理闯关，木板 / 冰面 / 毛毡各一关，程序纹理与随机金属陶瓷小球，真实接球洞下落，键盘与手机摇杆 | HTML + Three.js 0.180 + Rapier 3D + Vite（源码与相对路径 dist/ 一并提交） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/tilt-ball/dist/) |
@@ -30,6 +31,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 - shanghai-bund → [源码与操作说明](./shanghai-bund/README.md)
 
 - breakout → [breakout/CODE_INTRO.md](./breakout/CODE_INTRO.md)
+- moss-mallet → [moss-mallet/README.md](./moss-mallet/README.md)（由 Codex 协助开发）
 - low-poly-city → [low-poly-city/README.md](./low-poly-city/README.md)
 - zelda-like → [zelda-like/README.md](./zelda-like/README.md)
 - huluwa-save-grandpa → [huluwa-save-grandpa/README.md](./huluwa-save-grandpa/README.md)
@@ -50,6 +52,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 苔苔敲敲岛（零构建，http://localhost:8788；Windows 也可双击 start-game.cmd）
+cd moss-mallet && npm start
+
 # 漫步外滩（无构建、无运行依赖）
 cd shanghai-bund && npm start
 
@@ -106,6 +111,15 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ## GitHub Pages 部署方式
 
 仓库根目录 `index.html` 为导航落地页；Pages 采用 **Deploy from a branch → `main` / (root)**，各子项目路径直达（见上表）。各子项目自包含、纯静态，无需构建步骤（例外：sketch-wave-racer 源码需 Vite 构建，但其 `dist/` 已随仓库提交，Pages 直接可用）。
+
+## 苔苔敲敲岛 · 连锁开采
+
+点击相邻同类矿块，一锤连消；连消 5 块奖励蘑菇炸弹，8 块再送彩虹魔法。收齐青苔与晶石，探索五种主题小岛。支持手机触摸、双指缩放与放大后拖动，桌面可用 1 / 2 / 3 选择道具、P 暂停、M 静音。
+
+- [在线试玩](https://shfzhangjian.github.io/AI_GTA/moss-mallet/) · [操作与源码说明](./moss-mallet/README.md)
+- 检查：在 `moss-mallet/` 运行 `npm test`，覆盖四向连消、工具优先级、特殊砖接力及 500 轮随机消除后的棋盘完整性。
+
+![苔苔敲敲岛：全屏 3D 森林消除游戏](./moss-mallet/preview-desktop.jpg)
 
 ## Tilt Lab 倾斜实验室开发
 
