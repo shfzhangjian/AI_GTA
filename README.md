@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`pixel-destroy-lab/`](./pixel-destroy-lab/) | **摧毁任意网页 · Pixel Lab**：简体中文像素网页破坏沙盒，内置演示与维基百科示例、公开网页截图关卡、十种武器、飞行与手雷、最多四人房间对战，支持键鼠和触屏操作 | React 19 + Vinext / Vite 8 + Canvas 2D + Cloudflare Workers / D1 / R2（需要编译及后端服务） | [💻 本地启动说明](./pixel-destroy-lab/README.md#本地运行) |
 | [`moss-mallet/`](./moss-mallet/) | **苔苔敲敲岛 · Moss & Mallet**：可爱等角 3D 森林浮岛、小兔矿工挥锤、相邻同类连锁开采、蘑菇范围爆破与彩虹全岛消除、特殊砖接力、五关收集目标；全屏游戏 HUD、手机横竖屏与双指缩放、原创合成音效和森林旋律 | HTML + Three.js r165 + SVG + WebAudio（本地依赖、零构建、无外部素材请求） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/moss-mallet/) |
 | [`shanghai-bund/`](./shanghai-bund/) | **漫步外滩**：上海外滩像素漫步、四座陆家嘴地标、上海时间同步钟楼、昼夜与雨晴切换、撑伞人流、黄浦江游船与倒影；309 灯点无人机演绎「我 ♥ 上海」、东方明珠和「外滩 · 晚安」，四处观景打卡 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 沿江漫步](https://shfzhangjian.github.io/AI_GTA/shanghai-bund/) |
 | [`yushan-lake-pixel/`](./yushan-lake-pixel/) | **雨山湖夜游**：马鞍山金鹰红色双塔、湖面倒影与湖岸漫步；807 灯点无人机演绎“我爱马鞍山雨山湖”、爱心与双塔；昼夜、雨伞人流、游船、烟花、印记收集，支持 PNG / SVG 截图与 1080p MP4 导出 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 湖畔漫步](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/) · [🎬 成片](https://shfzhangjian.github.io/AI_GTA/yushan-lake-pixel/film.html) |
@@ -28,6 +29,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- pixel-destroy-lab → [源码、操作与本地启动说明](./pixel-destroy-lab/README.md)
 - shanghai-bund → [源码与操作说明](./shanghai-bund/README.md)
 
 - breakout → [breakout/CODE_INTRO.md](./breakout/CODE_INTRO.md)
@@ -52,6 +54,13 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 摧毁任意网页（Node.js >= 22.13，需后端服务）
+cd pixel-destroy-lab
+npm ci
+npm run build
+# 首次启动前，按该目录 README 的两条命令初始化本地数据库
+npm start -- --port 8787
+
 # 苔苔敲敲岛（零构建，http://localhost:8788；Windows 也可双击 start-game.cmd）
 cd moss-mallet && npm start
 
@@ -95,6 +104,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
 
+## 摧毁任意网页 · Pixel Lab
+
+把网页变成可破坏的像素关卡：十种武器、跳跃飞行、手雷和最多四人的房间对战。内置演示可直接体验；输入公开网址后，服务端通过 thum.io 获取截图并生成关卡。
+
+- 本地地址：<http://127.0.0.1:8787/>。Windows 完成首次安装与数据库初始化后，可双击 `pixel-destroy-lab/启动游戏.cmd`。
+- 操作：A / D 或方向键移动，空格跳跃或长按飞行，鼠标射击，右键手雷，数字键切换武器，Esc 暂停；手机提供触屏按钮。
+- 已验证：生产编译、类型检查、浏览器进入内置演示，以及本地房间创建、状态同步和退出。
+- [完整安装与启动说明](./pixel-destroy-lab/README.md#本地运行) · [验证记录](./pixel-destroy-lab/docs/VERIFICATION.md) · [素材来源与版本差异](./pixel-destroy-lab/docs/PARITY.md)
+
+![摧毁任意网页：本地浏览器运行的内置演示](./pixel-destroy-lab/preview.jpg)
+
 ## 漫步外滩 · 云端来信
 
 把上海外滩做成一个可以自由散步的像素世界：江海关钟楼与画面上的上海时间逐秒同步，东方明珠、上海中心、环球金融中心和金茂大厦轮廓可辨；游船、行人、烟花、灯光与江面倒影持续变化。
@@ -110,7 +130,9 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 
 ## GitHub Pages 部署方式
 
-仓库根目录 `index.html` 为导航落地页；Pages 采用 **Deploy from a branch → `main` / (root)**，各子项目路径直达（见上表）。各子项目自包含、纯静态，无需构建步骤（例外：sketch-wave-racer 源码需 Vite 构建，但其 `dist/` 已随仓库提交，Pages 直接可用）。
+仓库根目录 `index.html` 为导航落地页；Pages 采用 **Deploy from a branch → `main` / (root)**。上表提供 GitHub Pages 试玩链接的项目可按对应路径访问；需要构建的静态项目已随仓库提交发布产物。
+
+`pixel-destroy-lab/` 提供完整源码，需要编译后启动本地 Wrangler 服务，或部署至 Cloudflare Workers。它的房间数据库和网页截图 API 无法由 GitHub Pages 静态托管运行，启动方法见该项目 README。
 
 ## 苔苔敲敲岛 · 连锁开采
 

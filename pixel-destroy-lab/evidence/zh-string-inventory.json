@@ -1,0 +1,1522 @@
+[
+  {
+    "file": "app/page.tsx",
+    "text": "use client",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "玩家",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "你已重生",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "连接中断，请稍后重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "房间暂不可用，请重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在截取公开网页…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在切分网页…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在加载截图…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在准备关卡…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "无法打开此网页，请稍后重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在创建房间…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在加入房间…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "无法加入房间，请检查房间码",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在准备对局…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "无法开始对局，请重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "已复制",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "请手动复制：",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "链接已复制",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "读取当前网页破坏游戏的状态",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "开始或重新开始内置网页破坏演示",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "请选择演示网页或维基百科示例",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "请先退出多人房间",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "摧毁任意网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "Pixel Lab",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "原版网站 ↗",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "分享此关卡",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "分享",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "请在下方创建或加入房间",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "多人对战",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "关于与素材来源",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "?",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "网页破坏游戏",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "游戏画布。A、D 移动，空格键跳跃或飞行，鼠标瞄准并射击，右键投掷手雷，数字键 1 至 0 切换武器，Esc 暂停。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "%",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "暂停游戏",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "Ⅱ",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "武器",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "手雷",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "投掷手雷",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "RMB",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "A D",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "移动",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "Space",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "跳跃 · 长按飞行",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "鼠标",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "射击",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "Esc",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "暂停",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "向左移动",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "向右移动",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "向下穿过平台",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "跳跃或飞行",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "投掷手雷",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "射击",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "射击",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "向左移动",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "向右移动",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "向下穿过平台",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "跳跃或飞行",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "投掷手雷",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "射击",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "次击败",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "生命",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "排行榜 · 先达 10 次击败者胜",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "连接已断开，正在重连…",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "关闭",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "×",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "Pixel Lab 出品",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "已暂停",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "嵌入你的网站",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "多人对战 ·",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "网页已摧毁",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "对局结束",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "关于此复刻版本",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "演示网页",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "网页截图",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "摧毁任意网页",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "网页破坏沙盒的操作和设置",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "摧毁任意网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "输入网址，把整个网页砸个粉碎。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "https://",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "网页地址",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "⚡ 摧毁",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "试试",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "演示网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "维基百科",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "点击“摧毁”后，公开网址将发送至 thum.io，生成 1200 × 1200 截图。不支持私密页面、登录凭据或带查询参数的网址。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "多人对战",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "创建房间",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "房间码",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "房间码",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "加入",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "嵌入你的网站",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "A",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "D",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "移动",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "Space",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "跳跃 · 长按飞行",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "◧ 射击",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "◨ 手雷",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "独立复刻 · 素材来源与版本差异",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在加载…",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "公开网页截图最长可能需要 45 秒",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "继续游戏",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "重置网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "更换网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "退出房间",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "嵌入你的网站",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "选择武器：",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "背景",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "黄昏山景",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "晴日海岸",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "霓虹城市",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "音效",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "开启",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "关闭",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "A D / 方向键",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "左右移动",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "空格 / W",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "跳跃；空中再次按下翻转；长按飞行",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "S",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "向下穿过平台",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "鼠标",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "瞄准，按住左键连续射击",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "鼠标右键",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "投掷手雷",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "1–0 / 滚轮",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "切换武器",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "无人机",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "再次射击，命令无人机俯冲",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "打开菜单时，多人对局仍会继续。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "在你的网站上放置一个摧毁按钮。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "摧毁这个网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "深色",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "浅色",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "嵌入代码",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "嵌入代码已复制",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "复制代码",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "此网站为私密网站，访客需要先获得访问权限，才能使用嵌入按钮。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "返回",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "邀请链接",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "复制邀请链接",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "昵称",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "你的昵称",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "你 ·",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "房主",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "https://",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "对战网页地址",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "⚡ 开始",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "试试",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "演示网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "维基百科",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在等待房主选择网页。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "最多 4 人，率先击败对手 10 次获胜。受邀玩家需要获得此私密网站的访问权限。公开网页截图由 thum.io 提供。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "退出房间",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "100%",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "全部摧毁，一个像素也不留。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "继续破坏",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "换个网页继续",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "嵌入你的网站",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "玩家",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "获胜！",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "次击败",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "再来一局",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "更换网页",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "正在等待房主开始下一局。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "退出房间",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "为破坏而生",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "这是一个独立实现的可玩复刻版本，灵感来自",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "Sprite Fusion 的原版游戏",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "。角色动画、武器、特效和音效均为独立实现。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "与原版的差异：角色美术和物理效果独立实现；公开网页使用 1200 × 1200 截图，并产生像素碎片，不包含原版对文字和布局的语义切割。内置页面支持文字碎片。多人模式通过定时同步房间状态实现。网页截图受 thum.io 服务状态和免费额度限制。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "黄昏山景（Mountain at Dusk）：Luis Zuno / ansimuz，CC0。城市视差背景（City Parallax）：Gustavo Saraiva，CC0。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "海洋背景（Ocean Background），作者 KnoblePersona",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": ",",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "CC BY 3.0",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "（仅缩放，未修改内容）。Silkscreen 字体：SIL 开放字体许可证。维基百科示例：依据 CC BY-SA 改编。",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "完整素材来源与许可证",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "返回",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "当前武器：",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "。摧毁进度：",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "%。位置：",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": ",",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": "。粒子数：",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/page.tsx",
+    "text": ".",
+    "type": "JsxText"
+  },
+  {
+    "file": "app/layout.tsx",
+    "text": "摧毁任意网页 · Pixel Lab",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/layout.tsx",
+    "text": "像素风网页破坏沙盒：十种武器、飞行、手雷与多人对战。输入公开网址，把整个网页砸个粉碎。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "手枪",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "冲锋枪",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "霰弹枪",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "火箭筒",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "轨道炮",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "火焰喷射器",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "超载炮",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "无人机",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "脉冲星炮 · PSR B0531+21",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "魔法棒",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "px Arial, \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "截图加载失败，请重新截取网页",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "目录",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "概述",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "历史",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "文化中的形象",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "计算机图形",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "另见",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "参考资料",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "外部链接",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "火柴人",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "条目     讨论",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "维基百科，自由的百科全书",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "火柴人是一种极为简单的人物或动物画法，",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "通常由几条直线、曲线和点组成。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "头部往往画成圆形，手臂、双腿和躯干",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "则用简单的线条表示。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "手、脚、脖子等细节可以出现，也可以省略。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "火柴人在世界各地被用作图形符号，",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "常见于图表、标志、动画和电子游戏。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "简单的轮廓，让动作一目了然。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "历史",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "火柴人是最简单的绘画形式之一。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "儿童和成人都用它来表达故事与想法。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "一个简单的火柴人",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "文字改编自维基百科 · CC BY-SA",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "产品      安全      价格      文档",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "登录",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "全新升级 · 防护能力提升 100%",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "这个网页，",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "绝对无法",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "bold 66px Arial, \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "被",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "绝对无法",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "摧毁。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "为不可能而生。打破规则，击碎每个像素，",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "让一切化为碎片。来吧，尽管试试看。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "免费开始",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "预约演示",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "深受珍爱自己网站的团队信赖",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "NORTHWIND   GLOBEX   INITECH   UMBRELLA",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "运行率",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "损伤",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "威胁",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "一切都比看起来更脆弱。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "防弹级 CSS",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "坚不可摧的布局",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "像素级稳定运行",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "听起来很厉害？那就来试试。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "100% 自信，0% 保证。",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "15px \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "玩家",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/game.ts",
+    "text": "px Arial, \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/server.ts",
+    "text": "房间服务暂不可用，请稍后重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/server.ts",
+    "text": "截图存储暂不可用，请稍后重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/server.ts",
+    "text": "网址格式不正确，请输入有效的公开网页地址",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/server.ts",
+    "text": "请输入公开的 HTTP 或 HTTPS 网页地址",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/server.ts",
+    "text": "不支持本地、私密或 IP 地址形式的网址",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "lib/server.ts",
+    "text": "为保护隐私，请使用不含查询参数的公开网址",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "玩家",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "DELETE FROM events WHERE created<?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "DELETE FROM players WHERE room IN (SELECT code FROM rooms WHERE created<?)",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "DELETE FROM rooms WHERE created<?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "INSERT INTO rooms(code,host,created) VALUES(?,?,?)",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "INSERT INTO players(id,room,name,seen,token) VALUES(?,?,?,?,?)",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "请输入 6 位房间码",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT * FROM rooms WHERE code=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "找不到该房间，请检查房间码",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "房间已超过两小时有效期，请创建新房间",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT COUNT(*) n FROM players WHERE room=? AND seen>?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "房间已满，最多支持 4 位玩家",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "INSERT INTO players(id,room,name,x,seen,token) VALUES(?,?,?,?,?,?)",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT * FROM players WHERE id=? AND room=? AND token=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "房间会话已结束，请重新加入",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "DELETE FROM players WHERE id=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT id FROM players WHERE room=? ORDER BY seen DESC LIMIT 1",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE rooms SET host=? WHERE code=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "只有房主可以开始对局",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "关卡无效，请重新选择",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE rooms SET phase='playing',map=?,round=round+1,winner=NULL WHERE code=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE players SET health=100,kills=0 WHERE room=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "DELETE FROM events WHERE room=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE players SET name=?,x=?,y=?,angle=?,weapon=?,seen=? WHERE id=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "INSERT INTO events(room,round,player,data,created) VALUES(?,?,?,?,?)",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT * FROM players WHERE room=? AND id!=? AND seen>?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE players SET health=100 WHERE id=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE players SET kills=kills+1 WHERE id=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "INSERT INTO events(room,round,player,data,created) VALUES(?,?,?,?,?)",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE players SET health=health-? WHERE id=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT id FROM players WHERE room=? AND kills>=10 LIMIT 1",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "UPDATE rooms SET phase='over',winner=? WHERE code=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "DELETE FROM events WHERE room=? AND id < (SELECT COALESCE(MAX(id),0)-20000 FROM events WHERE room=?)",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT * FROM rooms WHERE code=?",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT * FROM players WHERE room=? AND seen>? ORDER BY id",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "SELECT id,player,data FROM events WHERE room=? AND round=? AND id>? ORDER BY id LIMIT 500",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "无法识别此房间操作",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/room/route.ts",
+    "text": "房间服务暂不可用，请重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/capture/route.ts",
+    "text": "截图服务访问过于频繁或免费额度已用尽，请稍后重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/capture/route.ts",
+    "text": "截图服务无法截取此网页，请尝试其他公开页面",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/capture/route.ts",
+    "text": "截图服务未返回图片，请稍后重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/capture/route.ts",
+    "text": "无法加载此截图，请尝试其他网页",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/capture/route.ts",
+    "text": "截图等待超时，请尝试其他公开网页",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/capture/route.ts",
+    "text": "截图服务暂不可用，请稍后重试",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/map/route.ts",
+    "text": "截图标识无效，请重新选择网页",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/map/route.ts",
+    "text": "截图已过期，请重新截取此网页",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/map/route.ts",
+    "text": "private, max-age=3600",
+    "type": "StringLiteral"
+  },
+  {
+    "file": "app/api/map/route.ts",
+    "text": "截图暂不可用，请稍后重试",
+    "type": "StringLiteral"
+  }
+]

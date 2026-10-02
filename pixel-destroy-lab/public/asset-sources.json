@@ -1,0 +1,60 @@
+[
+  {
+    "name": "Mountain at Dusk Background",
+    "author": "Luis Zuno (ansimuz)",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://opengameart.org/node/36095",
+    "download": "https://opengameart.org/sites/default/files/parallax_mountain_pack.zip",
+    "files_root": "parallax_mountain_pack/parallax_mountain_pack/",
+    "draw_order": [
+      "layers/parallax-mountain-bg.png",
+      "layers/parallax-mountain-montain-far.png",
+      "layers/parallax-mountain-mountains.png",
+      "layers/parallax-mountain-trees.png",
+      "layers/parallax-mountain-foreground-trees.png"
+    ],
+    "attribution_required": false
+  },
+  {
+    "name": "Ocean Background",
+    "author": "KnoblePersona",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "source": "https://opengameart.org/content/ocean-background",
+    "download": "https://opengameart.org/sites/default/files/Ocean.png",
+    "files": [
+      "ocean.png"
+    ],
+    "attribution_required": true,
+    "changes": "Original image unchanged; filename lowercased from Ocean.png to ocean.png."
+  },
+  {
+    "name": "City Parallax pixel art",
+    "author": "Gustavo Saraiva",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://opengameart.org/content/city-parallax-pixel-art",
+    "download": "https://opengameart.org/sites/default/files/City.zip",
+    "files_root": "city-parallax/City/",
+    "draw_order": [
+      "BG.png",
+      "Background 1.png",
+      "Middle.png",
+      "Foreground.png"
+    ],
+    "attribution_required": false
+  },
+  {
+    "name": "Silkscreen",
+    "author": "The Silkscreen Project Authors; original typeface Jason Kottke",
+    "license": "SIL Open Font License 1.1",
+    "source": "https://github.com/googlefonts/silkscreen",
+    "files": [
+      "Silkscreen-Regular.ttf",
+      "Silkscreen-Bold.ttf",
+      "Silkscreen-OFL.txt"
+    ],
+    "requirement": "Retain copyright statement and full OFL notice with redistributed fonts."
+  }
+]

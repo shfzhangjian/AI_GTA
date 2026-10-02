@@ -1,0 +1,2 @@
+import {bucket,json} from '@/lib/server';
+export async function GET(req:Request){try{const id=new URL(req.url).searchParams.get('id')||'';if(!/^[a-f0-9]{64}$/.test(id))return json({error:'截图标识无效，请重新选择网页'},400);const object=await bucket().get('maps/'+id);if(!object)return json({error:'截图已过期，请重新截取此网页'},404);return new Response(object.body,{headers:{'Content-Type':object.httpMetadata?.contentType||'image/png','Cache-Control':'private, max-age=3600'}});}catch{return json({error:'截图暂不可用，请稍后重试'},503)}}

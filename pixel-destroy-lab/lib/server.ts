@@ -1,0 +1,5 @@
+import {env} from 'cloudflare:workers';
+export function db(): D1Database {const d=(env as unknown as {DB:D1Database}).DB;if(!d)throw new Error('房间服务暂不可用，请稍后重试');return d;}
+export function bucket(): R2Bucket {const b=(env as unknown as {BUCKET:R2Bucket}).BUCKET;if(!b)throw new Error('截图存储暂不可用，请稍后重试');return b;}
+export function json(data:unknown,status=200){return Response.json(data,{status,headers:{'Cache-Control':'no-store'}})}
+export function validUrl(value:string){let u:URL;try{u=new URL(value.includes('://')?value:'https://'+value)}catch{throw new Error('网址格式不正确，请输入有效的公开网页地址')};if(!['http:','https:'].includes(u.protocol)||u.username||u.password||u.port&&!['80','443'].includes(u.port))throw new Error('请输入公开的 HTTP 或 HTTPS 网页地址');const h=u.hostname.toLowerCase();if(!h.includes('.')||h.includes(':')||/^[\d.]+$/.test(h)||/(^|\.)(localhost|local|localdomain|internal|test|invalid|onion|home|lan)$/.test(h))throw new Error('不支持本地、私密或 IP 地址形式的网址');if(u.search)throw new Error('为保护隐私，请使用不含查询参数的公开网址');u.hash='';return u.toString();}
