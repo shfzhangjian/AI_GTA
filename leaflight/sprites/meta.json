@@ -1,0 +1,62 @@
+{
+  "name": "森林小精灵",
+  "id": "forest_spirit",
+  "sheet": "forest_spirit_4dir.png",
+  "cell": [
+    128,
+    128
+  ],
+  "pivot_pixels": [
+    64,
+    112
+  ],
+  "pivot_normalized": [
+    0.5,
+    0.875
+  ],
+  "layout": "one horizontal row; SE, SW, NE, NW",
+  "directions": [
+    "se",
+    "sw",
+    "ne",
+    "nw"
+  ],
+  "frames_per_direction": 1,
+  "animated": false,
+  "frames": {
+    "se": {
+      "x": 0,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    },
+    "sw": {
+      "x": 128,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    },
+    "ne": {
+      "x": 256,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    },
+    "nw": {
+      "x": 384,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    }
+  },
+  "target_figure_height": 96,
+  "palette_target": 28,
+  "opaque_colors_including_outline": 39,
+  "mirrored": {
+    "sw": "se",
+    "nw": "ne"
+  },
+  "generation": "built-in imagegen; prompt adapted from scenario-iso-cycles make_prompts.py",
+  "processing": "scenario-iso-cycles reframe.py; process.py key, bbox, pixelate, build_palette, apply_palette",
+  "scenario_model_jobs": []
+}

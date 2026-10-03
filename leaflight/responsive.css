@@ -1,0 +1,25 @@
+@media (max-width: 1000px) {
+  .play-layout { display: block; }
+  .field-notes { margin-top: 14px; padding: 16px; display: block; }
+  .field-notes > .eyebrow, .field-notes > h2, .quest,
+  .field-notes .tip, .field-notes .journal-divider,
+  .field-notes .legend, .journal-bottom { display: none; }
+  .collection { margin: 0; }
+  .collection-label strong { font-size: 23px; }
+  .star-grid { grid-template-columns: repeat(12, 1fr); gap: 4px; }
+  .text-button { padding-top: 12px; }
+  .scene-footer { justify-content: center; gap: 25px; }
+  .scene-footer span:nth-child(3) { display: flex; }
+}
+
+@media (max-width: 420px) {
+  .overlay-card { padding: 12px 16px; margin: 8px; }
+  .spirit-portrait { display: none; }
+  .overlay-kicker { margin: 6px 0; }
+  .overlay-card h2 { font-size: 18px; margin: 8px 0; }
+  .overlay-card > p:not(.overlay-kicker):not(.overlay-hint) {
+    font-size: 10px; line-height: 1.7; margin-bottom: 10px;
+  }
+  .overlay-hint { display: none; }
+  .primary-button { padding: 9px 20px; }
+}

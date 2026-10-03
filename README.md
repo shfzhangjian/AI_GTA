@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`leaflight/`](./leaflight/) | **叶间微光 · Leaflight**：等角像素森林冒险，叶帽小精灵收集 12 颗星露、躲避暗影菇并返回树心祭坛；点击寻路、无敌冲刺与眩晕、三格生命、暂停和重开，支持手机触屏 | HTML + 原生 JavaScript + Canvas 2D + WebAudio（零依赖、零构建、本地精灵素材） | [🌱 进入森林](https://shfzhangjian.github.io/AI_GTA/leaflight/) |
 | [`cube-atelier/`](./cube-atelier/) | **魔方实验室 · Cube Atelier**：交互式三阶魔方、10 / 20 / 30 步打乱、人工转动、当前状态逐步还原指导与转错后重新规划、同步六面展开图、六组公式独立演示、撤销重做与练习保存，支持桌面和手机 | HTML + Three.js 0.185.1 + cubejs Worker（本地依赖、零构建、无外部资源请求） | [🧩 开始练习](https://shfzhangjian.github.io/AI_GTA/cube-atelier/) |
 | [`tropical-island/`](./tropical-island/) | **潮屿 · TIDELANDS**：云海中的热带浮岛，恐龙头骨瀑布、肋骨珊瑚庭、木屋栈桥、棕榈林和火山；驾驶小船收集 8 颗珍珠、修复 4 处地标，支持自动绕岛寻路、昼夜、拍照、声音、存档和手机操作 | HTML + Three.js 0.185.1 + 自定义 GLSL + WebAudio（本地依赖、零构建、无远程素材请求） | [🏝️ 启航探索](https://shfzhangjian.github.io/AI_GTA/tropical-island/) |
 | [`citrus-jelly/`](./citrus-jelly/) | **柑橘果冻 · Citrus Jelly**：半透明软糖柑橘树，局部弯曲与回弹、28 枚双向耦合悬果、摇晃掉落、摘取与投掷、碰撞与休眠、空茎再生；三组配色、硬度、阻尼、成熟度，手机横竖屏折叠面板 | 单文件 HTML + 原生 WebGPU / WGSL + 固定步长位置约束物理（零依赖、零构建、无外部资源请求，需支持 WebGPU） | [🍊 立即体验](https://shfzhangjian.github.io/AI_GTA/citrus-jelly/) |
@@ -35,6 +36,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- leaflight → [源码、玩法与运行说明](./leaflight/README.md) · [验证记录](./leaflight/VALIDATION.md)（由 Codex 协助开发）
 - citrus-jelly → [源码、操作与运行说明](./citrus-jelly/README.md) · [验证记录](./citrus-jelly/VALIDATION.md)（由 Codex 协助开发）
 - cube-atelier → [源码、操作与运行说明](./cube-atelier/README.md) · [验证记录](./cube-atelier/VALIDATION.md)（由 Codex 协助开发）
 - tropical-island → [源码、玩法与运行说明](./tropical-island/README.md) · [验证记录](./tropical-island/qa/verification.json)（由 Codex 协助开发）
@@ -66,6 +68,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 叶间微光（零依赖、零构建，可直接打开 index.html；本地预览 http://127.0.0.1:8786）
+cd leaflight && node server.cjs
+
 # 潮屿（Node.js >= 18，无需安装依赖或构建，http://127.0.0.1:5188）
 cd tropical-island && npm start
 
@@ -156,6 +161,16 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 - 已验证 1,518 次独立色块对照、12 个随机状态求解，以及浏览器中的视图同步、指导纠错、完整还原、演示恢复和手机操作，详见 [验证记录](./cube-atelier/VALIDATION.md)。
 
 ![魔方实验室：3D 魔方与实时展开图](./cube-atelier/preview.png)
+
+## 叶间微光 · Leaflight
+
+带着一只叶帽小精灵探索等角像素森林，收集十二颗星露，躲避游荡的暗影菇，再回到树心祭坛点亮森林。
+
+- [在线试玩](https://shfzhangjian.github.io/AI_GTA/leaflight/) · [源码、玩法与运行说明](./leaflight/README.md) · [验证记录](./leaflight/VALIDATION.md)
+- WASD / 方向键移动，点击空地自动寻路；空格冲刺期间无敌，并能击晕暗影菇。三格生命、收集进度、冷却提示、暂停与重开，支持手机方向按钮和触屏冲刺。
+- 原生 JavaScript + Canvas 2D + WebAudio，场景与音效由程序生成；叶帽角色采用本地四向透明 PNG。零依赖、零构建、无外部素材请求，可以直接打开 HTML 或通过 GitHub Pages 游玩。
+
+![叶间微光：叶帽小精灵与等角像素森林的实机画面](./leaflight/preview.jpg)
 
 ## 柑橘果冻 · Citrus Jelly
 

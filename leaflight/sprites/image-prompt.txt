@@ -1,0 +1,11 @@
+Pixel art game sprite sheet, two poses of the same character side by side, standing neutral, full body, on a completely transparent background with genuine alpha, no shadows on the ground, no text.
+
+Character: a tiny cute woodland sprite with a large warm cream round face, two dark oval eyes and a small smile inside a pointed green leaf hood with a little sprout on top. A layered green leaf cape covers a small mint tunic, with a round amber acorn clasp centred on the chest. Short arms, tiny brown boots, no weapon, no extra props. Symmetrical costume and design suitable for mirrored game sprites.
+
+Camera: classic isometric RPG view, seen from about 30 degrees above.
+Left pose: body turned three-quarters toward the viewer, facing down and to the right (south-east).
+Right pose: body turned three-quarters away from the viewer, facing up and to the right (north-east), we see the back of the pointed leaf hood, the sprout, and the overlapping leaf cape; no face or chest clasp is visible from behind.
+
+Style: crisp hand-placed 16-bit pixel art, chunky readable silhouette, restrained forest green and mint palette with warm cream and amber accents, dark green one-pixel outline, soft top-left lighting, each figure about 60% of the image height, both figures the same size and aligned on the same baseline, generous empty space around each.
+
+Production constraints: exactly TWO figures, each isolated in its own equal-width half of a landscape canvas. This is a game sprite turnaround reference, not an illustration scene. Bold clean pixel clusters, no dithering noise, no antialiasing or gradients, no scenery, no text, no labels, no floor, no cast shadow, no loose particles. Both figures show the SAME character. The right figure must show its back, without visible face or eye. Design should remain readable after downscaling to 96 pixels tall.
