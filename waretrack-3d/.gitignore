@@ -1,0 +1,3 @@
+node_modules/
+# dist/ is committed for the repository's GitHub Pages deployment.
+.DS_Store
