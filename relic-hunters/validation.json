@@ -1,0 +1,29 @@
+{
+  "flow": {
+    "state": "victory",
+    "loops": 2999,
+    "rooms": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "bosses": 3,
+    "choices": 27,
+    "kills": 87,
+    "treasures": 9,
+    "bank": 324,
+    "collectedRelics": 18
+  },
+  "errors": [],
+  "mobile": {
+    "scrollWidth": 390,
+    "innerWidth": 390
+  },
+  "checkedAt": "2026-10-03T08:35:13.324Z"
+}

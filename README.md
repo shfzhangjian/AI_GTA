@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`relic-hunters/`](./relic-hunters/) | **遗物猎场 · RELIC FIELD**：废墟寻宝主题的等距像素动作肉鸽，10 名角色、24 把武器、40 件遗物、8 种补给、六系组合、9 个房间与 3 位 Boss；手动攻击、闪避、技能、随机奖励和永久收藏图鉴，支持键鼠与触屏 | HTML + 原生 ES Module + Canvas 2D + WebAudio（本地八方向像素素材、零运行依赖、零构建） | [◇ 进入遗迹](https://shfzhangjian.github.io/AI_GTA/relic-hunters/) |
 | [`neon-breakout/`](./neon-breakout/) | **霓城突围**：中文 3D 跑酷射击，三位中文英雄、六章闯关、增益门、武器升级、巨型首领与无尽挑战；卷发连帽衫主角和破衣绿色怪物，支持键盘与手机触屏 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需外部素材服务） | [⚡ 开始突围](https://shfzhangjian.github.io/AI_GTA/neon-breakout/) |
 | [`sunfall/`](./sunfall/) | **落日协议 · SUNFALL**：1 名玩家与 11 名 AI 对手的 3D 海岛大逃杀，空降、搜刮装备、三类枪械、风暴安全区、AI 寻路与交战，支持键鼠和触屏 | HTML + Three.js r180 + 原生 ES Module + WebAudio（零构建；Python 本地服务；角色首次从官方来源获取） | [🪂 本地启动说明](./sunfall/README.md#本地启动) |
 | [`leaflight/`](./leaflight/) | **叶间微光 · Leaflight**：等角像素森林冒险，叶帽小精灵收集 12 颗星露、躲避暗影菇并返回树心祭坛；点击寻路、无敌冲刺与眩晕、三格生命、暂停和重开，支持手机触屏 | HTML + 原生 JavaScript + Canvas 2D + WebAudio（零依赖、零构建、本地精灵素材） | [🌱 进入森林](https://shfzhangjian.github.io/AI_GTA/leaflight/) |
@@ -38,6 +39,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- relic-hunters → [源码、玩法与启动说明](./relic-hunters/README.md) · [游戏设计](./relic-hunters/docs/GAME_DESIGN.md) · [82 个内容条目](./relic-hunters/docs/CONTENT_CATALOG.md) · [验证记录](./relic-hunters/docs/QA.md)（由 Codex 协助开发）
 - neon-breakout → [源码、玩法与启动说明](./neon-breakout/README.md) · [验证记录](./neon-breakout/VALIDATION.md) · [角色模型展示](https://shfzhangjian.github.io/AI_GTA/neon-breakout/src/character-preview.html)（由 Codex 协助开发）
 - sunfall → [源码、操作与启动说明](./sunfall/README.md) · [本地验证记录](./sunfall/VALIDATION.md) · [角色素材说明](./sunfall/THIRD_PARTY_ASSETS.md)
 - leaflight → [源码、玩法与运行说明](./leaflight/README.md) · [验证记录](./leaflight/VALIDATION.md)（由 Codex 协助开发）
@@ -72,6 +74,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 遗物猎场（Node.js >= 20，无需安装运行依赖或构建，http://127.0.0.1:8731）
+cd relic-hunters && npm start
+
 # 霓城突围（Node.js >= 20，无需安装依赖或构建，http://127.0.0.1:5199）
 cd neon-breakout && npm start
 
@@ -148,6 +153,18 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 遗物猎场 · RELIC FIELD
+
+在沉没庭院、失火铸坊和无声书库探索旧世界，手动瞄准攻击、闪避危险区、释放猎人技能，把武器、遗物与故事带回营地。10 名角色可搭配 24 把武器，40 件遗物按余烬、霜晶、雷鸣、菌蚀、回响和钢铁六个系列形成 3 件 / 6 件组合。
+
+- [在线试玩](https://shfzhangjian.github.io/AI_GTA/relic-hunters/) · [源码与启动说明](./relic-hunters/README.md) · [游戏设计](./relic-hunters/docs/GAME_DESIGN.md) · [完整内容图鉴](./relic-hunters/docs/CONTENT_CATALOG.md)
+- 9 个连续房间、3 位机制不同的 Boss、随机守卫与宝箱奖励；升级选遗物、秘匣换武器，8 种补给支持治疗、冻结、爆炸与增伤。发现记录永久保存；通关归档全部碎片，中途倒下或撤退保留 40%。
+- WASD / 方向键移动，鼠标瞄准与按住左键攻击，空格闪避，E 技能，Q 补给，F 秘匣 / 前进，Esc 暂停。手机提供方向、自动瞄准攻击与技能按钮。
+- 原生 Canvas 2D + ES Module + WebAudio，40 张原创像素精灵图使用八方向、八帧与固定脚底锚点，武器独立绘制；无外部素材请求、无需构建，可由 GitHub Pages 静态托管。Scenario MCP 未连接，当前素材由程序绘制，正式动画配置与离线请求模板随 [美术管线说明](./relic-hunters/docs/ANIMATION_PIPELINE.md) 提供。
+- [14 项规则、浏览器完整路线、正常首房间战斗与手机布局验证](./relic-hunters/docs/QA.md)。本地运行 `cd relic-hunters && npm start`，或 Windows 双击 `relic-hunters/开始游戏.cmd`；浏览器打开 <http://127.0.0.1:8731/>。
+
+![遗物猎场：八方向像素猎人与等距废墟的实机画面](./relic-hunters/preview-desktop.png)
 
 ## 霓城突围 · 中文跑酷射击
 

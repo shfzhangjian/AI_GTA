@@ -1,0 +1,21 @@
+const {output,testUrl,launchBrowser}=require('./browser-support.cjs');
+const fs=require('node:fs');
+(async()=>{
+ const browser=await launchBrowser();
+ const page=await browser.newPage({viewport:{width:1440,height:960},deviceScaleFactor:1});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+ await page.goto(testUrl());await page.waitForFunction(()=>window.__relicTest);await page.screenshot({path:output('preview-desktop.png')});
+ console.log('LOBBY',await page.locator('#journal h2').textContent());
+ await page.locator('[data-hero="witch"]').click();console.log('HERO',await page.locator('.hero-summary h3').textContent());
+ await page.locator('#loadout-btn').click();console.log('ARMORY',await page.locator('.catalog-card').count());await page.locator('[data-id="thunderhammer"]').click();
+ await page.locator('[data-nav="codex"]').click();await page.locator('[data-tab="relics"]').click();console.log('RELICS',await page.locator('.catalog-card').count());await page.locator('#catalog-search').fill('复活');console.log('SEARCH',await page.locator('.catalog-card').count());await page.locator('#modal-close').click();
+ await page.locator('#start-btn').click();await page.keyboard.down('KeyD');await page.waitForTimeout(450);await page.keyboard.up('KeyD');const moved=await page.evaluate(()=>window.__relicTest.game.player.x>440);console.log('MOVEMENT',moved);
+ await page.keyboard.press('Space');await page.keyboard.press('KeyE');await page.waitForTimeout(100);console.log('ACTIONS',await page.evaluate(()=>{const g=window.__relicTest.game;return{dodge:g.player.dodgeCd>0,skill:g.player.skillCd>0};}));
+ await page.keyboard.press('Escape');console.log('PAUSE',await page.evaluate(()=>window.__relicTest.game.state));await page.keyboard.press('Escape');console.log('RESUME',await page.evaluate(()=>window.__relicTest.game.state));
+ await page.screenshot({path:output('preview-combat.png')});
+ const flow=await page.evaluate(()=>{const {game:g}=window.__relicTest;let choices=0,loops=0,bosses=0;const rooms=new Set();g.player.hp=50000;g.player.shield=50000;while(!['victory','dead'].includes(g.state)&&loops<45000){loops++;rooms.add(g.room);if(g.state==='choice'){choices++;g.choose(g.currentChoices[0].id);continue;}if(g.state==='cleared'){g.interact();continue;}if(g.state==='paused'){g.resume();continue;}const target=g.nearest(g.player);if(target){const d=Math.hypot(target.x-g.player.x,target.y-g.player.y);if(d>70){g.player.x+=(target.x-g.player.x)/d*7;g.player.y+=(target.y-g.player.y)/d*7;}g.aim={x:target.x,y:target.y};g.player.angle=Math.atan2(target.y-g.player.y,target.x-g.player.x);g.holding=true;if(loops%150===0)g.skill();}if(g.boss&&!g.boss._counted){g.boss._counted=true;bosses++;}g.update(1/30);}return{state:g.state,loops,rooms:[...rooms],bosses,choices,kills:g.run.kills,treasures:g.run.treasures,bank:g.save.bank,collectedRelics:g.save.relics.length};});console.log('FLOW',JSON.stringify(flow));
+ if(flow.state!=='victory'||flow.rooms.length!==9||flow.bosses!==3||!moved||errors.length)throw new Error(JSON.stringify({flow,moved,errors}));
+ await page.locator('#camp-btn').click();await page.reload();await page.waitForFunction(()=>window.__relicTest);console.log('PERSISTENCE',await page.evaluate(()=>({bank:window.__relicTest.game.save.bank,found:window.__relicTest.game.save.relics.length})));
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:output('preview-mobile.png')});const layout=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,innerWidth}));console.log('MOBILE',layout);if(layout.scrollWidth>layout.innerWidth)throw new Error('Mobile horizontal overflow');
+ fs.writeFileSync(output('validation.json'),JSON.stringify({flow,errors,mobile:layout,checkedAt:new Date().toISOString()},null,2));console.log('ERRORS',errors);await browser.close();
+})().catch(e=>{console.error(e);process.exitCode=1;});

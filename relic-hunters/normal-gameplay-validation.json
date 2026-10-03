@@ -1,0 +1,14 @@
+{
+  "result": {
+    "state": "cleared",
+    "loops": 287,
+    "kills": 9,
+    "hp": 114,
+    "maxhp": 114,
+    "level": 2,
+    "choices": 1,
+    "elapsed": 10
+  },
+  "guideResume": true,
+  "errors": []
+}

@@ -1,0 +1,395 @@
+{
+  "_comment": "Prepared from scenario-iso-cycles. Templates only: Scenario MCP was not connected; no model ids, paid calls, jobs or assets were fabricated. Body sprites have empty hands; weapons are separate runtime layers. Original prototype sheets are assets/*.png.",
+  "canvas": 960,
+  "fig_frac": 0.58,
+  "base_frac": 0.82,
+  "frames": 8,
+  "cycles": [
+    "walk",
+    "run",
+    "idle",
+    "attack"
+  ],
+  "style": "crisp hand-placed 16-bit pixel art, 1px dark forest outline, 24-colour earthy palette, muted moss green and warm parchment accents, soft top-left lighting, compact readable silhouettes",
+  "facings": [
+    "se",
+    "ne",
+    "e",
+    "s",
+    "n"
+  ],
+  "camera": "isometric",
+  "key": "magenta",
+  "heroes": {
+    "ranger": {
+      "_name": "苔痕",
+      "character": "a compact ruin ranger in a moss-green hood and short cloak, tan leather tunic, ochre trim, dark boots, a square field satchel centred on the back; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "遗迹游侠 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "knight": {
+      "_name": "铁誓",
+      "character": "a stocky oath knight in slate-silver plate, a rounded full helmet with a short terracotta crest, weathered copper trim, broad shoulders and sturdy boots; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "破城骑士 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "witch": {
+      "_name": "烬灯",
+      "character": "a young ember witch wearing a rust-orange robe and a pointed wide-brim hat, pale gold belt and cuffs, brown boots, a small closed lamp centred at the belt; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "余火术士 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "rogue": {
+      "_name": "鸦影",
+      "character": "a nimble ruin thief in a charcoal lavender coat, a low eye band and cloth face mask, cream belt, light boots, a symmetric short split cloak; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "秘匣盗客 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "tinker": {
+      "_name": "铜铃",
+      "character": "a small scrap engineer in a mustard utility coat, brass goggles, desaturated teal gloves, padded boots, a square tool pack centred on the back; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "遗械工匠 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "oracle": {
+      "_name": "霜书",
+      "character": "a frost scholar in a pale teal hood and coat, ivory trim, dark slate boots, a rectangular book pack centred on the back, a calm face; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "冻时学者 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "monk": {
+      "_name": "震岳",
+      "character": "a sturdy bald stone monk in a warm sand vest, ochre sash, stone-grey hand wraps and simple boots, a heavy but agile stance; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "鸣石武僧 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "botanist": {
+      "_name": "孢芽",
+      "character": "a cheerful mushroom botanist with a salmon mushroom-cap hat with pale speckles, sage-green coat, cream apron and dark boots, a herb pack centred on the back; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "菌林药师 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "warden": {
+      "_name": "夜潮",
+      "character": "a grave keeper in a deep sea-green hood and face veil, muted violet trim, long split coat, grey boots, a symmetric pale memorial emblem centred on the back; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "回响守墓人 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    },
+    "corsair": {
+      "_name": "赤帆",
+      "character": "a sunken-city hunter with a terracotta head band and coat, cream undershirt, pale ochre belt and brown boots, a short symmetric coat tail; both hands empty for modular game weapons",
+      "back": "we see the back of the headwear and coat, and the centred back-pack or emblem",
+      "who": "沉城猎手 ruin explorer",
+      "pronoun": "They",
+      "extra": ", coat hems and straps sway subtly",
+      "idle": "the chest breathes softly and the coat hem moves by one pixel",
+      "attack": "unarmed modular attack pose: pulls the leading arm back, quickly swings or thrusts the empty hands forward in the facing direction, follows through, then returns to the ready pose; do not invent a held weapon",
+      "attack_facing": {
+        "s": "a head-on empty-hand strike straight toward the viewer; both shoulders remain symmetrical, never turns side-on",
+        "n": "an empty-hand strike straight away from the viewer; spine remains centred and the back stays fully visible"
+      },
+      "back_view": "the back of the headwear and coat, with any pack or emblem staying centred",
+      "notes": "Both hands are empty. Symmetric silhouette and centred equipment allow horizontal mirroring without swapping weapon hands. Game weapons are composited separately.",
+      "turn_notes": {
+        "e": "A strict right-facing profile; pack appears behind the body on the left of the image.",
+        "s": "Exact front view, both shoulders level, empty hands equally visible, face and chest on the vertical centre line.",
+        "n": "Exact rear view; the headwear, spine and back-pack or emblem share the same vertical centre line."
+      },
+      "height": 64,
+      "palette": 24,
+      "ranges": {
+        "walk": [
+          12,
+          34
+        ],
+        "run": [
+          8,
+          24
+        ],
+        "idle": [
+          24,
+          66
+        ]
+      }
+    }
+  }
+}

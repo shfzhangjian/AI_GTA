@@ -1,0 +1,160 @@
+{
+  "source": "original procedural pixel art; no paid AI generation",
+  "cell": [
+    80,
+    88
+  ],
+  "pivot": [
+    40,
+    76
+  ],
+  "rows": [
+    "se",
+    "sw",
+    "ne",
+    "nw",
+    "e",
+    "w",
+    "s",
+    "n"
+  ],
+  "frames": 8,
+  "cycles": {
+    "idle": {
+      "se": {
+        "fps": 5,
+        "loop": true
+      },
+      "sw": {
+        "fps": 5,
+        "loop": true
+      },
+      "ne": {
+        "fps": 5,
+        "loop": true
+      },
+      "nw": {
+        "fps": 5,
+        "loop": true
+      },
+      "e": {
+        "fps": 5,
+        "loop": true
+      },
+      "w": {
+        "fps": 5,
+        "loop": true
+      },
+      "s": {
+        "fps": 5,
+        "loop": true
+      },
+      "n": {
+        "fps": 5,
+        "loop": true
+      }
+    },
+    "walk": {
+      "se": {
+        "fps": 8,
+        "loop": true
+      },
+      "sw": {
+        "fps": 8,
+        "loop": true
+      },
+      "ne": {
+        "fps": 8,
+        "loop": true
+      },
+      "nw": {
+        "fps": 8,
+        "loop": true
+      },
+      "e": {
+        "fps": 8,
+        "loop": true
+      },
+      "w": {
+        "fps": 8,
+        "loop": true
+      },
+      "s": {
+        "fps": 8,
+        "loop": true
+      },
+      "n": {
+        "fps": 8,
+        "loop": true
+      }
+    },
+    "run": {
+      "se": {
+        "fps": 12,
+        "loop": true
+      },
+      "sw": {
+        "fps": 12,
+        "loop": true
+      },
+      "ne": {
+        "fps": 12,
+        "loop": true
+      },
+      "nw": {
+        "fps": 12,
+        "loop": true
+      },
+      "e": {
+        "fps": 12,
+        "loop": true
+      },
+      "w": {
+        "fps": 12,
+        "loop": true
+      },
+      "s": {
+        "fps": 12,
+        "loop": true
+      },
+      "n": {
+        "fps": 12,
+        "loop": true
+      }
+    },
+    "attack": {
+      "se": {
+        "fps": 14,
+        "loop": false
+      },
+      "sw": {
+        "fps": 14,
+        "loop": false
+      },
+      "ne": {
+        "fps": 14,
+        "loop": false
+      },
+      "nw": {
+        "fps": 14,
+        "loop": false
+      },
+      "e": {
+        "fps": 14,
+        "loop": false
+      },
+      "w": {
+        "fps": 14,
+        "loop": false
+      },
+      "s": {
+        "fps": 14,
+        "loop": false
+      },
+      "n": {
+        "fps": 14,
+        "loop": false
+      }
+    }
+  }
+}
