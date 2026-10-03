@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`citrus-jelly/`](./citrus-jelly/) | **柑橘果冻 · Citrus Jelly**：半透明软糖柑橘树，局部弯曲与回弹、28 枚双向耦合悬果、摇晃掉落、摘取与投掷、碰撞与休眠、空茎再生；三组配色、硬度、阻尼、成熟度，手机横竖屏折叠面板 | 单文件 HTML + 原生 WebGPU / WGSL + 固定步长位置约束物理（零依赖、零构建、无外部资源请求，需支持 WebGPU） | [🍊 立即体验](https://shfzhangjian.github.io/AI_GTA/citrus-jelly/) |
 | [`jelly-dice/`](./jelly-dice/) | **果冻骰子 · Jelly Dice**：可抓取、拉伸与轻戳的半透明软糖骰子，1–5 枚掷骰与点数结算、六种糖果色、玻璃托盘、分层折射与柔和阴影；软硬度、摇晃衰减、慢动作与晶格显示，支持触摸和键盘 | 单文件 HTML + 原生 WebGPU / WGSL + 四面体 XPBD（零依赖、零构建、字体内嵌，需支持 WebGPU） | [🎲 立即体验](https://shfzhangjian.github.io/AI_GTA/jelly-dice/) |
 | [`balloon-test/`](./balloon-test/) | **气球测试 · The Balloon Test**：纸质工作室里的乳胶实验，轻触泵气、Gent 压力曲线、独立印刷图案、轻弹、水模式、实时撕裂与碎片、水滴和水洼；种子固定的 ×12 慢动作重播，个人最佳记录，手机横竖屏 | 单文件 HTML + 内联 Three.js r165 + WebAudio（无需运行依赖或构建，仅 Google Fonts 可选联网） | [🎈 开始实验](https://shfzhangjian.github.io/AI_GTA/balloon-test/) |
 | [`melon-jelly/`](./melon-jelly/) | **果冻西瓜 · Melon Jelly**：可抓取、拉伸与双指扭转的 3D 西瓜果冻，四面体体积保持、软硬果皮、两面种子随动、地面接触；三组配色、硬度与阻尼、慢动作、网格与暂停 | 单文件 HTML + 原生 WebGPU / WGSL + XPBD（零依赖、零构建，需支持 WebGPU） | [🍉 立即体验](https://shfzhangjian.github.io/AI_GTA/melon-jelly/) |
@@ -32,6 +33,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- citrus-jelly → [源码、操作与运行说明](./citrus-jelly/README.md) · [验证记录](./citrus-jelly/VALIDATION.md)（由 Codex 协助开发）
 - jelly-dice → [源码、操作与运行说明](./jelly-dice/README.md) · [验证记录](./jelly-dice/VALIDATION.md)（由 Codex 协助开发）
 - balloon-test → [源码、操作与重建说明](./balloon-test/README.md) · [验证记录](./balloon-test/QA.md)（由 Codex 协助开发）
 - melon-jelly → [源码、操作与运行说明](./melon-jelly/README.md) · [验证记录](./melon-jelly/VALIDATION.md)（由 Codex 协助开发）
@@ -60,6 +62,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 柑橘果冻（零依赖、零构建，也可直接打开 index.html；需支持 WebGPU）
+cd citrus-jelly && python -m http.server 8792 --bind 127.0.0.1
+
 # 果冻骰子（零依赖、零构建，也可直接打开 index.html；需支持 WebGPU）
 cd jelly-dice && python -m http.server 9017 --bind 127.0.0.1
 
@@ -118,6 +123,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 柑橘果冻 · Citrus Jelly
+
+一棵可以抓住、摇晃和摘果的软糖柑橘树。琥珀色树干局部弯曲，宝石绿叶片透光，28 枚果实在枝梢上摆动；成熟果实随摇晃掉落，撞击时压扁与回弹，落果可捡起再次投掷，空茎随后逐渐结出新果。
+
+- [在线体验](https://shfzhangjian.github.io/AI_GTA/citrus-jelly/) · [独立 HTML](./citrus-jelly/index.html) · [操作与源码说明](./citrus-jelly/README.md)
+- 原生 WebGPU / WGSL，GPU 枝条蒙皮、实例化几何、4× MSAA、顺序无关透明合成；解析果实厚度、颜色吸收、程序化果皮与果瓣膜、屏幕空间折射。
+- 柑橘、柚子、血橙三组配色；硬度、内部阻尼、成熟度、暂停与重置；鼠标和触摸抓取，有限环绕与缩放，手机底部面板默认折叠。
+- 单文件、零依赖、零构建、无外部素材请求，可离线打开。已验证重复摇晃与再生、强拉、摘取与投掷、碰撞、休眠及手机交互，详见 [验证记录](./citrus-jelly/VALIDATION.md)。
+
+![柑橘果冻：真实浏览器中的半透明软糖柑橘树](./citrus-jelly/preview.png)
 
 ## 果冻骰子 · Jelly Dice
 
