@@ -1,0 +1,14 @@
+{
+  "name": "huicheng-residence",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "汇成上东 29栋507 · 图纸重建与交互式室内漫游",
+  "scripts": {
+    "start": "node server.mjs",
+    "build:standalone": "node scripts/build-standalone.mjs",
+    "check": "node --check src/app.js && node --check src/model.js && node --check src/data.js && node --check src/study.js && node --check src/master.js && node --check src/bathroom.js && node --check src/artwork.js && node --check src/entry.js && node --check src/kitchen-dining.js && node --check src/plan.js && node --check src/qa.js"
+  },
+  "dependencies": { "three": "0.185.1" },
+  "devDependencies": { "esbuild": "0.25.12" }
+}

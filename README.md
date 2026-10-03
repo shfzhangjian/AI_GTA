@@ -8,6 +8,7 @@ AI 生成的游戏与交互动画项目集合。每个项目独立目录存放�
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`huicheng-residence/`](./huicheng-residence/) | **汇成上东 · 空间档案**：按户型图与实拍重建 11 个空间，平面图、3D 总览、室内游走和 12 个导览视点；还原餐厨、卧室、书房、卫生间及入户门，支持门扇交互、碰撞、墙面材质与 PNG 导出 | HTML + Three.js 0.185.1（源码与单文件内嵌页面；运行零构建、无外部资源请求） | [🏠 走进空间](https://shfzhangjian.github.io/AI_GTA/huicheng-residence/) |
 | [`digit-recognition/`](./digit-recognition/) | **一笔，如何成为一个数字**：77 秒全屏科普动画，以手写 0–9 展示像素采样、二值化、卷积、三维特征分层、池化和分类计算；支持暂停、分步、拖动进度、调速与全屏 | HTML + SVG + Three.js 0.185.1（本地依赖；含离线单文件版；需 WebGL 2） | [▶ 观看动画](https://shfzhangjian.github.io/AI_GTA/digit-recognition/) |
 | [`relic-hunters/`](./relic-hunters/) | **遗物猎场 · RELIC FIELD**：废墟寻宝主题的等距像素动作肉鸽，10 名角色、24 把武器、40 件遗物、8 种补给、六系组合、9 个房间与 3 位 Boss；手动攻击、闪避、技能、随机奖励和永久收藏图鉴，支持键鼠与触屏 | HTML + 原生 ES Module + Canvas 2D + WebAudio（本地八方向像素素材、零运行依赖、零构建） | [◇ 进入遗迹](https://shfzhangjian.github.io/AI_GTA/relic-hunters/) |
 | [`neon-breakout/`](./neon-breakout/) | **霓城突围**：中文 3D 跑酷射击，三位中文英雄、六章闯关、增益门、武器升级、巨型首领与无尽挑战；卷发连帽衫主角和破衣绿色怪物，支持键盘与手机触屏 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需外部素材服务） | [⚡ 开始突围](https://shfzhangjian.github.io/AI_GTA/neon-breakout/) |
@@ -169,6 +170,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 - 包含本地 Three.js 与 MIT 许可，无外部资源请求。浏览器需支持 WebGL 2；可直接打开离线 HTML，也可由 GitHub Pages 静态托管。
 
 ![手写数字识别动画：输入图像与两张三维特征响应图](./digit-recognition/film-4.png)
+
+## 汇成上东 · 空间档案
+
+从户型图进入一个可以自由浏览的家。墙体、门窗、家具和平面图共用图纸坐标；餐厅、厨房、主卧、书房、卫生间与入户门依据补充实拍还原主要布局、配色与生活细节。
+
+- [在线浏览](https://shfzhangjian.github.io/AI_GTA/huicheng-residence/) · [项目与操作说明](./huicheng-residence/README.md) · [离线单文件](./huicheng-residence/汇成上东-离线预览.html) · [检查记录](./huicheng-residence/validation/model-report.json)
+- 11 个空间、12 个导览视点，支持平面、3D 总览和第一人称游走；WASD 移动、拖动转向，E 或点击门扇开关门，包含墙体、家具和门扇碰撞。
+- 图示总宽 14.44 m、总深 10.87 m、层高 2.77 m；支持墙体剖切、材质与光照切换、原图对照及 PNG 保存。最新修正保留无门通道，并清空书房床上的物品。
+- GitHub Pages 和离线入口均内嵌程序、材质与图纸，打开即可使用；源码本地预览运行 `node server.mjs`。房间尺寸与细节按图纸比例及照片估算，用于空间浏览。
+
+![汇成上东：餐边柜、实拍照片墙与餐厅的三维重建画面](./huicheng-residence/dining-real-preview.png)
 
 ## 遗物猎场 · RELIC FIELD
 

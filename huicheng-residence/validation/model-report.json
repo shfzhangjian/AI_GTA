@@ -1,0 +1,181 @@
+{
+  "passed": null,
+  "status": "awaiting-browser-verification",
+  "syntaxPassed": true,
+  "changes": [
+    "Removed the misplaced door and its frame at blueprint coordinates (766, 538), retaining the open passage.",
+    "Removed the study bed quilt, pillows and folded cloth; retained the flat blue mattress and synchronized the plan symbol."
+  ],
+  "browserVerification": {
+    "status": "not-run",
+    "reason": "Automatic browser approval review timed out twice while reloading the local preview."
+  },
+  "previousRun": {
+    "scope": "Prior kitchen and dining build; does not verify the current door and study bed changes.",
+    "report": {
+      "spaces": 11,
+      "furniture": 38,
+      "meshes": 1217,
+      "triangles": 431514,
+      "geometryErrors": [],
+      "destinations": [
+        {
+          "name": "客厅",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            954.7,
+            806.5
+          ]
+        },
+        {
+          "name": "餐厅",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            559,
+            765
+          ]
+        },
+        {
+          "name": "厨房",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            561,
+            729
+          ]
+        },
+        {
+          "name": "主卧",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            809,
+            510
+          ]
+        },
+        {
+          "name": "次卧",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            944,
+            700
+          ]
+        },
+        {
+          "name": "书房",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            398,
+            440
+          ]
+        },
+        {
+          "name": "衣帽间",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            739,
+            405
+          ]
+        },
+        {
+          "name": "卫生间",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            609,
+            499
+          ]
+        },
+        {
+          "name": "景观阳台",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            1119,
+            866
+          ]
+        },
+        {
+          "name": "休闲阳台",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            1050,
+            650
+          ]
+        },
+        {
+          "name": "生活阳台",
+          "spawnClear": true,
+          "insideRoom": true,
+          "reachable": true,
+          "actual": [
+            395,
+            840
+          ]
+        }
+      ],
+      "unreachable": [],
+      "bathroomDoor": {
+        "inward": true,
+        "insideBathroom": true,
+        "wallClearanceMm": 13
+      },
+      "studyDoor": {
+        "insideStudy": true,
+        "wallClearanceMm": 58,
+        "leafCollision": true,
+        "passageClear": true
+      },
+      "entryDoor": {
+        "opensInside": true,
+        "openLeafCollision": true,
+        "openPassageClear": true,
+        "viewpointClear": true,
+        "viewpointTargetsEntry": true,
+        "closedBlocks": true
+      },
+      "roomSlides": [
+        {
+          "name": "厨房玻璃推拉门",
+          "passageClear": true,
+          "closedBlocks": true,
+          "stacked": true,
+          "openingMm": 676.7
+        },
+        {
+          "name": "生活阳台玻璃推拉门",
+          "passageClear": true,
+          "closedBlocks": true,
+          "stacked": true,
+          "openingMm": 826.7
+        }
+      ],
+      "wardrobeEntry": {
+        "initiallyClosed": true,
+        "closedBlocks": true,
+        "closedSeparatesCloset": true,
+        "openPassageClear": true,
+        "openingMm": 1025.6,
+        "slidesApart": true
+      },
+      "walkableNodes": 4834,
+      "passed": true
+    }
+  }
+}
