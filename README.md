@@ -8,7 +8,7 @@ AI 生成的游戏与交互动画项目集合。每个项目独立目录存放�
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
-| [`starbloom/`](./starbloom/) | **星环漫游 · STARBLOOM**：原创 3D 球面重力射击肉鸽，五种小星球、每球三波敌人、八项可叠加强化、彗星冲刺与星际跳跃；支持键鼠与触屏，附中文介绍视频和实机截图 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需后端） | [✦ 开始航程](https://shfzhangjian.github.io/AI_GTA/starbloom/) · [🎬 视频与博文](https://shfzhangjian.github.io/AI_GTA/starbloom/blog.html) |
+| [`starbloom/`](./starbloom/) | **星环漫游 · STARBLOOM**：原创 3D 球面重力射击肉鸽，五种小星球、每球三波敌人、八项可叠加强化、彗星冲刺与星际跳跃；14 种原创音效、5 种星球环境音与独立音量控制；支持键鼠与触屏，附中文介绍视频和实机截图 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需后端） | [✦ 开始航程](https://shfzhangjian.github.io/AI_GTA/starbloom/) · [🎬 视频与博文](https://shfzhangjian.github.io/AI_GTA/starbloom/blog.html) |
 | [`huicheng-residence/`](./huicheng-residence/) | **汇成上东 · 空间档案**：按户型图与实拍重建 11 个空间，平面图、3D 总览、室内游走和 12 个导览视点；还原餐厨、卧室、书房、卫生间及入户门，支持门扇交互、碰撞、墙面材质与 PNG 导出 | HTML + Three.js 0.185.1（源码与单文件内嵌页面；运行零构建、无外部资源请求） | [🏠 走进空间](https://shfzhangjian.github.io/AI_GTA/huicheng-residence/) |
 | [`digit-recognition/`](./digit-recognition/) | **一笔，如何成为一个数字**：77 秒全屏科普动画，以手写 0–9 展示像素采样、二值化、卷积、三维特征分层、池化和分类计算；支持暂停、分步、拖动进度、调速与全屏 | HTML + SVG + Three.js 0.185.1（本地依赖；含离线单文件版；需 WebGL 2） | [▶ 观看动画](https://shfzhangjian.github.io/AI_GTA/digit-recognition/) |
 | [`relic-hunters/`](./relic-hunters/) | **遗物猎场 · RELIC FIELD**：废墟寻宝主题的等距像素动作肉鸽，10 名角色、24 把武器、40 件遗物、8 种补给、六系组合、9 个房间与 3 位 Boss；手动攻击、闪避、技能、随机奖励和永久收藏图鉴，支持键鼠与触屏 | HTML + 原生 ES Module + Canvas 2D + WebAudio（本地八方向像素素材、零运行依赖、零构建） | [◇ 进入遗迹](https://shfzhangjian.github.io/AI_GTA/relic-hunters/) |
@@ -165,6 +165,8 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
 
 ## 星环漫游 · STARBLOOM
+
+2026-10-03 音乐升级：新增 14 种原创音效、五种星球环境音和独立音量设置；开始航程后默认有声，可用 M 键静音，浏览器记住音量选择。现有视频与截图继续保留，录于本次音乐升级前。
 
 沿着小星球的弧线奔跑，在花海星原、碧波环岛、极光冰原、蘑菇秘林与余烬火山之间作战。每颗星球有三波敌人；完成战斗后从三项随机强化中选一项，带着累积的射速、散射或生存能力跃向下一站。五颗星球全部净化后获胜。
 

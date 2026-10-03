@@ -1,0 +1,130 @@
+{
+  "label": "Offline synthesis preview from the exact same immutable scores and PCM renderers used by GameAudio. Not a browser or speaker audition.",
+  "mix": "SFX .70; ambience .25. Live browser compressor is not modeled; these sparse previews remain below its -9 dB threshold except short attack peaks.",
+  "files": [
+    {
+      "file": "starbloom-original-sfx-preview.wav",
+      "durationSeconds": 19.16514739229025,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.4438077211380005,
+      "rms": 0.047028479370667085,
+      "bytes": 1690410
+    },
+    {
+      "file": "starbloom-original-biomes-preview.wav",
+      "durationSeconds": 30,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.05983925238251686,
+      "rms": 0.011051378658462445,
+      "bytes": 2646044
+    }
+  ],
+  "sfxCues": [
+    {
+      "event": "shoot",
+      "startsAtSeconds": 0.25,
+      "durationSeconds": 0.14002267573696145
+    },
+    {
+      "event": "enemyshoot",
+      "startsAtSeconds": 0.9900226757369615,
+      "durationSeconds": 0.17501133786848072
+    },
+    {
+      "event": "hit",
+      "startsAtSeconds": 1.765034013605442,
+      "durationSeconds": 0.14501133786848072
+    },
+    {
+      "event": "kill",
+      "startsAtSeconds": 2.5100453514739227,
+      "durationSeconds": 0.4250113378684807
+    },
+    {
+      "event": "hurt",
+      "startsAtSeconds": 3.5350566893424036,
+      "durationSeconds": 0.33
+    },
+    {
+      "event": "dash",
+      "startsAtSeconds": 4.465056689342403,
+      "durationSeconds": 0.31501133786848073
+    },
+    {
+      "event": "wave",
+      "startsAtSeconds": 5.380068027210885,
+      "durationSeconds": 0.7750113378684808
+    },
+    {
+      "event": "clear",
+      "startsAtSeconds": 6.755079365079365,
+      "durationSeconds": 1.1950113378684808
+    },
+    {
+      "event": "upgrade",
+      "startsAtSeconds": 8.550090702947847,
+      "durationSeconds": 1.01
+    },
+    {
+      "event": "launch",
+      "startsAtSeconds": 10.160090702947846,
+      "durationSeconds": 1.2750113378684806
+    },
+    {
+      "event": "land",
+      "startsAtSeconds": 12.035102040816327,
+      "durationSeconds": 0.5050113378684807
+    },
+    {
+      "event": "dead",
+      "startsAtSeconds": 13.140113378684807,
+      "durationSeconds": 1.4950113378684806
+    },
+    {
+      "event": "win",
+      "startsAtSeconds": 15.235124716553289,
+      "durationSeconds": 1.5750113378684807
+    },
+    {
+      "event": "eruption",
+      "startsAtSeconds": 17.41013605442177,
+      "durationSeconds": 1.1550113378684808
+    }
+  ],
+  "ambienceCues": [
+    {
+      "biome": 0,
+      "name": "Grassland",
+      "startsAtSeconds": 0,
+      "durationSeconds": 6
+    },
+    {
+      "biome": 1,
+      "name": "River",
+      "startsAtSeconds": 6,
+      "durationSeconds": 6
+    },
+    {
+      "biome": 2,
+      "name": "Ice",
+      "startsAtSeconds": 12,
+      "durationSeconds": 6
+    },
+    {
+      "biome": 3,
+      "name": "Forest",
+      "startsAtSeconds": 18,
+      "durationSeconds": 6
+    },
+    {
+      "biome": 4,
+      "name": "Volcano",
+      "startsAtSeconds": 24,
+      "durationSeconds": 6
+    }
+  ]
+}
