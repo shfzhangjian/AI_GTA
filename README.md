@@ -1,6 +1,6 @@
 # AI_GTA
 
-AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
+AI 生成的游戏与交互动画项目集合。每个项目独立目录存放。
 
 **🎮 在线试玩（GitHub Pages）：<https://shfzhangjian.github.io/AI_GTA/>**
 
@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`digit-recognition/`](./digit-recognition/) | **一笔，如何成为一个数字**：77 秒全屏科普动画，以手写 0–9 展示像素采样、二值化、卷积、三维特征分层、池化和分类计算；支持暂停、分步、拖动进度、调速与全屏 | HTML + SVG + Three.js 0.185.1（本地依赖；含离线单文件版；需 WebGL 2） | [▶ 观看动画](https://shfzhangjian.github.io/AI_GTA/digit-recognition/) |
 | [`relic-hunters/`](./relic-hunters/) | **遗物猎场 · RELIC FIELD**：废墟寻宝主题的等距像素动作肉鸽，10 名角色、24 把武器、40 件遗物、8 种补给、六系组合、9 个房间与 3 位 Boss；手动攻击、闪避、技能、随机奖励和永久收藏图鉴，支持键鼠与触屏 | HTML + 原生 ES Module + Canvas 2D + WebAudio（本地八方向像素素材、零运行依赖、零构建） | [◇ 进入遗迹](https://shfzhangjian.github.io/AI_GTA/relic-hunters/) |
 | [`neon-breakout/`](./neon-breakout/) | **霓城突围**：中文 3D 跑酷射击，三位中文英雄、六章闯关、增益门、武器升级、巨型首领与无尽挑战；卷发连帽衫主角和破衣绿色怪物，支持键盘与手机触屏 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需外部素材服务） | [⚡ 开始突围](https://shfzhangjian.github.io/AI_GTA/neon-breakout/) |
 | [`sunfall/`](./sunfall/) | **落日协议 · SUNFALL**：1 名玩家与 11 名 AI 对手的 3D 海岛大逃杀，空降、搜刮装备、三类枪械、风暴安全区、AI 寻路与交战，支持键鼠和触屏 | HTML + Three.js r180 + 原生 ES Module + WebAudio（零构建；Python 本地服务；角色首次从官方来源获取） | [🪂 本地启动说明](./sunfall/README.md#本地启动) |
@@ -39,6 +40,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- digit-recognition → [动画、模型与操作说明](./digit-recognition/README.md) · [离线单文件版](https://shfzhangjian.github.io/AI_GTA/digit-recognition/digit-recognition.html)（由 Codex 协助开发）
 - relic-hunters → [源码、玩法与启动说明](./relic-hunters/README.md) · [游戏设计](./relic-hunters/docs/GAME_DESIGN.md) · [82 个内容条目](./relic-hunters/docs/CONTENT_CATALOG.md) · [验证记录](./relic-hunters/docs/QA.md)（由 Codex 协助开发）
 - neon-breakout → [源码、玩法与启动说明](./neon-breakout/README.md) · [验证记录](./neon-breakout/VALIDATION.md) · [角色模型展示](https://shfzhangjian.github.io/AI_GTA/neon-breakout/src/character-preview.html)（由 Codex 协助开发）
 - sunfall → [源码、操作与启动说明](./sunfall/README.md) · [本地验证记录](./sunfall/VALIDATION.md) · [角色素材说明](./sunfall/THIRD_PARTY_ASSETS.md)
@@ -74,6 +76,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 手写数字识别动画（无需安装运行依赖；http://127.0.0.1:4180）
+cd digit-recognition && node server.cjs
+
 # 遗物猎场（Node.js >= 20，无需安装运行依赖或构建，http://127.0.0.1:8731）
 cd relic-hunters && npm start
 
@@ -153,6 +158,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 一笔，如何成为一个数字 · 手写识别动画
+
+用手写数字 0–9，逐步演示图像识别的计算过程。77 秒时间线依次展示笔迹、灰度像素、二值化、卷积窗口、三维特征图、最大池化、模板比较与分类结果，讲解文字和公式跟随画面同步变化。
+
+- [观看动画](https://shfzhangjian.github.io/AI_GTA/digit-recognition/) · [源码与操作说明](./digit-recognition/README.md) · [离线单文件版](https://shfzhangjian.github.io/AI_GTA/digit-recognition/digit-recognition.html)
+- 支持数字切换、播放与暂停、逐步前后切换、拖动进度、0.5–2 倍速和全屏；空格暂停，左右方向键切换步骤。
+- SVG 绘制手写轨迹，Three.js 展开像素与特征层。全部计算来自当前笔迹；采用固定滤波器与十个手写模板，属于教学模型，相对分类分数不代表实际识别准确率。
+- 包含本地 Three.js 与 MIT 许可，无外部资源请求。浏览器需支持 WebGL 2；可直接打开离线 HTML，也可由 GitHub Pages 静态托管。
+
+![手写数字识别动画：输入图像与两张三维特征响应图](./digit-recognition/film-4.png)
 
 ## 遗物猎场 · RELIC FIELD
 

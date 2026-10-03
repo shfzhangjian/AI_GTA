@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080c19"><title>一笔，如何成为一个数字 · 交互动画</title><link rel="stylesheet" href="film.css"></head>
+<body>
+<main id="film" aria-label="手写数字识别科普动画">
+  <div class="film-grain" aria-hidden="true"></div>
+  <div class="film-heading"><div class="overline"><span class="signal-dot"></span> 一笔，如何成为一个数字 <span class="medium-label">SVG × THREE.JS</span></div><div id="chapter-index">01 / 08</div></div>
+  <div id="digits" class="digit-picker" aria-label="选择手写数字"></div>
+  <header id="narration"><div id="chapter-kicker">01 / HANDWRITING</div><h1 id="scene-title">故事，从一笔开始。</h1><p id="scene-subtitle">你看到一个数字。计算机看到一条轨迹。</p></header>
+  <div id="stage"><canvas id="world" aria-label="数字、像素与特征层的三维动画"></canvas><svg id="diagram" aria-label="手写笔迹和逐步计算的 SVG 动画" role="img"></svg><div id="engine-error" hidden role="alert">此浏览器无法开启三维渲染。请在支持 WebGL 的浏览器中打开动画。</div></div>
+  <section id="math-caption" aria-label="当前步骤的计算"><div id="math-label">手写输入</div><div id="equation">笔迹 → 坐标轨迹 (x, y)</div><p id="math-note">同一份笔迹，将贯穿整个计算过程。</p></section>
+  <div id="scene-status" class="sr-only" role="status" aria-live="polite"></div>
+  <footer id="transport"><div class="timeline-wrap"><input id="timeline" type="range" min="0" max="77" step="0.02" value="0" aria-label="动画进度，单位秒"><div id="chapter-marks" aria-label="跳转动画章节"></div></div><div class="transport-row"><div class="play-controls"><button id="previous" class="icon-button" aria-label="上一个步骤">‹</button><button id="play" class="play-button" aria-label="暂停动画">Ⅱ</button><button id="next" class="icon-button" aria-label="下一个步骤">›</button><span id="timecode">00:00 <span>/ 01:17</span></span></div><div class="hint">空格 暂停 <span>·</span> ← → 分步</div><div class="extra-controls"><label class="speed-control"><select id="speed" aria-label="动画速度"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><button id="fullscreen" class="icon-button" aria-label="全屏观看">⛶</button></div></div><div class="footnote">固定模板教学演示 · 所有数值来自当前笔迹 · 相对分数不等于实际准确率</div></footer>
+</main>
+<script src="vendor/three.browser.js"></script><script src="handwriting-model.js"></script><script src="film.js"></script>
+</body></html>
