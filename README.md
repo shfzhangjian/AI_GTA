@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`balloon-test/`](./balloon-test/) | **气球测试 · The Balloon Test**：纸质工作室里的乳胶实验，轻触泵气、Gent 压力曲线、独立印刷图案、轻弹、水模式、实时撕裂与碎片、水滴和水洼；种子固定的 ×12 慢动作重播，个人最佳记录，手机横竖屏 | 单文件 HTML + 内联 Three.js r165 + WebAudio（无需运行依赖或构建，仅 Google Fonts 可选联网） | [🎈 开始实验](https://shfzhangjian.github.io/AI_GTA/balloon-test/) |
 | [`melon-jelly/`](./melon-jelly/) | **果冻西瓜 · Melon Jelly**：可抓取、拉伸与双指扭转的 3D 西瓜果冻，四面体体积保持、软硬果皮、两面种子随动、地面接触；三组配色、硬度与阻尼、慢动作、网格与暂停 | 单文件 HTML + 原生 WebGPU / WGSL + XPBD（零依赖、零构建，需支持 WebGPU） | [🍉 立即体验](https://shfzhangjian.github.io/AI_GTA/melon-jelly/) |
 | [`pixel-destroy-lab/`](./pixel-destroy-lab/) | **摧毁任意网页 · Pixel Lab**：简体中文像素网页破坏沙盒，内置演示与维基百科示例、公开网页截图关卡、十种武器、飞行与手雷、最多四人房间对战，支持键鼠和触屏操作 | React 19 + Vinext / Vite 8 + Canvas 2D + Cloudflare Workers / D1 / R2（需要编译及后端服务） | [💻 本地启动说明](./pixel-destroy-lab/README.md#本地运行) |
 | [`moss-mallet/`](./moss-mallet/) | **苔苔敲敲岛 · Moss & Mallet**：可爱等角 3D 森林浮岛、小兔矿工挥锤、相邻同类连锁开采、蘑菇范围爆破与彩虹全岛消除、特殊砖接力、五关收集目标；全屏游戏 HUD、手机横竖屏与双指缩放、原创合成音效和森林旋律 | HTML + Three.js r165 + SVG + WebAudio（本地依赖、零构建、无外部素材请求） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/moss-mallet/) |
@@ -30,6 +31,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- balloon-test → [源码、操作与重建说明](./balloon-test/README.md) · [验证记录](./balloon-test/QA.md)（由 Codex 协助开发）
 - melon-jelly → [源码、操作与运行说明](./melon-jelly/README.md) · [验证记录](./melon-jelly/VALIDATION.md)（由 Codex 协助开发）
 - pixel-destroy-lab → [源码、操作与本地启动说明](./pixel-destroy-lab/README.md)
 - shanghai-bund → [源码与操作说明](./shanghai-bund/README.md)
@@ -56,6 +58,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 气球测试（现成 HTML 无需构建，也可直接打开；HTTP 预览于 localhost:8791）
+cd balloon-test && node server.cjs
+
 # 果冻西瓜（零依赖、零构建，也可直接打开 index.html；需支持 WebGPU）
 cd melon-jelly && python -m http.server 8768 --bind 127.0.0.1
 
@@ -108,6 +113,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 气球测试 · The Balloon Test
+
+向一只乳胶气球泵气，看看它的极限。温暖纸质工作室、木柄地板泵、0–8 kPa 压力表与固定铬制喷嘴；气球从瘫软的囊袋逐渐充盈、变薄，最终从随机弱点实时撕裂。
+
+- [在线试玩](https://shfzhangjian.github.io/AI_GTA/balloon-test/) · [独立 HTML](./balloon-test/index.html) · [操作与源码说明](./balloon-test/README.md)
+- 轻触页面或 Space 泵气，F 轻弹，W 切换水模式，R 重置，S 在爆破后以 ×12 慢动作重播；个人最佳保存在当前浏览器。
+- Gent 薄膜压力曲线、双面 Beer–Lambert 乳胶透射、独立印刷与署名层、程序化声音；水模式加入折射内层、水滴、水洼与湿痕。形变、碎片和液体运动采用实时视觉近似。
+- 单文件内联 Three.js，无外部图片、模型、音频或脚本；仅字体可选联网。已验证手机横竖屏、空气与水的确定性重播，以及 1,000 个随机种子的压力曲线，详见 [验证记录](./balloon-test/QA.md)。
+
+![气球测试：乳胶、铬制喷嘴与木柄地板泵](./balloon-test/preview.png)
 
 ## 果冻西瓜 · Melon Jelly
 

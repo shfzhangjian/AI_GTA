@@ -1,0 +1,17 @@
+{
+  "name": "the-balloon-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A standalone 3D latex balloon experiment with Gent elasticity and seeded slow-motion replay.",
+  "scripts": {
+    "start": "node server.cjs",
+    "build": "node build.cjs",
+    "check": "node --check app.js && node verify.cjs",
+    "test": "node verify.cjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.0",
+    "three": "0.165.0"
+  }
+}
