@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`melon-jelly/`](./melon-jelly/) | **果冻西瓜 · Melon Jelly**：可抓取、拉伸与双指扭转的 3D 西瓜果冻，四面体体积保持、软硬果皮、两面种子随动、地面接触；三组配色、硬度与阻尼、慢动作、网格与暂停 | 单文件 HTML + 原生 WebGPU / WGSL + XPBD（零依赖、零构建，需支持 WebGPU） | [🍉 立即体验](https://shfzhangjian.github.io/AI_GTA/melon-jelly/) |
 | [`pixel-destroy-lab/`](./pixel-destroy-lab/) | **摧毁任意网页 · Pixel Lab**：简体中文像素网页破坏沙盒，内置演示与维基百科示例、公开网页截图关卡、十种武器、飞行与手雷、最多四人房间对战，支持键鼠和触屏操作 | React 19 + Vinext / Vite 8 + Canvas 2D + Cloudflare Workers / D1 / R2（需要编译及后端服务） | [💻 本地启动说明](./pixel-destroy-lab/README.md#本地运行) |
 | [`moss-mallet/`](./moss-mallet/) | **苔苔敲敲岛 · Moss & Mallet**：可爱等角 3D 森林浮岛、小兔矿工挥锤、相邻同类连锁开采、蘑菇范围爆破与彩虹全岛消除、特殊砖接力、五关收集目标；全屏游戏 HUD、手机横竖屏与双指缩放、原创合成音效和森林旋律 | HTML + Three.js r165 + SVG + WebAudio（本地依赖、零构建、无外部素材请求） | [🕹️ 立即开玩](https://shfzhangjian.github.io/AI_GTA/moss-mallet/) |
 | [`shanghai-bund/`](./shanghai-bund/) | **漫步外滩**：上海外滩像素漫步、四座陆家嘴地标、上海时间同步钟楼、昼夜与雨晴切换、撑伞人流、黄浦江游船与倒影；309 灯点无人机演绎「我 ♥ 上海」、东方明珠和「外滩 · 晚安」，四处观景打卡 | 原生 JavaScript + SVG + WebAudio（零运行依赖、零构建） | [🕹️ 沿江漫步](https://shfzhangjian.github.io/AI_GTA/shanghai-bund/) |
@@ -29,6 +30,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- melon-jelly → [源码、操作与运行说明](./melon-jelly/README.md) · [验证记录](./melon-jelly/VALIDATION.md)（由 Codex 协助开发）
 - pixel-destroy-lab → [源码、操作与本地启动说明](./pixel-destroy-lab/README.md)
 - shanghai-bund → [源码与操作说明](./shanghai-bund/README.md)
 
@@ -54,6 +56,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 果冻西瓜（零依赖、零构建，也可直接打开 index.html；需支持 WebGPU）
+cd melon-jelly && python -m http.server 8768 --bind 127.0.0.1
+
 # 摧毁任意网页（Node.js >= 22.13，需后端服务）
 cd pixel-destroy-lab
 npm ci
@@ -103,6 +108,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 果冻西瓜 · Melon Jelly
+
+一片可以抓住、拉伸、抬起和轻轻扭转的西瓜果冻。红宝石果肉、浅色内皮与条纹绿皮共同变形，两面的 28 颗种子始终随曲面移动；释放后自然摇晃并逐渐稳定。
+
+- [在线体验](https://shfzhangjian.github.io/AI_GTA/melon-jelly/) · [独立 HTML](./melon-jelly/index.html) · [操作说明](./melon-jelly/README.md)
+- 原生 WebGPU / WGSL 渲染，四面体 XPBD 软体与体积保持约束，支持鼠标抓取、触屏与双指扭转。
+- 三组配色、硬度、内部阻尼、轻推、重置、¼速度、显示网格和暂停；手机控件位于画布下方。
+- 单文件、零依赖、无需编译，可离线打开；需要支持 WebGPU 的浏览器和可用 GPU。39 项浏览器检查及三种硬度静置测试通过，详见 [验证记录](./melon-jelly/VALIDATION.md)。
+
+![果冻西瓜：真实浏览器中的三维软体模拟](./melon-jelly/preview.png)
 
 ## 摧毁任意网页 · Pixel Lab
 
