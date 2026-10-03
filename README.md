@@ -8,6 +8,7 @@ AI 生成的游戏与交互动画项目集合。每个项目独立目录存放�
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`canyon-railway/`](./canyon-railway/) | **峡谷铁路 · 西部铁道物语**：中文 3D 西部铁路经营游戏，六座车站、铺轨与跨河桥梁、蒸汽机车自动运货、三份合同、车队购买升级、自动存档及手机操作 | Three.js 0.185.1 + 原生 JavaScript + WebAudio（本地依赖、零构建） | [🚂 开始经营](https://shfzhangjian.github.io/AI_GTA/canyon-railway/) |
 | [`waretrack-3d/`](./waretrack-3d/) | **仓流智控 · 三维仓储指挥台**：全中文的五园区仓储沙盘，卡车进场、倒车入位与驶离，叉车逐托盘搬运与通道让行；支持出入库调度、库存预留、跟随镜头、倍速模拟、报表和存档 | Three.js 0.180 + Vite 8 + 原生 JavaScript（源码及相对路径 dist/ 一并提交，无后端要求） | [🏭 进入仓库](https://shfzhangjian.github.io/AI_GTA/waretrack-3d/dist/) |
 | [`starbloom/`](./starbloom/) | **星环漫游 · STARBLOOM**：原创 3D 球面重力射击肉鸽，五种小星球、每球三波敌人、八项可叠加强化、彗星冲刺与星际跳跃；14 种原创音效、5 种星球环境音与独立音量控制；支持键鼠与触屏，附中文介绍视频和实机截图 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需后端） | [✦ 开始航程](https://shfzhangjian.github.io/AI_GTA/starbloom/) · [🎬 视频与博文](https://shfzhangjian.github.io/AI_GTA/starbloom/blog.html) |
 | [`huicheng-residence/`](./huicheng-residence/) | **汇成上东 · 空间档案**：按户型图与实拍重建 11 个空间，平面图、3D 总览、室内游走和 12 个导览视点；还原餐厨、卧室、书房、卫生间及入户门，支持门扇交互、碰撞、墙面材质与 PNG 导出 | HTML + Three.js 0.185.1（源码与单文件内嵌页面；运行零构建、无外部资源请求） | [🏠 走进空间](https://shfzhangjian.github.io/AI_GTA/huicheng-residence/) |
@@ -43,6 +44,7 @@ AI 生成的游戏与交互动画项目集合。每个项目独立目录存放�
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- canyon-railway → [在线试玩](https://shfzhangjian.github.io/AI_GTA/canyon-railway/) · [源码、玩法与启动说明](./canyon-railway/README.md) · [验证记录](./canyon-railway/VALIDATION.md)（中文西部铁路经营游戏）
 - digit-recognition → [动画、模型与操作说明](./digit-recognition/README.md) · [离线单文件版](https://shfzhangjian.github.io/AI_GTA/digit-recognition/digit-recognition.html)（由 Codex 协助开发）
 - relic-hunters → [源码、玩法与启动说明](./relic-hunters/README.md) · [游戏设计](./relic-hunters/docs/GAME_DESIGN.md) · [82 个内容条目](./relic-hunters/docs/CONTENT_CATALOG.md) · [验证记录](./relic-hunters/docs/QA.md)（由 Codex 协助开发）
 - neon-breakout → [源码、玩法与启动说明](./neon-breakout/README.md) · [验证记录](./neon-breakout/VALIDATION.md) · [角色模型展示](https://shfzhangjian.github.io/AI_GTA/neon-breakout/src/character-preview.html)（由 Codex 协助开发）

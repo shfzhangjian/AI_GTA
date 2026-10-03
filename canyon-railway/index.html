@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="theme-color" content="#e9c18b"><title>峡谷铁路 · 西部铁道物语</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23507787'/%3E%3Ctext x='9' y='48' font-size='44'%3E🚂%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/"}}</script>
+</head>
+<body>
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-train" viewBox="0 0 24 24"><path d="M7 17h10V6c0-2-10-2-10 0zM8 9h8M9 17l-3 4m9-4 3 4M8 20h8"/><path d="M9 13h.01M15 13h.01" stroke-width="3"/></symbol>
+    <symbol id="i-rail" viewBox="0 0 24 24"><path d="m8 3-3 18M16 3l3 18M7 6h10M6 11h12M5 16h14M4 21h16"/></symbol>
+    <symbol id="i-bridge" viewBox="0 0 24 24"><path d="M3 12h18M3 17v-9m18 9V8M7 12V6m10 6V6M3 8c5 0 4-4 4-4 3 5 7 5 10 0 0 0-1 4 4 4M8 17v-5m8 5v-5M2 21q3-3 5 0 3-3 5 0 3-3 5 0 3-3 5 0"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+    <symbol id="i-contract" viewBox="0 0 24 24"><path d="M8 5H5v16h14V5h-3M9 3h6v4H9zM8 11h8m-8 4h8m-8 3h4"/></symbol>
+    <symbol id="i-shop" viewBox="0 0 24 24"><path d="M4 9h16l-2-6H6zM5 10v11h14V10M9 21v-7h6v7M3 9q2 5 5 0 2 5 4 0 2 5 4 0 3 5 5 0"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="8" cy="19" r="2"/><path d="m7 5 10 2M5 7l3 10m2 0 8-8"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-5v16l-5-5H4zM17 8q5 4 0 8m2-11q8 7 0 14"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 3h13l4 4v14H3V3zM7 3v6h9V3M7 21v-8h10v8M13 5v2"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8c1-3 7-2 6 1-.5 2-3 2-3 5m0 3h.01"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></symbol>
+    <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m3 20 9-10m-4-4 4-4 9 9-4 4z"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 8h-4a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9m3-10v12"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M3 9V3h6m6 0h6v6M3 15v6h6m6 0h6v-6"/><circle cx="12" cy="12" r="3"/></symbol>
+  </defs></svg>
+  <main id="game" aria-label="峡谷铁路三维游戏地图"><canvas id="world" aria-label="三维沙盘，可拖动和缩放" tabindex="0"></canvas><div id="map-labels"></div></main>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon"><svg><use href="#i-train"/></svg></span><div><h1>峡谷铁路</h1><span>西部铁道物语</span></div><i>1886</i></div>
+    <div class="stats">
+      <div class="stat money"><span class="coin">$</span><div><small>铁路资金</small><strong id="money">6,800</strong></div></div>
+      <div class="stat"><span class="star">✦</span><div><small>开拓声望</small><strong id="score">0</strong></div></div>
+      <div class="stat date"><span class="sun-mini">☀</span><div><small>晴朗 · 西部荒野</small><strong id="day">第 1 天</strong></div></div>
+    </div>
+    <div class="top-actions"><button id="daylight" class="round" title="切换日暮" aria-label="切换日暮"><svg><use href="#i-sun"/></svg></button><button id="sound" class="round muted" title="开启声音" aria-label="开启声音"><svg><use href="#i-sound"/></svg></button><button id="save" class="round" title="保存进度" aria-label="保存进度"><svg><use href="#i-save"/></svg></button><button id="help" class="round" title="玩法说明" aria-label="玩法说明"><svg><use href="#i-help"/></svg></button></div>
+  </header>
+  <aside class="left-hud">
+    <section class="paper objective"><div class="ribbon brown"><svg><use href="#i-contract"/></svg> 开拓手册 <span id="chapter">01 / 03</span></div><div class="objective-body"><small class="eyebrow">一段铁轨，一座新世界</small><h2 id="objective-name">把森林接入铁路</h2><p id="objective-description">连接松林木场与红岩镇，运来第一批木材。</p><div class="progress"><i id="objective-progress"></i></div><div class="objective-foot"><span id="objective-count">木材 0 / 12</span><b id="objective-reward">奖励 $ 2,200</b></div><button id="objective-action" class="text-button">查看运输合同 <span>→</span></button></div></section>
+    <section class="paper build"><div class="ribbon">铁路工坊 <span>建造</span></div><div class="tool-grid"><button data-tool="inspect" class="tool active" aria-pressed="true"><svg><use href="#i-pin"/></svg><b>查看</b><small>选择车站</small></button><button data-tool="rail" class="tool" aria-pressed="false"><svg><use href="#i-rail"/></svg><b>铁轨</b><small>$ 60 / 格</small></button><button data-tool="bridge" class="tool" aria-pressed="false"><svg><use href="#i-bridge"/></svg><b>铁路桥</b><small>$ 240 / 格</small></button><button data-tool="remove" class="tool" aria-pressed="false"><svg><use href="#i-hammer"/></svg><b>拆除</b><small>返还 50%</small></button></div><p id="tool-hint">点击车站或列车，查看运营详情。</p></section>
+  </aside>
+  <aside id="detail" class="paper right-hud" aria-label="运营详情"></aside>
+  <div id="build-confirm" class="paper build-confirm" hidden><div><small>施工测算</small><strong id="build-cost"></strong><p id="build-length"></p></div><button id="cancel-build" class="soft-button">取消</button><button id="confirm-build" class="primary-button">铺设铁路</button></div>
+  <div id="toast-area" aria-live="polite"></div>
+  <div class="bottom-left"><div class="speed-control"><button id="pause" aria-label="暂停游戏" title="暂停 / 空格">Ⅱ</button><button data-speed="1" class="active" aria-pressed="true">1×</button><button data-speed="2" aria-pressed="false">2×</button><button data-speed="4" aria-pressed="false">4×</button><span id="simulation-status">运营中</span></div><p class="controls-hint">拖动平移 · 滚轮缩放 · 右键旋转</p><span id="save-status">进度自动保存在此浏览器</span></div>
+  <nav class="bottom-nav" aria-label="经营菜单"><button data-panel="trains" class="nav-trains"><svg><use href="#i-train"/></svg><span>列车</span><kbd>1</kbd></button><button data-panel="network" class="nav-network"><svg><use href="#i-network"/></svg><span>路网</span><kbd>2</kbd></button><button data-panel="contracts" class="nav-contracts"><svg><use href="#i-contract"/></svg><span>合同</span><kbd>3</kbd><i id="contract-dot" hidden></i></button><button data-panel="shop" class="nav-shop"><svg><use href="#i-shop"/></svg><span>车库</span><kbd>4</kbd></button></nav>
+  <section class="minimap paper" aria-label="区域地图"><div class="minimap-title">边境铁路局 <span id="connected-count">2 / 6 站</span></div><canvas id="minimap" width="200" height="124" aria-label="点击小地图移动视角"></canvas><div class="map-buttons"><button id="zoom-in" aria-label="放大">+</button><button id="zoom-out" aria-label="缩小">−</button><button id="recenter" aria-label="全景视角"><svg><use href="#i-focus"/></svg></button></div></section>
+  <dialog id="modal" class="modal"><header><div><small id="modal-eyebrow">峡谷铁路公司</small><h2 id="modal-title"></h2></div><button id="close-modal" class="close" aria-label="关闭">×</button></header><div id="modal-body"></div></dialog>
+  <div id="loading"><div class="loading-logo">🚂</div><h2>峡谷铁路</h2><p>汽笛即将响起…</p></div>
+  <script type="module" src="./main.js"></script>
+</body></html>
