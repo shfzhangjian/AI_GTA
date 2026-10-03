@@ -1,0 +1,10 @@
+{
+  "name": "sunfall-solo",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python start_local.py",
+    "check": "node --check dist/game.js && node --check dist/world.js && node --check dist/ai.js && node --check dist/actors.js && node --check dist/vanguard.js"
+  }
+}

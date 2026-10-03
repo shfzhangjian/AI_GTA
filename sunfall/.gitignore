@@ -1,0 +1,8 @@
+# Acquired separately by setup_character.py; see THIRD_PARTY_ASSETS.md.
+dist/assets/vanguard.glb
+
+# Local server state and Python cache.
+server.pid
+*.log
+__pycache__/
+*.pyc

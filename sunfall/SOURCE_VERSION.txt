@@ -1,0 +1,2 @@
+Published source commit: 5a538c047bb75cd2d75559f873ef6283adeb6b60
+Vanguard raw model excluded under its asset terms; run setup_character.py after reading THIRD_PARTY_ASSETS.md.

@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`sunfall/`](./sunfall/) | **落日协议 · SUNFALL**：1 名玩家与 11 名 AI 对手的 3D 海岛大逃杀，空降、搜刮装备、三类枪械、风暴安全区、AI 寻路与交战，支持键鼠和触屏 | HTML + Three.js r180 + 原生 ES Module + WebAudio（零构建；Python 本地服务；角色首次从官方来源获取） | [🪂 本地启动说明](./sunfall/README.md#本地启动) |
 | [`leaflight/`](./leaflight/) | **叶间微光 · Leaflight**：等角像素森林冒险，叶帽小精灵收集 12 颗星露、躲避暗影菇并返回树心祭坛；点击寻路、无敌冲刺与眩晕、三格生命、暂停和重开，支持手机触屏 | HTML + 原生 JavaScript + Canvas 2D + WebAudio（零依赖、零构建、本地精灵素材） | [🌱 进入森林](https://shfzhangjian.github.io/AI_GTA/leaflight/) |
 | [`cube-atelier/`](./cube-atelier/) | **魔方实验室 · Cube Atelier**：交互式三阶魔方、10 / 20 / 30 步打乱、人工转动、当前状态逐步还原指导与转错后重新规划、同步六面展开图、六组公式独立演示、撤销重做与练习保存，支持桌面和手机 | HTML + Three.js 0.185.1 + cubejs Worker（本地依赖、零构建、无外部资源请求） | [🧩 开始练习](https://shfzhangjian.github.io/AI_GTA/cube-atelier/) |
 | [`tropical-island/`](./tropical-island/) | **潮屿 · TIDELANDS**：云海中的热带浮岛，恐龙头骨瀑布、肋骨珊瑚庭、木屋栈桥、棕榈林和火山；驾驶小船收集 8 颗珍珠、修复 4 处地标，支持自动绕岛寻路、昼夜、拍照、声音、存档和手机操作 | HTML + Three.js 0.185.1 + 自定义 GLSL + WebAudio（本地依赖、零构建、无远程素材请求） | [🏝️ 启航探索](https://shfzhangjian.github.io/AI_GTA/tropical-island/) |
@@ -36,6 +37,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- sunfall → [源码、操作与启动说明](./sunfall/README.md) · [本地验证记录](./sunfall/VALIDATION.md) · [角色素材说明](./sunfall/THIRD_PARTY_ASSETS.md)
 - leaflight → [源码、玩法与运行说明](./leaflight/README.md) · [验证记录](./leaflight/VALIDATION.md)（由 Codex 协助开发）
 - citrus-jelly → [源码、操作与运行说明](./citrus-jelly/README.md) · [验证记录](./citrus-jelly/VALIDATION.md)（由 Codex 协助开发）
 - cube-atelier → [源码、操作与运行说明](./cube-atelier/README.md) · [验证记录](./cube-atelier/VALIDATION.md)（由 Codex 协助开发）
@@ -68,6 +70,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 落日协议（Python 3；首次启动自动下载并校验角色，http://127.0.0.1:4177）
+cd sunfall && python start_local.py
+
 # 叶间微光（零依赖、零构建，可直接打开 index.html；本地预览 http://127.0.0.1:8786）
 cd leaflight && node server.cjs
 
@@ -138,6 +143,18 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 落日协议 · SUNFALL
+
+空降落日群岛，与 11 名 AI 对手搜刮装备、交战并躲避持续收缩的风暴。海岛包含可进入建筑、屋顶楼梯与补给点；手枪、突击步枪和精确步枪各有不同的伤害、射速、后坐力与装填行为。
+
+- [源码、操作与启动说明](./sunfall/README.md) · [本地验证记录](./sunfall/VALIDATION.md) · [第三方角色来源](./sunfall/THIRD_PARTY_ASSETS.md)
+- Windows 安装 Python 3 后双击 `sunfall/start-game.cmd`，或运行 `python start_local.py`；打开 <http://127.0.0.1:4177/> 后点击「空降战区」。Three.js 与材质已包含，无需安装 npm 依赖或构建。
+- WASD 移动、鼠标转向与开火、E 开伞 / 搜刮、R 换弹、Q 治疗、M 地图、Esc 暂停；手机提供触屏控件。
+- 角色素材按源码包方式单独从官方来源获取并校验，首次启动需要联网。此子目录提供本地运行源码；GitHub Pages 不会自动执行 Python 素材获取脚本。
+- 已在真实本地浏览器验证主菜单、空降、自动落地、AI 交战与暂停；浏览器运行错误日志为空。
+
+![落日协议：真实本地浏览器中的海岛主菜单](./sunfall/preview.png)
 
 ## 潮屿 · TIDELANDS
 
