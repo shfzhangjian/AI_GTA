@@ -1,0 +1,7 @@
+{
+  "meshCount": 228,
+  "independentJoints": true,
+  "finiteGeometry": true,
+  "fullZombieTriangles": 64972,
+  "lowZombieTriangles": 15552
+}

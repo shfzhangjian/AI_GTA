@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`neon-breakout/`](./neon-breakout/) | **霓城突围**：中文 3D 跑酷射击，三位中文英雄、六章闯关、增益门、武器升级、巨型首领与无尽挑战；卷发连帽衫主角和破衣绿色怪物，支持键盘与手机触屏 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需外部素材服务） | [⚡ 开始突围](https://shfzhangjian.github.io/AI_GTA/neon-breakout/) |
 | [`sunfall/`](./sunfall/) | **落日协议 · SUNFALL**：1 名玩家与 11 名 AI 对手的 3D 海岛大逃杀，空降、搜刮装备、三类枪械、风暴安全区、AI 寻路与交战，支持键鼠和触屏 | HTML + Three.js r180 + 原生 ES Module + WebAudio（零构建；Python 本地服务；角色首次从官方来源获取） | [🪂 本地启动说明](./sunfall/README.md#本地启动) |
 | [`leaflight/`](./leaflight/) | **叶间微光 · Leaflight**：等角像素森林冒险，叶帽小精灵收集 12 颗星露、躲避暗影菇并返回树心祭坛；点击寻路、无敌冲刺与眩晕、三格生命、暂停和重开，支持手机触屏 | HTML + 原生 JavaScript + Canvas 2D + WebAudio（零依赖、零构建、本地精灵素材） | [🌱 进入森林](https://shfzhangjian.github.io/AI_GTA/leaflight/) |
 | [`cube-atelier/`](./cube-atelier/) | **魔方实验室 · Cube Atelier**：交互式三阶魔方、10 / 20 / 30 步打乱、人工转动、当前状态逐步还原指导与转错后重新规划、同步六面展开图、六组公式独立演示、撤销重做与练习保存，支持桌面和手机 | HTML + Three.js 0.185.1 + cubejs Worker（本地依赖、零构建、无外部资源请求） | [🧩 开始练习](https://shfzhangjian.github.io/AI_GTA/cube-atelier/) |
@@ -37,6 +38,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- neon-breakout → [源码、玩法与启动说明](./neon-breakout/README.md) · [验证记录](./neon-breakout/VALIDATION.md) · [角色模型展示](https://shfzhangjian.github.io/AI_GTA/neon-breakout/src/character-preview.html)（由 Codex 协助开发）
 - sunfall → [源码、操作与启动说明](./sunfall/README.md) · [本地验证记录](./sunfall/VALIDATION.md) · [角色素材说明](./sunfall/THIRD_PARTY_ASSETS.md)
 - leaflight → [源码、玩法与运行说明](./leaflight/README.md) · [验证记录](./leaflight/VALIDATION.md)（由 Codex 协助开发）
 - citrus-jelly → [源码、操作与运行说明](./citrus-jelly/README.md) · [验证记录](./citrus-jelly/VALIDATION.md)（由 Codex 协助开发）
@@ -70,6 +72,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 霓城突围（Node.js >= 20，无需安装依赖或构建，http://127.0.0.1:5199）
+cd neon-breakout && npm start
+
 # 落日协议（Python 3；首次启动自动下载并校验角色，http://127.0.0.1:4177）
 cd sunfall && python start_local.py
 
@@ -143,6 +148,18 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 霓城突围 · 中文跑酷射击
+
+自动奔跑并射击前方怪物，左右选择增益门强化武器，躲避路障，再挑战巨型绿色首领。三位中文英雄林墨、苏晴、陈龙各有独立技能与初始数值，包含六章解锁、星级成绩、本地存档和通关后的无尽模式。
+
+- [在线试玩](https://shfzhangjian.github.io/AI_GTA/neon-breakout/) · [源码、操作与启动说明](./neon-breakout/README.md) · [验证记录](./neon-breakout/VALIDATION.md) · [角色展示](https://shfzhangjian.github.io/AI_GTA/neon-breakout/src/character-preview.html)
+- Windows 安装 Node.js 20 或更新版本后，双击 `neon-breakout/启动游戏.cmd`，或在该目录运行 `npm start`，打开 <http://127.0.0.1:5199/>。无需安装 npm 运行依赖或构建，也可直接由 GitHub Pages 托管。
+- A / D 或方向键移动、空格跳跃、E 释放英雄技能、Esc / P 暂停；手机提供拖动与触屏按钮，射击自动瞄准。蓝绿门补给和强化，红门扣弹药；首领重击与冲击波需要躲避。
+- 使用本地 Three.js、程序生成的角色网格与材质、WebAudio 合成音效。最新人物包含卷发、黑色连帽运动装、条纹裤与白鞋，首领包含宽肩、大肚子和破损紫衣；根据参考视频重建外观，并非原视频的源模型。
+- 31 项规则与完整六章流程测试通过，另有桌面、手机操作与首领战浏览器检查，记录随源码提供。
+
+![霓城突围：新版人物、蓝色跑道与增益门的实机画面](./neon-breakout/preview.png)
 
 ## 落日协议 · SUNFALL
 

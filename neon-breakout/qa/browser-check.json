@@ -1,0 +1,77 @@
+{
+  "desktop": {
+    "state": {
+      "status": "running",
+      "phase": "boss",
+      "level": 1,
+      "hero": "lin",
+      "distance": 250,
+      "x": 3.000000000000001,
+      "hp": 4,
+      "ammo": 252,
+      "guns": 1,
+      "rate": 1,
+      "damage": 1,
+      "kills": 1,
+      "score": 320,
+      "energy": 12.808899999999946,
+      "bossHP": 117,
+      "bossMaxHP": 140,
+      "wave": 1
+    },
+    "render": {
+      "calls": 364,
+      "triangles": 441284,
+      "geometries": 172,
+      "textures": 15
+    },
+    "overflow": false,
+    "fatal": false
+  },
+  "mobile": {
+    "state": {
+      "status": "running",
+      "phase": "run",
+      "level": 1,
+      "hero": "su",
+      "distance": 30.334450000000146,
+      "x": 3.257918552036198,
+      "hp": 4,
+      "ammo": 142,
+      "guns": 1,
+      "rate": 1,
+      "damage": 1.18,
+      "kills": 2,
+      "score": 230,
+      "energy": 3.1036200000000065,
+      "wave": 1
+    },
+    "render": {
+      "calls": 688,
+      "triangles": 725076,
+      "geometries": 177,
+      "textures": 20
+    },
+    "bounds": {
+      "minX": 0.38438651033349563,
+      "maxX": 0.7202971938440651,
+      "minY": -0.3832383988900994,
+      "maxY": -0.05182563085603967
+    },
+    "overflow": false,
+    "fatal": false
+  },
+  "unlocked": 2,
+  "errors": [],
+  "checks": [
+    "键盘移动",
+    "暂停冻结与恢复",
+    "跳跃与爆发",
+    "首领战渲染",
+    "胜利结算",
+    "章节解锁",
+    "存档持久化",
+    "手机触屏移动",
+    "手机技能按钮"
+  ]
+}
