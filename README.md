@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`tropical-island/`](./tropical-island/) | **潮屿 · TIDELANDS**：云海中的热带浮岛，恐龙头骨瀑布、肋骨珊瑚庭、木屋栈桥、棕榈林和火山；驾驶小船收集 8 颗珍珠、修复 4 处地标，支持自动绕岛寻路、昼夜、拍照、声音、存档和手机操作 | HTML + Three.js 0.185.1 + 自定义 GLSL + WebAudio（本地依赖、零构建、无远程素材请求） | [🏝️ 启航探索](https://shfzhangjian.github.io/AI_GTA/tropical-island/) |
 | [`citrus-jelly/`](./citrus-jelly/) | **柑橘果冻 · Citrus Jelly**：半透明软糖柑橘树，局部弯曲与回弹、28 枚双向耦合悬果、摇晃掉落、摘取与投掷、碰撞与休眠、空茎再生；三组配色、硬度、阻尼、成熟度，手机横竖屏折叠面板 | 单文件 HTML + 原生 WebGPU / WGSL + 固定步长位置约束物理（零依赖、零构建、无外部资源请求，需支持 WebGPU） | [🍊 立即体验](https://shfzhangjian.github.io/AI_GTA/citrus-jelly/) |
 | [`jelly-dice/`](./jelly-dice/) | **果冻骰子 · Jelly Dice**：可抓取、拉伸与轻戳的半透明软糖骰子，1–5 枚掷骰与点数结算、六种糖果色、玻璃托盘、分层折射与柔和阴影；软硬度、摇晃衰减、慢动作与晶格显示，支持触摸和键盘 | 单文件 HTML + 原生 WebGPU / WGSL + 四面体 XPBD（零依赖、零构建、字体内嵌，需支持 WebGPU） | [🎲 立即体验](https://shfzhangjian.github.io/AI_GTA/jelly-dice/) |
 | [`balloon-test/`](./balloon-test/) | **气球测试 · The Balloon Test**：纸质工作室里的乳胶实验，轻触泵气、Gent 压力曲线、独立印刷图案、轻弹、水模式、实时撕裂与碎片、水滴和水洼；种子固定的 ×12 慢动作重播，个人最佳记录，手机横竖屏 | 单文件 HTML + 内联 Three.js r165 + WebAudio（无需运行依赖或构建，仅 Google Fonts 可选联网） | [🎈 开始实验](https://shfzhangjian.github.io/AI_GTA/balloon-test/) |
@@ -34,6 +35,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
 - citrus-jelly → [源码、操作与运行说明](./citrus-jelly/README.md) · [验证记录](./citrus-jelly/VALIDATION.md)（由 Codex 协助开发）
+- tropical-island → [源码、玩法与运行说明](./tropical-island/README.md) · [验证记录](./tropical-island/qa/verification.json)（由 Codex 协助开发）
 - jelly-dice → [源码、操作与运行说明](./jelly-dice/README.md) · [验证记录](./jelly-dice/VALIDATION.md)（由 Codex 协助开发）
 - balloon-test → [源码、操作与重建说明](./balloon-test/README.md) · [验证记录](./balloon-test/QA.md)（由 Codex 协助开发）
 - melon-jelly → [源码、操作与运行说明](./melon-jelly/README.md) · [验证记录](./melon-jelly/VALIDATION.md)（由 Codex 协助开发）
@@ -62,6 +64,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 潮屿（Node.js >= 18，无需安装依赖或构建，http://127.0.0.1:5188）
+cd tropical-island && npm start
+
 # 柑橘果冻（零依赖、零构建，也可直接打开 index.html；需支持 WebGPU）
 cd citrus-jelly && python -m http.server 8792 --bind 127.0.0.1
 
@@ -123,6 +128,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 潮屿 · TIDELANDS
+
+在云海中的热带浮岛驾驶小船，寻回散落的 8 颗珍珠，再用它们点亮木屋码头、龙骨瀑布、望海灯塔与肋骨珊瑚庭。场景参考 Sonia 的热带箱庭视频独立重建，并增加完整的寻宝与修复通关流程。
+
+- [在线试玩](https://shfzhangjian.github.io/AI_GTA/tropical-island/) · [源码、玩法与启动说明](./tropical-island/README.md) · [验证记录](./tropical-island/qa/verification.json)
+- 点击海面或珍珠自动航行，WASD / 方向键驾驶；拖动旋转、滚轮缩放，支持手机触控。进度保存在当前浏览器，可暂停、续玩和重新开始。
+- 程序生成恐龙头骨、牙齿、肋骨拱廊、木屋、栈桥、棕榈、叶片与火山；自定义 GLSL 绘制海面焦散、云海、瀑布和浪花。所有运行资源随目录提供，无需构建或远程服务，可直接由 GitHub Pages 托管。
+- 晴日 / 暮色切换、自动环绕、PNG 拍照及默认关闭的合成环境音。游戏规则测试和浏览器完整收集 / 修复流程通过，并验证了存档恢复、手机布局及图片下载。
+
+![潮屿：热带浮岛、恐龙瀑布与海上栈桥的实机画面](./tropical-island/qa/game-preview.jpg)
 
 ## 柑橘果冻 · Citrus Jelly
 

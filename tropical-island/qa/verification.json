@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-03",
+  "engine": "Three.js 0.185.1 / WebGL",
+  "unit_tests": {"total": 3,"passed": 3,"coverage": ["all pearl routes", "main island and islet collision", "full victory flow", "resource spending", "duplicate repair", "pause", "save restore", "corrupt saves"]},
+  "browser": {
+    "tested_sizes": ["1280x720", "785x813", "390x844"],
+    "horizontal_overflow_at_390px": false,
+    "journey": {"collected": 8,"restored": 4,"remaining_pearls": 0},
+    "checked": ["automatic sailing", "collect all eight pearls", "open and switch landmarks", "repair resource deduction", "pause and resume", "reload retains progress", "completed state", "day and dusk", "audio on and off", "help open and close", "PNG download"],
+    "console_errors_in_final_version": 0,
+    "desktop_fps_observed": "approximately 50-70, varies with viewport and browser scheduling",
+    "photo_download": "tidelands-island.png, verified local file, 1750654 bytes",
+    "preview": "game-preview.jpg"
+  },
+  "reference": "https://x.com/sonia_code/status/2106218179978785001/video/1",
+  "note": "Independent stylized reconstruction. Game rules added because the reference is a scene showcase."
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#c6e6eb"><title>潮屿 TIDELANDS · 云上的海岛</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c5259'/%3E%3Cpath d='M10 44q11-9 22 0t22 0M10 51q11-9 22 0t22 0' fill='none' stroke='%23e5e7b8' stroke-width='3'/%3E%3Cpath d='M31 39V13l18 25H22' fill='%23e5e7b8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./src/style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
+</head>
+<body>
+  <canvas id="world" aria-label="可旋转的热带岛屿，点击海面驾驶小船" tabindex="0"></canvas>
+  <div id="loading" role="status"><span class="loading-wave">≈</span><p>正在唤醒一座小岛</p><small>海风、阳光，还有一点点冒险。</small></div>
+  <div id="ui">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="潮屿主页"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 30q8-6 16 0t16 0M6 37q8-6 16 0t16 0M22 27V6L36 25H12"/></svg><span><strong>潮 屿</strong><small>T I D E L A N D S</small></span></a>
+      <div class="edition"><i></i> 云上的海岛 <span>·</span> 你的慢生活</div>
+      <nav class="tools" aria-label="场景控制">
+        <button id="timeBtn" class="tool weather" title="切换昼夜" aria-label="切换昼夜"><span id="weatherIcon">☀</span><span id="timeLabel">晴日</span></button>
+        <button id="soundBtn" class="tool" title="打开海岛声音" aria-label="打开声音"><svg viewBox="0 0 24 24"><path d="M10 5L5 9H2v6h3l5 4zM15 8l6 8M21 8l-6 8"/></svg></button>
+        <button id="helpBtn" class="tool" title="玩法指南" aria-label="玩法指南"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 116 0c0 2-3 2-3 4M12 17v.1"/></svg></button>
+      </nav>
+    </header>
+    <div class="place-caption"><span>01 / 浮岛群落</span><p>一片海，<br>一整个小世界。</p></div>
+    <div id="markers" aria-label="岛屿地标"></div>
+    <div class="hud-status" id="hudStatus" hidden><span class="pearl-icon">◈</span><b id="pearlCount">0</b><span>珍珠</span><i></i><b id="repairCount">0 / 4</b><span>地标</span></div>
+    <section id="intro" class="story-card">
+      <div class="eyebrow">A LITTLE ISLAND. A LITTLE ADVENTURE.</div>
+      <h1>把日子，过成一座岛。</h1>
+      <p>乘着小船寻回散落的珍珠，<br>让这座海岛的灯火，再次亮起来。</p>
+      <button id="startBtn" class="primary">启航探索 <span>↗</span></button>
+      <div class="intro-hint">拖动旋转小岛 · 滚轮拉近风景</div>
+    </section>
+    <section id="mission" class="mission-card" hidden>
+      <div class="mission-header"><span class="eyebrow">你的海岛手记</span><button id="journalBtn" aria-label="查看地标">地标 <span>↗</span></button></div>
+      <h2 id="missionTitle">去海上，找一点闪光。</h2>
+      <p id="missionText">点击珍珠，小船会自动驶向它。收集 2 颗珍珠，就能点亮一处地标。</p>
+      <div class="progress-row"><div class="progress-track"><span id="progressFill"></span></div><span id="progressLabel">0 / 8</span></div>
+      <div class="mission-foot"><span id="boatStatus">小船停泊中</span><button id="pauseBtn" aria-label="暂停游戏">Ⅱ</button></div>
+    </section>
+    <aside id="locationPanel" class="location-panel" hidden>
+      <button class="close" id="closePanel" aria-label="关闭地标面板">×</button>
+      <div id="locationIndex" class="eyebrow">ISLAND FIELD NOTES / 01</div>
+      <div class="location-symbol" id="locationSymbol">⌂</div>
+      <h2 id="locationTitle"></h2><p id="locationText"></p>
+      <div id="locationState" class="location-state"></div>
+      <button id="repairBtn" class="primary"></button>
+      <div class="locations-list" id="locationsList"></div>
+    </aside>
+    <div class="bottom-center">
+      <div class="camera-bar"><button id="homeBtn" title="全岛视角" aria-label="全岛视角"><svg viewBox="0 0 24 24"><path d="M4 9l8-5 8 5v10H4zM9 19v-7h6v7"/></svg></button><span></span><button id="orbitBtn" class="active" title="自动环绕" aria-label="切换自动环绕"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><path d="M16 4l4 3-4 3M12 7v10"/></svg></button><button id="photoBtn" title="保存海岛照片" aria-label="保存海岛照片"><svg viewBox="0 0 24 24"><path d="M3 7h5l2-3h4l2 3h5v13H3z"/><circle cx="12" cy="13" r="4"/></svg></button><button id="fullscreenBtn" title="全屏" aria-label="全屏"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/></svg></button></div>
+      <p id="controlHint">拖动环视 <span>·</span> 滚轮缩放 <span>·</span> 点击地标探索</p>
+    </div>
+    <div class="compass" aria-hidden="true"><span>N</span><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><path d="M20 6l4 14-4 14-4-14z"/></svg><small>漂浮于 23° N</small></div>
+    <div id="touchControls" hidden aria-label="小船方向控制"><button data-key="w" aria-label="向前">↑</button><div><button data-key="a" aria-label="向左">←</button><button data-key="s" aria-label="向后">↓</button><button data-key="d" aria-label="向右">→</button></div></div>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <div id="pauseOverlay" class="modal-backdrop" hidden><section class="modal"><div class="eyebrow">TAKE YOUR TIME</div><h2>海风会等你。</h2><p>旅程已暂停，进度自动保存在这台设备。</p><button id="resumeBtn" class="primary">继续航行 →</button><button id="resetBtn" class="quiet">重新开始旅程</button></section></div>
+    <div id="helpOverlay" class="modal-backdrop" hidden><section class="modal help-modal"><button id="closeHelp" class="close" aria-label="关闭玩法指南">×</button><div class="eyebrow">HOW TO WANDER</div><h2>没有赶路，只有风景。</h2><ol><li><b>掌舵</b><span>点击海面或珍珠自动航行，也可以使用 WASD / 方向键驾驶。</span></li><li><b>寻宝</b><span>航行靠近发光的珍珠即可收集，共有 8 颗。</span></li><li><b>点亮海岛</b><span>点击地标，每 2 颗珍珠可修复一处。点亮四处地标，完成旅程。</span></li><li><b>自由看世界</b><span>拖动旋转、滚轮缩放，右键拖动平移。昼夜、环绕和拍照随时可用。</span></li></ol><button id="helpDone" class="primary">去看看这座岛 →</button></section></div>
+    <div id="completion" class="modal-backdrop" hidden><section class="modal completion"><div class="eyebrow">EVERY LIGHT TELLS A STORY</div><div class="win-symbol">✧</div><h2>小岛的灯，都亮了。</h2><p>8 颗珍珠，4 处风景。<br>谢谢你，把温柔带回了这片海。</p><button id="continueBtn" class="primary">留下来，看一场日落 →</button><button id="winPhotoBtn" class="quiet">为小岛拍张照片</button></section></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
