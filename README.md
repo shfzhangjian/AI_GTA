@@ -8,6 +8,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`jelly-dice/`](./jelly-dice/) | **果冻骰子 · Jelly Dice**：可抓取、拉伸与轻戳的半透明软糖骰子，1–5 枚掷骰与点数结算、六种糖果色、玻璃托盘、分层折射与柔和阴影；软硬度、摇晃衰减、慢动作与晶格显示，支持触摸和键盘 | 单文件 HTML + 原生 WebGPU / WGSL + 四面体 XPBD（零依赖、零构建、字体内嵌，需支持 WebGPU） | [🎲 立即体验](https://shfzhangjian.github.io/AI_GTA/jelly-dice/) |
 | [`balloon-test/`](./balloon-test/) | **气球测试 · The Balloon Test**：纸质工作室里的乳胶实验，轻触泵气、Gent 压力曲线、独立印刷图案、轻弹、水模式、实时撕裂与碎片、水滴和水洼；种子固定的 ×12 慢动作重播，个人最佳记录，手机横竖屏 | 单文件 HTML + 内联 Three.js r165 + WebAudio（无需运行依赖或构建，仅 Google Fonts 可选联网） | [🎈 开始实验](https://shfzhangjian.github.io/AI_GTA/balloon-test/) |
 | [`melon-jelly/`](./melon-jelly/) | **果冻西瓜 · Melon Jelly**：可抓取、拉伸与双指扭转的 3D 西瓜果冻，四面体体积保持、软硬果皮、两面种子随动、地面接触；三组配色、硬度与阻尼、慢动作、网格与暂停 | 单文件 HTML + 原生 WebGPU / WGSL + XPBD（零依赖、零构建，需支持 WebGPU） | [🍉 立即体验](https://shfzhangjian.github.io/AI_GTA/melon-jelly/) |
 | [`pixel-destroy-lab/`](./pixel-destroy-lab/) | **摧毁任意网页 · Pixel Lab**：简体中文像素网页破坏沙盒，内置演示与维基百科示例、公开网页截图关卡、十种武器、飞行与手雷、最多四人房间对战，支持键鼠和触屏操作 | React 19 + Vinext / Vite 8 + Canvas 2D + Cloudflare Workers / D1 / R2（需要编译及后端服务） | [💻 本地启动说明](./pixel-destroy-lab/README.md#本地运行) |
@@ -31,6 +32,7 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 
 项目由 **AI 辅助生成、迭代与验证**。已有项目包含 `unsloth/Qwen3.8-Flash-Next-GGUF` / DeepSeek Harness 工作流，Tilt Lab、雨山湖夜游和漫步外滩由 Codex 协助开发；具体实现与使用方式见各自文档：
 
+- jelly-dice → [源码、操作与运行说明](./jelly-dice/README.md) · [验证记录](./jelly-dice/VALIDATION.md)（由 Codex 协助开发）
 - balloon-test → [源码、操作与重建说明](./balloon-test/README.md) · [验证记录](./balloon-test/QA.md)（由 Codex 协助开发）
 - melon-jelly → [源码、操作与运行说明](./melon-jelly/README.md) · [验证记录](./melon-jelly/VALIDATION.md)（由 Codex 协助开发）
 - pixel-destroy-lab → [源码、操作与本地启动说明](./pixel-destroy-lab/README.md)
@@ -58,6 +60,9 @@ AI 生成的游戏向 Web 项目集合。每个项目独立目录存放。
 ## 本地运行
 
 ```bash
+# 果冻骰子（零依赖、零构建，也可直接打开 index.html；需支持 WebGPU）
+cd jelly-dice && python -m http.server 9017 --bind 127.0.0.1
+
 # 气球测试（现成 HTML 无需构建，也可直接打开；HTTP 预览于 localhost:8791）
 cd balloon-test && node server.cjs
 
@@ -113,6 +118,17 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 ```
 
 > 使用 ES Module + fetch 的项目需要 HTTP 环境。漫步外滩和雨山湖夜游支持直接打开各自目录中的 `index.html`；自动化验证和视频导出需启动本地服务。
+
+## 果冻骰子 · Jelly Dice
+
+温暖纸质摄影棚里，六种宝石色的软糖骰子落在磨砂玻璃托盘上。轻拉会拉长果冻，继续拉可提起移动；轻触会压出小凹陷，整个骰子随后摇晃并稳定。掷骰后按实际朝上的面读取各枚点数与总和。
+
+- [在线体验](https://shfzhangjian.github.io/AI_GTA/jelly-dice/) · [独立 HTML](./jelly-dice/index.html) · [操作与源码说明](./jelly-dice/README.md)
+- 每枚骰子包含 125 个模拟节点和 384 个四面体；XPBD 体积约束、共旋弹性、应变限制、摩擦接触与静止休眠。支持 1–5 枚骰子、鼠标抓取、触屏轻戳和双指缩放。
+- 原生 WebGPU / WGSL，GPU 形变法线、五层屏幕空间折射、厚度吸收、皮下象牙色点数、彩色软阴影和 4× MSAA。单文件内嵌字体，无运行依赖或外部资源请求；无法使用 WebGPU 时显示说明卡片。
+- 软硬度、摇晃衰减、¼速度、晶格显示、默认关闭的合成音效、暂停与重置。已完成桌面、手机、反转恢复、最大软度碰撞、稳定休眠及键盘验证；测试机器五枚运动骰子约 69 FPS，详见 [验证记录](./jelly-dice/VALIDATION.md)。
+
+![果冻骰子：真实浏览器中的半透明软体骰子与玻璃托盘](./jelly-dice/preview.png)
 
 ## 气球测试 · The Balloon Test
 

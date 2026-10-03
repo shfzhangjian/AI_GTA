@@ -1,0 +1,130 @@
+{
+  "idle": 78,
+  "fps": [
+    {
+      "fps": 70,
+      "awake": 5
+    },
+    {
+      "fps": 70,
+      "awake": 5
+    },
+    {
+      "fps": 70,
+      "awake": 5
+    },
+    {
+      "fps": 67,
+      "awake": 5
+    },
+    {
+      "fps": 67,
+      "awake": 3
+    },
+    {
+      "fps": 68,
+      "awake": 2
+    },
+    {
+      "fps": 67,
+      "awake": 1
+    },
+    {
+      "fps": 67,
+      "awake": 1
+    }
+  ],
+  "errors": [],
+  "settled": [
+    {
+      "sleep": true,
+      "center": [
+        1.6599821916331972,
+        0.7237400501731444,
+        1.4845748215697634
+      ],
+      "top": {
+        "value": 5,
+        "alignment": 0.9976700762459145,
+        "face": 5
+      },
+      "minVolume": 0.9812307648277163,
+      "maxStrain": 1.0680667771197372,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        -0.06090371158877606,
+        0.7258713114902479,
+        1.704329606321898
+      ],
+      "top": {
+        "value": 1,
+        "alignment": 0.9981508014178353,
+        "face": 2
+      },
+      "minVolume": 0.9826832850507772,
+      "maxStrain": 1.0646574295689815,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        -1.3892127903520584,
+        0.7239077504648227,
+        0.3271939677244391
+      ],
+      "top": {
+        "value": 4,
+        "alignment": 0.9980434857668751,
+        "face": 1
+      },
+      "minVolume": 0.9830588794976596,
+      "maxStrain": 1.0639068914931133,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        -0.6781098332906089,
+        0.7258632327326755,
+        -0.6409375541883384
+      ],
+      "top": {
+        "value": 5,
+        "alignment": 0.998718226004245,
+        "face": 5
+      },
+      "minVolume": 0.985603520500884,
+      "maxStrain": 1.0761505481149263,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": false,
+      "center": [
+        0.7722119201056262,
+        0.7245760387074112,
+        -2.378153223681038
+      ],
+      "top": {
+        "value": 6,
+        "alignment": 0.9968953503803095,
+        "face": 3
+      },
+      "minVolume": 0.9837987174476779,
+      "maxStrain": 1.057668622489693,
+      "maxSpeed": 0.0769564869868085,
+      "nudges": 0
+    }
+  ],
+  "smallPhone": {
+    "overflow": false,
+    "overlap": false,
+    "controlsFit": true
+  }
+}

@@ -1,0 +1,499 @@
+{
+  "initial": {
+    "stats": [
+      {
+        "sleep": true,
+        "center": [
+          -1.2,
+          0.76,
+          0.3
+        ],
+        "top": {
+          "value": 1,
+          "alignment": 1,
+          "face": 2
+        },
+        "minVolume": 0.9999999999999991,
+        "maxStrain": 1.0000000000000009,
+        "maxSpeed": 0,
+        "nudges": 0
+      },
+      {
+        "sleep": true,
+        "center": [
+          0.1,
+          0.76,
+          -0.6
+        ],
+        "top": {
+          "value": 2,
+          "alignment": 1,
+          "face": 4
+        },
+        "minVolume": 0.9999999999999988,
+        "maxStrain": 1.0000000000000009,
+        "maxSpeed": 0,
+        "nudges": 0
+      },
+      {
+        "sleep": true,
+        "center": [
+          1.28,
+          0.76,
+          0.43
+        ],
+        "top": {
+          "value": 3,
+          "alignment": 1,
+          "face": 0
+        },
+        "minVolume": 0.9999999999999984,
+        "maxStrain": 1.0000000000000009,
+        "maxSpeed": 0,
+        "nudges": 0
+      }
+    ],
+    "fps": 81,
+    "fonts": [
+      true,
+      true
+    ]
+  },
+  "poke": [
+    {
+      "sleep": false,
+      "center": [
+        -1.2031433682748223,
+        0.7076803173105483,
+        0.29889493545562734
+      ],
+      "top": {
+        "value": 1,
+        "alignment": 0.9999887612169029,
+        "face": 2
+      },
+      "minVolume": 0.9762878493544219,
+      "maxStrain": 1.08074446228559,
+      "maxSpeed": 0.4944144937161754,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        0.1,
+        0.76,
+        -0.6
+      ],
+      "top": {
+        "value": 2,
+        "alignment": 1,
+        "face": 4
+      },
+      "minVolume": 0.9999999999999988,
+      "maxStrain": 1.0000000000000009,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        1.28,
+        0.76,
+        0.43
+      ],
+      "top": {
+        "value": 3,
+        "alignment": 1,
+        "face": 0
+      },
+      "minVolume": 0.9999999999999984,
+      "maxStrain": 1.0000000000000009,
+      "maxSpeed": 0,
+      "nudges": 0
+    }
+  ],
+  "stretch": [
+    {
+      "sleep": false,
+      "center": [
+        -1.5184860812802106,
+        1.856964482310615,
+        0.11938715882127916
+      ],
+      "top": {
+        "value": 1,
+        "alignment": 0.9832826696751913,
+        "face": 2
+      },
+      "minVolume": 0.9294249518020612,
+      "maxStrain": 1.2910612267161121,
+      "maxSpeed": 3.7878975411886304,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        0.1,
+        0.76,
+        -0.6
+      ],
+      "top": {
+        "value": 2,
+        "alignment": 1,
+        "face": 4
+      },
+      "minVolume": 0.9999999999999988,
+      "maxStrain": 1.0000000000000009,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        1.28,
+        0.76,
+        0.43
+      ],
+      "top": {
+        "value": 3,
+        "alignment": 1,
+        "face": 0
+      },
+      "minVolume": 0.9999999999999984,
+      "maxStrain": 1.0000000000000009,
+      "maxSpeed": 0,
+      "nudges": 0
+    }
+  ],
+  "release": [
+    {
+      "sleep": false,
+      "center": [
+        -1.3979142347048563,
+        1.4068831846052738,
+        0.08756691423404758
+      ],
+      "top": {
+        "value": 1,
+        "alignment": 0.9427019928856061,
+        "face": 2
+      },
+      "minVolume": 0.9978519137525019,
+      "maxStrain": 1.0624414113380245,
+      "maxSpeed": 4.315156061647498,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        0.1,
+        0.76,
+        -0.6
+      ],
+      "top": {
+        "value": 2,
+        "alignment": 1,
+        "face": 4
+      },
+      "minVolume": 0.9999999999999988,
+      "maxStrain": 1.0000000000000009,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        1.28,
+        0.76,
+        0.43
+      ],
+      "top": {
+        "value": 3,
+        "alignment": 1,
+        "face": 0
+      },
+      "minVolume": 0.9999999999999984,
+      "maxStrain": 1.0000000000000009,
+      "maxSpeed": 0,
+      "nudges": 0
+    }
+  ],
+  "rolling": {
+    "fps": 69,
+    "stats": [
+      {
+        "sleep": false,
+        "center": [
+          0.8054961023331721,
+          0.7244804827626565,
+          0.10769012396924525
+        ],
+        "top": {
+          "value": 2,
+          "alignment": 0.9984768603382357,
+          "face": 4
+        },
+        "minVolume": 0.9805592421636292,
+        "maxStrain": 1.0963047731552535,
+        "maxSpeed": 0.41359458421050077,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          -0.0896228898263933,
+          0.7076935373766643,
+          1.9681231836100948
+        ],
+        "top": {
+          "value": 6,
+          "alignment": 0.9898652058671669,
+          "face": 3
+        },
+        "minVolume": 0.9753630233835456,
+        "maxStrain": 1.1029624396993398,
+        "maxSpeed": 1.7984455621417954,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          -1.2929847797946605,
+          0.7248773334651338,
+          0.5186748114495296
+        ],
+        "top": {
+          "value": 1,
+          "alignment": 0.9951537798465617,
+          "face": 2
+        },
+        "minVolume": 0.9790491482170842,
+        "maxStrain": 1.0674500347679965,
+        "maxSpeed": 0.5259861967064108,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          -1.1312175385377141,
+          0.7240644656768945,
+          -0.7799018042775483
+        ],
+        "top": {
+          "value": 5,
+          "alignment": 0.999672059317761,
+          "face": 5
+        },
+        "minVolume": 0.9748318425424061,
+        "maxStrain": 1.0693485200190997,
+        "maxSpeed": 0.5055385913786326,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          0.5160035274320045,
+          0.7279396441229814,
+          -1.0680431633142469
+        ],
+        "top": {
+          "value": 1,
+          "alignment": 0.9919601972456783,
+          "face": 2
+        },
+        "minVolume": 0.9795626975083112,
+        "maxStrain": 1.0865205044797532,
+        "maxSpeed": 0.6129709197754358,
+        "nudges": 0
+      }
+    ]
+  },
+  "physicsBenchmark": {
+    "ms": 69,
+    "stats": [
+      {
+        "sleep": false,
+        "center": [
+          0.8184319179795406,
+          0.724527802914824,
+          0.09971821695722283
+        ],
+        "top": {
+          "value": 2,
+          "alignment": 0.9987652309960044,
+          "face": 4
+        },
+        "minVolume": 0.9784515241906767,
+        "maxStrain": 1.1042665003558614,
+        "maxSpeed": 0.09455792621944667,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          -0.06598172047732584,
+          0.7224072480034319,
+          2.128084218252492
+        ],
+        "top": {
+          "value": 6,
+          "alignment": 0.9984345411585718,
+          "face": 3
+        },
+        "minVolume": 0.9824312203775833,
+        "maxStrain": 1.0682312092049864,
+        "maxSpeed": 0.7804769273249523,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          -1.3994298935999758,
+          0.7220168575020063,
+          0.5308263981380719
+        ],
+        "top": {
+          "value": 1,
+          "alignment": 0.998431267669775,
+          "face": 2
+        },
+        "minVolume": 0.9786702376565154,
+        "maxStrain": 1.0623112979605256,
+        "maxSpeed": 0.16667289537031035,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          -1.162087982554079,
+          0.7264029781340394,
+          -0.7567589542958826
+        ],
+        "top": {
+          "value": 5,
+          "alignment": 0.9997089161555207,
+          "face": 5
+        },
+        "minVolume": 0.9844627046547985,
+        "maxStrain": 1.0623397275065336,
+        "maxSpeed": 0.24034381695482723,
+        "nudges": 0
+      },
+      {
+        "sleep": false,
+        "center": [
+          0.5520787152914477,
+          0.7310132786632211,
+          -1.0625062406268955
+        ],
+        "top": {
+          "value": 1,
+          "alignment": 0.9959181713899322,
+          "face": 2
+        },
+        "minVolume": 0.9819460747605336,
+        "maxStrain": 1.0662573514814524,
+        "maxSpeed": 0.1599202793966094,
+        "nudges": 0
+      }
+    ]
+  },
+  "settledAt": 3,
+  "settled": [
+    {
+      "sleep": true,
+      "center": [
+        0.8078096030471654,
+        0.725780382604747,
+        0.10399682621405416
+      ],
+      "top": {
+        "value": 2,
+        "alignment": 0.9989864204346708,
+        "face": 4
+      },
+      "minVolume": 0.9818784896985203,
+      "maxStrain": 1.1143856362941464,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        -0.07114880918757777,
+        0.7237671361320124,
+        2.107118146304296
+      ],
+      "top": {
+        "value": 6,
+        "alignment": 0.9999145338934117,
+        "face": 3
+      },
+      "minVolume": 0.987935062774501,
+      "maxStrain": 1.0569039713904438,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        -1.365103950470082,
+        0.7233395329073804,
+        0.515663898148462
+      ],
+      "top": {
+        "value": 1,
+        "alignment": 0.9998832496092884,
+        "face": 2
+      },
+      "minVolume": 0.9877068400986885,
+      "maxStrain": 1.0530029134449366,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        -1.1490643976837533,
+        0.7260152047988847,
+        -0.7688670448423226
+      ],
+      "top": {
+        "value": 5,
+        "alignment": 0.9999869068325619,
+        "face": 5
+      },
+      "minVolume": 0.9847073102108873,
+      "maxStrain": 1.0694953328718626,
+      "maxSpeed": 0,
+      "nudges": 0
+    },
+    {
+      "sleep": true,
+      "center": [
+        0.5464731864841967,
+        0.729231653810487,
+        -1.0502673569494494
+      ],
+      "top": {
+        "value": 1,
+        "alignment": 0.9970026207277369,
+        "face": 2
+      },
+      "minVolume": 0.9809702455514125,
+      "maxStrain": 1.0673563189502733,
+      "maxSpeed": 0,
+      "nudges": 0
+    }
+  ],
+  "maxStrain": 1.1143856362941464,
+  "minVolume": 0.9809702455514125,
+  "sleepStable": true,
+  "mobileOverflow": false,
+  "errors": [],
+  "pageErrors": [],
+  "fallback": {
+    "visible": true,
+    "reason": "WebGPU is unavailable in this browser. The browser or graphics driver may not support it, or hardware acceleration may be disabled."
+  }
+}
