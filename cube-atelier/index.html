@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef"><meta name="description" content="交互式三阶魔方工作台。自由转动、随机打乱、逐步还原指导，搭配同步的六面展开图和公式演示。">
+  <title>Cube Atelier · 魔方实验室</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/"}}</script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="./" aria-label="魔方实验室首页"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2 37 12v20L20 42 3 32V12Z M3 12l17 10 17-10 M20 22v20 M12 7l17 10v20 M29 7 12 17v20 M3 22l17 10 17-10"/></svg><span>cube<span class="brand-dot">.</span><small>ATELIER</small></span></a>
+      <div class="sidebar-caption">让每一次转动，都有方向。</div>
+      <div class="nav-label">你的工作台</div>
+      <nav aria-label="主导航">
+        <button class="nav-item active" id="nav-practice"><span data-icon="cube"></span>魔方练习台<span class="nav-index">01</span></button>
+        <button class="nav-item" id="nav-formulas"><span data-icon="book"></span>公式手册<span class="nav-index">02</span></button>
+        <button class="nav-item" id="nav-help"><span data-icon="help"></span>使用指南<span class="nav-index">03</span></button>
+      </nav>
+      <div class="sidebar-tip"><span class="tip-cross">✳</span><h3>慢一点，也没关系。</h3><p>理解每一个转动，<br>比记住一串公式更有趣。</p><button id="tip-formulas">从基础记号开始 <span>↗</span></button></div>
+      <div class="sidebar-bottom"><span class="online-dot"></span>在浏览器里，练习你的下一步<small>THREE.JS · 3 × 3 × 3</small></div>
+    </aside>
+    <main>
+      <header class="page-header"><div class="breadcrumb">工作台 <span>/</span> <strong>魔方练习台</strong></div><button class="subtle-button" id="header-help"><span data-icon="keyboard"></span>快捷键<span class="key-cap">?</span></button></header>
+      <section class="page-heading"><div><div class="eyebrow">A LITTLE TWIST. A NEW PERSPECTIVE.</div><h1>转动之间，找到秩序<span>。</span></h1><p>一个魔方，六种颜色。从打乱到还原，按你的节奏来。</p></div><div class="edition">交互式魔方实验室<span>VOL. 001 / BEGINNER FRIENDLY</span></div></section>
+      <section class="workspace-bar"><div class="mode-switch" role="group" aria-label="练习模式"><button class="selected" id="mode-free" aria-pressed="true"><span data-icon="hand"></span>自由练习</button><button id="mode-guide" aria-pressed="false"><span data-icon="spark"></span>指导模式</button></div><div class="workspace-actions"><label class="scramble-length"><select id="scramble-length" aria-label="打乱步数"><option value="20">20 步打乱</option><option value="10">10 步打乱</option><option value="30">30 步打乱</option></select></label><button class="primary-button" id="scramble"><span data-icon="shuffle"></span>打乱魔方</button></div></section>
+      <div class="workspace-grid">
+        <section class="cube-workspace panel">
+          <div class="viewer-header"><div class="section-label"><span class="green-dot"></span>魔方视窗 <span class="micro">LIVE VIEW</span></div><div class="view-switch" role="group" aria-label="视图"><button class="selected" data-view="3d" aria-pressed="true">3D 视图</button><button data-view="net" aria-pressed="false">平面展开</button></div></div>
+          <div class="viewer" id="viewer"><div id="scene" aria-label="交互式3D魔方，拖动旋转视角，点击面选择转动面"></div><div id="large-net" class="large-net" hidden></div><div class="viewer-status" id="viewer-status"><span class="status-dot"></span><span id="state-label">已还原</span></div><div class="viewer-annotation" id="viewer-annotation">白色朝上 · 绿色朝前</div><div class="viewer-tools"><button class="icon-button" id="reset-camera" title="复位视角" aria-label="复位视角"><span data-icon="focus"></span></button><button class="icon-button" id="toggle-labels" title="显示或隐藏面标记" aria-label="显示或隐藏面标记" aria-pressed="true"><span data-icon="tag"></span></button></div><div class="viewer-hint" id="viewer-hint"><span data-icon="mouse"></span>拖动旋转视角<span class="hint-divider">·</span>滚轮缩放<span class="hint-divider">·</span>点击选择面</div><div class="scene-loading" id="scene-loading">正在准备你的魔方…</div></div>
+          <div class="practice-stats"><div><span class="stat-label">练习用时</span><strong id="timer">00:00</strong></div><div><span class="stat-label">转动步数</span><strong id="move-count">0<small>步</small></strong></div><div class="completion-stat"><span class="stat-label">同色归位</span><strong id="completion">100<small>%</small></strong><div class="tiny-progress"><span id="completion-bar"></span></div></div><button class="subtle-button" id="reset-cube"><span data-icon="refresh"></span>重置</button></div>
+          <div class="auxiliary-grid"><div class="net-section"><div class="small-section-title">六面展开图<span>与 3D 实时同步</span></div><div class="cube-net" id="cube-net" aria-label="魔方六面展开图"></div><div class="net-footnote"><span class="green-dot"></span>点击任一面，选中对应转动层</div></div><div class="orientation-section"><div class="small-section-title">先认识你的魔方<span>ORIENTATION</span></div><div class="face-legend" id="face-legend"></div><p>面的位置由中心块决定。<br>转动视角，不会改变公式中的方向。</p><button class="text-link" id="notation-help">查看转动记号 <span>↗</span></button></div></div>
+        </section>
+        <aside class="guide-panel panel"><div class="guide-header"><span class="section-label"><span data-icon="compass"></span>还原助手</span><span class="outline-badge" id="guide-badge">随时待命</span></div><div id="guide-content" aria-live="polite"></div><div class="guide-bottom"><span data-icon="bulb"></span><p>先理解方向，再熟悉公式。<br>每一步，展开图都会陪着你。</p></div></aside>
+      </div>
+      <section class="controls-panel panel"><div class="controls-title"><h2>动手转一转</h2><span>以正对该面的视角，判断顺逆时针</span></div><div class="face-controls" id="face-controls"></div><div class="controls-footer"><div><span data-icon="keyboard"></span>按 <kbd>U</kbd><kbd>R</kbd><kbd>F</kbd><kbd>D</kbd><kbd>L</kbd><kbd>B</kbd> 顺时针<span class="footer-divider">/</span><kbd>Shift</kbd> + 字母逆时针</div><div class="history-actions"><button class="subtle-button" id="undo" disabled><span data-icon="undo"></span>撤销</button><button class="subtle-button" id="redo" disabled><span data-icon="redo"></span>重做</button></div></div></section>
+      <section class="history-panel"><div><span class="micro">MOVE JOURNAL</span><span class="history-title">转动记录</span></div><div class="history-moves" id="history-moves"><span class="empty-history">你的第一步，从这里开始。</span></div><button class="subtle-button" id="copy-scramble" title="复制本次打乱公式"><span data-icon="copy"></span><span>复制打乱</span></button></section>
+      <footer class="page-footer"><span>练习不必完美，进步发生在每一次转动里。</span><span>CUBE ATELIER <span class="footer-spark">✳</span> MADE FOR THE CURIOUS.</span></footer>
+    </main>
+  </div>
+  <dialog id="library-dialog" class="modal"><div class="modal-header"><div><div class="eyebrow">THE LITTLE HANDBOOK</div><h2>公式手册</h2></div><button class="icon-button" data-close="library-dialog" aria-label="关闭公式手册"><span data-icon="close"></span></button></div><p class="modal-intro">读懂记号，再把公式放进手里。选择公式，查看说明和逐步演示。</p><div class="notation-strip"><span><b>R</b> 顺时针 90°</span><span><b>R′</b> 逆时针 90°</span><span><b>R2</b> 转动 180°</span></div><div id="formula-library" class="formula-library"></div><p class="modal-footnote">公式需要对应的块位置和朝向。演示会从示例状态开始，退出后回到你的练习。</p></dialog>
+  <dialog id="help-dialog" class="modal help-modal"><div class="modal-header"><div><div class="eyebrow">A GOOD PLACE TO START</div><h2>你的第一份魔方指南</h2></div><button class="icon-button" data-close="help-dialog" aria-label="关闭使用指南"><span data-icon="close"></span></button></div><div class="help-steps"><article><span>01</span><div><h3>给它一点变化</h3><p>点击「打乱魔方」开始练习。每次都会生成新的打乱公式，你也可以复制保存。</p></div></article><article><span>02</span><div><h3>让方向变得直观</h3><p>拖动魔方观察六个面，滚轮缩放。点击 3D 色块或展开图选择面，再用按钮或键盘转动。U 上、R 右、F 前、D 下、L 左、B 后；方向始终以中心块为准。</p></div></article><article><span>03</span><div><h3>卡住时，跟着下一步</h3><p>进入「指导模式」，助手根据当前状态生成还原路线。可以自己转动，也可以点「执行这一步」。如果转错，助手会重新规划。</p></div></article><article><span>04</span><div><h3>把公式练成肌肉记忆</h3><p>打开公式手册，进入独立示例演示。逐步观察转动，退出后继续原来的练习。</p></div></article></div><div class="shortcut-grid"><span><kbd>U / R / F / D / L / B</kbd> 顺时针</span><span><kbd>Shift + 字母</kbd> 逆时针</span><span><kbd>Ctrl / ⌘ + Z</kbd> 撤销</span><span><kbd>Space</kbd> 指导 / 演示下一步</span><span><kbd>Esc</kbd> 关闭窗口 / 退出演示</span><span><kbd>?</kbd> 查看快捷键</span></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body></html>
