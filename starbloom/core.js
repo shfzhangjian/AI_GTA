@@ -1,0 +1,37 @@
+import * as T from './vendor/three.module.min.js';
+export const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
+export const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+export function tangent(v,n){return v.clone().addScaledVector(n,-v.dot(n)).normalize()}
+export function walk(n,f,delta,radius=14){const d=delta.length();if(d<1e-8)return;const dir=tangent(delta,n),axis=new T.Vector3().crossVectors(n,dir).normalize(),q=new T.Quaternion().setFromAxisAngle(axis,d/radius);n.applyQuaternion(q).normalize();f.applyQuaternion(q);f.copy(tangent(f,n));}
+export const arc=(a,b,r=14)=>Math.acos(clamp(a.dot(b),-1,1))*r;
+export function toward(a,b){const d=b.clone().addScaledVector(a,-a.dot(b));if(d.lengthSq()<1e-8)return tangent(Math.abs(a.z)<.9?V(0,0,1):V(1,0,0),a);return d.normalize()}
+export const UPGRADES=[
+{id:'power',name:'超新星弹芯',tag:'火力',desc:'每发伤害 +35%',icon:'✦'},
+{id:'rapid',name:'脉冲加速器',tag:'射速',desc:'射击间隔缩短 22%',icon:'ϟ'},
+{id:'split',name:'双子星分束',tag:'弹幕',desc:'增加两枚侧翼弹丸',icon:'⋔'},
+{id:'health',name:'生命星苞',tag:'生存',desc:'生命上限 +25，回复 35',icon:'♡'},
+{id:'dash',name:'彗星引擎',tag:'机动',desc:'冲刺冷却缩短 30%',icon:'↗'},
+{id:'leech',name:'星尘循环',tag:'续航',desc:'每次击败敌人回复 3 生命',icon:'∞'},
+{id:'pierce',name:'穿星晶体',tag:'贯穿',desc:'子弹可额外穿透一个敌人',icon:'◇'},
+{id:'speed',name:'轨道滑靴',tag:'速度',desc:'移动速度 +18%',icon:'➤'}];
+export class Simulation{
+ constructor(){this.seed=1;this.reset(0)}
+ rng(){this.seed=(1664525*this.seed+1013904223)>>>0;return this.seed/4294967296}
+ reset(level=0){this.seed=1234+level;this.level=level;this.phase='title';this.time=0;this.wave=0;this.wait=0;this.enemies=[];this.bullets=[];this.events=[];this.visited=[];this.kills=0;this.shots=0;this.upgrades=[];this.uid=1;this.stats={damage:15,interval:.22,spread:0,maxHp:100,speed:5.5,dashCooldown:2.6,pierce:0,leech:0};this.player={n:V(0,1,0),forward:V(0,0,-1),aim:V(0,0,-1),hp:100,invuln:0,dash:0,dashCd:0,shotCd:0,velocity:V()};this.camForward=V(0,0,-1)}
+ start(level=0){this.reset(level);this.phase='playing';this.wait=.6;this.events.push({type:'start'})}
+ beginLevel(level){this.level=level;this.phase='playing';this.wave=0;this.wait=1.2;this.enemies=[];this.bullets=[];Object.assign(this.player,{n:V(0,1,0),forward:V(0,0,-1),aim:V(0,0,-1),invuln:1.5,dash:0,dashCd:0,shotCd:0,velocity:V()});this.camForward=V(0,0,-1);this.events.push({type:'land'})}
+ spawnWave(){this.wave++;const count=4+this.level+this.wave*2;for(let i=0;i<count;i++){const angle=this.rng()*Math.PI*2,dist=8+this.rng()*9;const dir=this.camForward.clone().applyAxisAngle(this.player.n,angle);const n=this.player.n.clone().multiplyScalar(Math.cos(dist/14)).addScaledVector(dir,Math.sin(dist/14)).normalize();const type=(i+this.wave)%5===0?'brute':(i+this.level)%3===0?'spitter':'beetle';const hp=type==='brute'?95+this.level*16:type==='spitter'?40+this.level*7:30+this.level*6;this.enemies.push({id:this.uid++,n,forward:toward(n,this.player.n),type,hp,maxHp:hp,cooldown:1+this.rng()*2,flash:0,charge:0});}this.events.push({type:'wave',wave:this.wave})}
+ applyUpgrade(id){if(this.phase!=='upgrade')return false;const s=this.stats;if(!UPGRADES.some(u=>u.id===id))return false;this.upgrades.push(id);if(id==='power')s.damage*=1.35;if(id==='rapid')s.interval=Math.max(.06,s.interval*.78);if(id==='split')s.spread=Math.min(3,s.spread+1);if(id==='health'){s.maxHp+=25;this.player.hp=Math.min(s.maxHp,this.player.hp+35)}if(id==='dash')s.dashCooldown=Math.max(.6,s.dashCooldown*.7);if(id==='leech')s.leech+=3;if(id==='pierce')s.pierce++;if(id==='speed')s.speed*=1.18;this.phase=this.visited.length>=5?'won':'route';return true}
+ choices(){return [...UPGRADES].sort(()=>this.rng()-.5).slice(0,3)}
+ damage(amount){const p=this.player;if(p.invuln>0||p.dash>0)return;p.hp=Math.max(0,p.hp-amount);p.invuln=.9;this.events.push({type:'hurt',amount});if(!p.hp){this.phase='dead';this.events.push({type:'dead'})}}
+ shoot(n,dir,enemy=false,damage=10){const side=this.stats.spread;const offsets=enemy?[0]:Array.from({length:side*2+1},(_,i)=>(i-side)*.13);for(const a of offsets){this.bullets.push({id:this.uid++,n:n.clone(),dir:dir.clone().applyAxisAngle(n,a),enemy,damage,life:enemy?2.6:1.1,pierce:enemy?0:this.stats.pierce,hit:new Set(),speed:enemy?10:25});}if(!enemy){this.shots++;this.events.push({type:'shoot'})}}
+ update(dt,input={}){if(this.phase!=='playing')return;dt=Math.min(dt,.04);this.time+=dt;const p=this.player,s=this.stats;for(const k of ['invuln','dash','dashCd','shotCd'])p[k]=Math.max(0,p[k]-dt);if(this.wait>0){this.wait-=dt;if(this.wait<=0&&this.wave<3)this.spawnWave()}
+ const cf=this.camForward;if(input.turn)cf.applyAxisAngle(p.n,-input.turn*dt*1.7);const right=new T.Vector3().crossVectors(cf,p.n).normalize();let move=cf.clone().multiplyScalar(input.y||0).addScaledVector(right,input.x||0);if(move.lengthSq()>1)move.normalize();if(input.dash&&p.dashCd<=0&&move.lengthSq()>.01){p.dash=.23;p.invuln=.28;p.dashCd=s.dashCooldown;this.events.push({type:'dash'})}const speed=s.speed*(p.dash>0?3.3:1);move.multiplyScalar(speed);p.velocity.lerp(move,1-Math.exp(-dt*(this.level===2?4.2:14)));const delta=p.velocity.clone().multiplyScalar(dt);const old=p.n.clone();walk(p.n,cf,delta);const transport=new T.Quaternion().setFromUnitVectors(old,p.n);p.aim.applyQuaternion(transport);p.forward.applyQuaternion(transport);if(delta.lengthSq()>.0001)p.forward.copy(tangent(delta,p.n));
+ if(input.aim)p.aim.copy(tangent(input.aim,p.n));else if(input.autoAim!==false){let nearest=null,d=12;for(const e of this.enemies){const v=arc(e.n,p.n);if(v<d){nearest=e;d=v}}if(nearest)p.aim.copy(toward(p.n,nearest.n));else if(delta.lengthSq()>.0001)p.aim.copy(p.forward)}else if(delta.lengthSq()>.0001)p.aim.copy(p.forward);
+ if(input.fire&&p.shotCd<=0){this.shoot(p.n,p.aim,false,s.damage);p.shotCd=s.interval}
+ for(const e of this.enemies){e.flash=Math.max(0,e.flash-dt);e.cooldown-=dt;const d=arc(e.n,p.n);let dir=toward(e.n,p.n);e.forward.copy(dir);let speed=e.type==='brute'?1.9:e.type==='spitter'?1.8:2.5+this.level*.12;if(e.type==='spitter'){if(d<5)speed=-1;if(d>=5&&d<8)speed=0;if(e.cooldown<=0&&d<15){this.shoot(e.n,dir,true,12);e.cooldown=2.7-this.level*.17;this.events.push({type:'enemyshoot',id:e.id})}}else if(e.type==='brute'&&e.cooldown<.5&&d<8){speed=5;e.charge=1;if(e.cooldown<=0)e.cooldown=3}else e.charge=0;walk(e.n,e.forward,dir.multiplyScalar(speed*dt));if(d<(e.type==='brute'?1.2:.85))this.damage(e.type==='brute'?20:12)}
+ for(const b of this.bullets){b.life-=dt;walk(b.n,b.dir,b.dir.clone().multiplyScalar(b.speed*dt));if(b.enemy){if(arc(b.n,p.n)<.68){this.damage(b.damage);b.life=0}}else{for(const e of this.enemies){if(b.hit.has(e.id))continue;if(arc(b.n,e.n)<(e.type==='brute'?1.15:.78)){b.hit.add(e.id);e.hp-=b.damage;e.flash=.12;this.events.push({type:'hit',n:e.n.clone(),amount:b.damage});if(b.pierce-->0)continue;b.life=0;break}}}}
+ this.bullets=this.bullets.filter(b=>b.life>0);this.enemies=this.enemies.filter(e=>{if(e.hp>0)return true;this.kills++;if(this.phase==='playing')p.hp=Math.min(s.maxHp,p.hp+s.leech);this.events.push({type:'kill',n:e.n.clone(),enemy:e.type});return false});if(this.phase!=='playing')return;if(this.wave>0&&this.enemies.length===0&&this.wait<=0){if(this.wave<3){this.wait=1.7;this.events.push({type:'between'})}else{this.phase='upgrade';this.visited.push(this.level);this.bullets=[];p.hp=Math.min(s.maxHp,p.hp+18);this.events.push({type:'clear'})}}
+ }
+ snapshot(){return {phase:this.phase,level:this.level,wave:this.wave,enemies:this.enemies.length,hp:this.player.hp,maxHp:this.stats.maxHp,kills:this.kills,visited:[...this.visited],upgrades:[...this.upgrades]}}
+}

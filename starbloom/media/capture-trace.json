@@ -1,0 +1,586 @@
+{
+  "recording": "actual WebGL game frames; automated controls; original simulation stats unchanged",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "video": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30
+  },
+  "trace": [
+    {
+      "t": 0,
+      "kind": "begin",
+      "phase": "title",
+      "level": 0,
+      "wave": 0,
+      "enemies": 0,
+      "hp": 100,
+      "maxHp": 100,
+      "kills": 0,
+      "visited": [],
+      "upgrades": [],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 1,
+      "disposedPlanets": 0,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 5.09820000000596,
+      "kind": "phase",
+      "phase": "playing",
+      "level": 0,
+      "wave": 0,
+      "enemies": 0,
+      "hp": 100,
+      "maxHp": 100,
+      "kills": 0,
+      "visited": [],
+      "upgrades": [],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 1,
+      "disposedPlanets": 1,
+      "enemyModels": 0,
+      "projectileModels": 1,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 29.43190000000596,
+      "kind": "phase",
+      "phase": "upgrade",
+      "level": 0,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 70,
+      "maxHp": 100,
+      "kills": 24,
+      "visited": [
+        0
+      ],
+      "upgrades": [],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 1,
+      "disposedPlanets": 1,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 32.73370000000596,
+      "kind": "upgrade-choice",
+      "offered": [
+        "health",
+        "rapid",
+        "split"
+      ],
+      "chosen": "rapid"
+    },
+    {
+      "t": 32.80070000000596,
+      "kind": "phase",
+      "phase": "transition",
+      "level": 0,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 70,
+      "maxHp": 100,
+      "kills": 24,
+      "visited": [
+        0
+      ],
+      "upgrades": [
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 2,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 1,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 37.76280000000596,
+      "kind": "phase",
+      "phase": "playing",
+      "level": 1,
+      "wave": 0,
+      "enemies": 0,
+      "hp": 70,
+      "maxHp": 100,
+      "kills": 24,
+      "visited": [
+        0
+      ],
+      "upgrades": [
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 2,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 66.30140000000596,
+      "kind": "phase",
+      "phase": "upgrade",
+      "level": 1,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 88,
+      "maxHp": 100,
+      "kills": 51,
+      "visited": [
+        0,
+        1
+      ],
+      "upgrades": [
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 2,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 69.62190000000597,
+      "kind": "upgrade-choice",
+      "offered": [
+        "pierce",
+        "dash",
+        "health"
+      ],
+      "chosen": "health"
+    },
+    {
+      "t": 69.68240000000596,
+      "kind": "phase",
+      "phase": "transition",
+      "level": 1,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 123,
+      "maxHp": 125,
+      "kills": 51,
+      "visited": [
+        0,
+        1
+      ],
+      "upgrades": [
+        "rapid",
+        "health"
+      ],
+      "paused": false,
+      "loadedPlanets": 2,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 2,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 74.32360000000595,
+      "kind": "phase",
+      "phase": "playing",
+      "level": 2,
+      "wave": 0,
+      "enemies": 0,
+      "hp": 123,
+      "maxHp": 125,
+      "kills": 51,
+      "visited": [
+        0,
+        1
+      ],
+      "upgrades": [
+        "rapid",
+        "health"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 3,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 105.96470000000596,
+      "kind": "phase",
+      "phase": "upgrade",
+      "level": 2,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 85,
+      "maxHp": 125,
+      "kills": 81,
+      "visited": [
+        0,
+        1,
+        2
+      ],
+      "upgrades": [
+        "rapid",
+        "health"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 3,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 109.27890000000596,
+      "kind": "upgrade-choice",
+      "offered": [
+        "health",
+        "rapid",
+        "leech"
+      ],
+      "chosen": "rapid"
+    },
+    {
+      "t": 109.35770000000596,
+      "kind": "phase",
+      "phase": "transition",
+      "level": 2,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 85,
+      "maxHp": 125,
+      "kills": 81,
+      "visited": [
+        0,
+        1,
+        2
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 2,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 3,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 113.97480000000596,
+      "kind": "phase",
+      "phase": "playing",
+      "level": 3,
+      "wave": 0,
+      "enemies": 0,
+      "hp": 85,
+      "maxHp": 125,
+      "kills": 81,
+      "visited": [
+        0,
+        1,
+        2
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 4,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 148.02090000000595,
+      "kind": "phase",
+      "phase": "upgrade",
+      "level": 3,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 79,
+      "maxHp": 125,
+      "kills": 114,
+      "visited": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 4,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 151.32920000000595,
+      "kind": "upgrade-choice",
+      "offered": [
+        "leech",
+        "health",
+        "pierce"
+      ],
+      "chosen": "health"
+    },
+    {
+      "t": 151.37760000000597,
+      "kind": "phase",
+      "phase": "transition",
+      "level": 3,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 114,
+      "maxHp": 150,
+      "kills": 114,
+      "visited": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid",
+        "health"
+      ],
+      "paused": false,
+      "loadedPlanets": 2,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 4,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 156.07950000000596,
+      "kind": "phase",
+      "phase": "playing",
+      "level": 4,
+      "wave": 0,
+      "enemies": 0,
+      "hp": 114,
+      "maxHp": 150,
+      "kills": 114,
+      "visited": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid",
+        "health"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 5,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 191.96190000000595,
+      "kind": "phase",
+      "phase": "upgrade",
+      "level": 4,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 91.38909981049046,
+      "maxHp": 150,
+      "kills": 150,
+      "visited": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid",
+        "health"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 5,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 195.30640000000597,
+      "kind": "upgrade-choice",
+      "offered": [
+        "speed",
+        "rapid",
+        "pierce"
+      ],
+      "chosen": "rapid"
+    },
+    {
+      "t": 195.36700000000596,
+      "kind": "phase",
+      "phase": "won",
+      "level": 4,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 91.38909981049046,
+      "maxHp": 150,
+      "kills": 150,
+      "visited": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid",
+        "health",
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 5,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    },
+    {
+      "t": 200.35960000002385,
+      "kind": "final",
+      "phase": "won",
+      "level": 4,
+      "wave": 3,
+      "enemies": 0,
+      "hp": 91.38909981049046,
+      "maxHp": 150,
+      "kills": 150,
+      "visited": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "upgrades": [
+        "rapid",
+        "health",
+        "rapid",
+        "health",
+        "rapid"
+      ],
+      "paused": false,
+      "loadedPlanets": 1,
+      "maximumLoadedPlanets": 2,
+      "disposedPlanets": 5,
+      "enemyModels": 0,
+      "projectileModels": 0,
+      "renderer": {
+        "geometries": 52,
+        "textures": 1
+      },
+      "autoAim": true
+    }
+  ]
+}

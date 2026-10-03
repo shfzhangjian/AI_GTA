@@ -1,0 +1,11 @@
+{
+  "actors.js": "581de69bd3322289b79007d118b069677111d707839ec0c8268471305bc5d101",
+  "core.js": "45d318a21567d870536bd309608f98510006a9283aa5c70e0941b96950185830",
+  "game.js": "5e0fbcdbb8b64ae00a4128ee86165d222ddd446d8e2bf18db0cd811279daa6fd",
+  "index.html": "c442c3707aa7235163b8d9f4754e6610461e12331d5fa66feb769255cd9c44a5",
+  "style.css": "56defcda4e414d941bcadb449ca57ab22fba18946f6de4fd049d4b814d49e175",
+  "worlds.js": "f3d4b0f6a92599dfb4d8114b32d6c7c511ed16c9cf680cf8bd6cd55add7ad542",
+  "vendor/THREE-LICENSE.txt": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+  "vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+  "vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6"
+}

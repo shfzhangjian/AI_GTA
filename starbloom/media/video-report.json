@@ -1,0 +1,361 @@
+{
+  "duration": 149.51668934240362,
+  "audio": {
+    "engine": "Microsoft Edge TTS",
+    "voice": "zh-CN-YunxiNeural",
+    "type": "standard synthetic voice",
+    "delivery": "measured game-review narration; conversational transitions; no identity imitation",
+    "audioPacing": 1.0
+  },
+  "footage": "actual browser WebGL rendering with automated controls; normal simulation; UI labels composited for video",
+  "chapters": [
+    {
+      "start": 0,
+      "duration": 16.994,
+      "title": "一场装在小星球上的射击冒险"
+    },
+    {
+      "start": 16.994,
+      "duration": 17.306,
+      "title": "球面移动如何改变观察与走位"
+    },
+    {
+      "start": 34.299,
+      "duration": 17.666,
+      "title": "射击容易上手，走位才是重点"
+    },
+    {
+      "start": 51.965,
+      "duration": 17.978,
+      "title": "随机强化如何影响本局打法"
+    },
+    {
+      "start": 69.942,
+      "duration": 16.442,
+      "title": "选择下一站，飞向碧波环岛"
+    },
+    {
+      "start": 86.384,
+      "duration": 13.937,
+      "title": "冰原惯性带来新的操作节奏"
+    },
+    {
+      "start": 100.321,
+      "duration": 14.105,
+      "title": "秘林景观与混合敌群"
+    },
+    {
+      "start": 114.426,
+      "duration": 16.346,
+      "title": "火山让地面也成为威胁"
+    },
+    {
+      "start": 130.771,
+      "duration": 18.746,
+      "title": "适合谁玩，以及如何试玩"
+    }
+  ],
+  "segments": [
+    {
+      "id": "intro",
+      "title": "一场装在小星球上的射击冒险",
+      "sentences": [
+        "当射击游戏的战场，从平地换成一颗小星球，熟悉的走位会发生什么变化？",
+        "星环漫游，就是围绕这个想法展开的一段银河冒险。打开浏览器，你就能直接上手。"
+      ],
+      "start": 0,
+      "duration": 16.993605442176868,
+      "shots": [
+        {
+          "sourceStart": 0.2,
+          "sourceDuration": 3.0,
+          "hold": 0
+        },
+        {
+          "sourceStart": 6.2,
+          "sourceDuration": 8,
+          "hold": 0
+        },
+        {
+          "sourceStart": 77,
+          "sourceDuration": 5.993605442176868,
+          "hold": 0
+        }
+      ]
+    },
+    {
+      "id": "movement",
+      "title": "球面移动如何改变观察与走位",
+      "sentences": [
+        "先看它最有辨识度的球面移动。角色贴着地面奔跑，镜头也随位置转动。",
+        "敌人会从星球的弧线后方出现，视野里的地平线不断变化。小星球的空间感，就在这个过程中建立起来。"
+      ],
+      "start": 16.993605442176868,
+      "duration": 17.305532879818603,
+      "shots": [
+        {
+          "sourceStart": 6.2,
+          "sourceDuration": 17.305532879818603,
+          "hold": 0
+        }
+      ]
+    },
+    {
+      "id": "combat",
+      "title": "射击容易上手，走位才是重点",
+      "sentences": [
+        "再看战斗。每颗星球有三波敌人，辅助瞄准让射击很容易上手。",
+        "你更需要关注的，是和敌人的距离，以及远程弹丸的方向。冲刺提供短暂无敌，让你有机会从包围中脱身。"
+      ],
+      "start": 34.29913832199547,
+      "duration": 17.665623582766443,
+      "shots": [
+        {
+          "sourceStart": 15,
+          "sourceDuration": 12,
+          "hold": 0
+        },
+        {
+          "sourceStart": 119,
+          "sourceDuration": 5.665623582766443,
+          "hold": 0
+        }
+      ]
+    },
+    {
+      "id": "upgrade",
+      "title": "随机强化如何影响本局打法",
+      "sentences": [
+        "而真正让这趟航程产生变化的，是清关后的三选一强化。",
+        "射速让输出更连续，散射扩大覆盖范围，生命强化则增加容错。这些效果会保留到下一颗星球，逐渐组成这一局的打法。"
+      ],
+      "start": 51.964761904761914,
+      "duration": 17.977596371882086,
+      "shots": [
+        {
+          "sourceStart": 29.55,
+          "sourceDuration": 2.9,
+          "hold": 0
+        },
+        {
+          "sourceStart": 66.42,
+          "sourceDuration": 2.9,
+          "hold": 0
+        },
+        {
+          "sourceStart": 118,
+          "sourceDuration": 12.177596371882085,
+          "hold": 0
+        }
+      ]
+    },
+    {
+      "id": "river",
+      "title": "选择下一站，飞向碧波环岛",
+      "sentences": [
+        "星际跳跃，把几个独立的战场连成了一趟旅程。",
+        "选择下一站后，宇航员就会点火飞向新的星球。碧波环岛的河道、沙洲和木桥，也让画面的节奏轻松了下来。"
+      ],
+      "start": 69.942358276644,
+      "duration": 16.44163265306122,
+      "shots": [
+        {
+          "sourceStart": 32.95,
+          "sourceDuration": 4.5,
+          "hold": 0
+        },
+        {
+          "sourceStart": 42,
+          "sourceDuration": 11.94163265306122,
+          "hold": 0
+        }
+      ]
+    },
+    {
+      "id": "ice",
+      "title": "冰原惯性带来新的操作节奏",
+      "sentences": [
+        "不过，星球之间的区别，也不只在颜色。极光冰原的惯性更强，同样的转向，会多出一段滑行。提前刹停，才不容易撞进敌群。"
+      ],
+      "start": 86.38399092970522,
+      "duration": 13.936780045351469,
+      "shots": [
+        {
+          "sourceStart": 77,
+          "sourceDuration": 13.936780045351469,
+          "hold": 0
+        }
+      ]
+    },
+    {
+      "id": "forest",
+      "title": "秘林景观与混合敌群",
+      "sentences": [
+        "蘑菇秘林则用树冠和菌菇改变景观。追击、远程和冲锋敌人混合出现，你仍然需要保持距离。这里的树木是装饰，并不是掩体。"
+      ],
+      "start": 100.32077097505669,
+      "duration": 14.10480725623583,
+      "shots": [
+        {
+          "sourceStart": 118,
+          "sourceDuration": 14.10480725623583,
+          "hold": 0
+        }
+      ]
+    },
+    {
+      "id": "volcano",
+      "title": "火山让地面也成为威胁",
+      "sentences": [
+        "到了余烬火山，熔岩又让地面本身成为威胁。",
+        "五颗星球全部完成，就能结束这趟航程。关卡规模不大，但移动、射击和强化选择，已经形成了完整的循环。"
+      ],
+      "start": 114.42557823129252,
+      "duration": 16.345578231292507,
+      "shots": [
+        {
+          "sourceStart": 159,
+          "sourceDuration": 16,
+          "hold": 0.34557823129250664
+        }
+      ]
+    },
+    {
+      "id": "ending",
+      "title": "适合谁玩，以及如何试玩",
+      "sentences": [
+        "如果你想花几分钟，体验一下小星球上的射击和走位，这款网页游戏值得点开试试。",
+        "画面来自自动操作的实机演示。试玩链接、截图和源码都在介绍页里，实际手感，留给你亲自体验。"
+      ],
+      "start": 130.77115646258503,
+      "duration": 18.745532879818597,
+      "shots": [
+        {
+          "sourceStart": 195.65,
+          "sourceDuration": 4.4,
+          "hold": 14.345532879818597
+        }
+      ]
+    }
+  ],
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_time_base": "1/60",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuv420p",
+        "level": 31,
+        "color_range": "tv",
+        "color_transfer": "iec61966-2-1",
+        "color_primaries": "bt709",
+        "chroma_location": "left",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 2295813,
+        "duration": "149.466992",
+        "bit_rate": "928964",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "4484",
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0
+        },
+        "tags": {
+          "language": "eng",
+          "handler_name": "VideoHandler",
+          "encoder": "Lavc60.31.102 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_time_base": "1/48000",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 1,
+        "channel_layout": "mono",
+        "bits_per_sample": 0,
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 7176816,
+        "duration": "149.517000",
+        "bit_rate": "110077",
+        "max_bit_rate": "128000",
+        "nb_frames": "7006",
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler"
+        }
+      }
+    ],
+    "format": {
+      "filename": "E:\\videgame\\starbloom-video\\exports\\starbloom-introduction.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "149.517000",
+      "size": "19579126",
+      "bit_rate": "1047593",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf60.16.100"
+      }
+    }
+  }
+}
