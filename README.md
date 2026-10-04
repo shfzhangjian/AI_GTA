@@ -9,7 +9,7 @@ AI 生成的游戏与交互动画项目集合。每个项目独立目录存放�
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
 | [`canyon-railway/`](./canyon-railway/) | **峡谷铁路 · 西部铁道物语**：中文 3D 西部铁路经营游戏，六座车站、铺轨与跨河桥梁、蒸汽机车自动运货、三份合同、车队购买升级、自动存档及手机操作 | Three.js 0.185.1 + 原生 JavaScript + WebAudio（本地依赖、零构建） | [🚂 开始经营](https://shfzhangjian.github.io/AI_GTA/canyon-railway/) |
-| [`waretrack-3d/`](./waretrack-3d/) | **仓流智控 · 三维仓储指挥台**：全中文的五园区仓储沙盘，卡车进场、倒车入位与驶离，叉车逐托盘搬运与通道让行；支持出入库调度、库存预留、跟随镜头、倍速模拟、报表和存档 | Three.js 0.180 + Vite 8 + 原生 JavaScript（源码及相对路径 dist/ 一并提交，无后端要求） | [🏭 进入仓库](https://shfzhangjian.github.io/AI_GTA/waretrack-3d/dist/) |
+| [`waretrack-3d/`](./waretrack-3d/) | **仓流智控 · 三维仓储指挥台**：全中文五仓同图，货车沿公共道路跨仓运货，叉车逐托盘装卸与库存交接；支持自动及手动调拨、跟随镜头、倍速模拟、精简界面与全部面板显隐、报表和存档 | Three.js 0.180 + Vite 8 + 原生 JavaScript（源码及相对路径 dist/ 一并提交，无后端要求） | [🏭 进入仓库](https://shfzhangjian.github.io/AI_GTA/waretrack-3d/dist/) |
 | [`starbloom/`](./starbloom/) | **星环漫游 · STARBLOOM**：原创 3D 球面重力射击肉鸽，五种小星球、每球三波敌人、八项可叠加强化、彗星冲刺与星际跳跃；14 种原创音效、5 种星球环境音与独立音量控制；支持键鼠与触屏，附中文介绍视频和实机截图 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需后端） | [✦ 开始航程](https://shfzhangjian.github.io/AI_GTA/starbloom/) · [🎬 视频与博文](https://shfzhangjian.github.io/AI_GTA/starbloom/blog.html) |
 | [`huicheng-residence/`](./huicheng-residence/) | **汇成上东 · 空间档案**：按户型图与实拍重建 11 个空间，平面图、3D 总览、室内游走和 12 个导览视点；还原餐厨、卧室、书房、卫生间及入户门，支持门扇交互、碰撞、墙面材质与 PNG 导出 | HTML + Three.js 0.185.1（源码与单文件内嵌页面；运行零构建、无外部资源请求） | [🏠 走进空间](https://shfzhangjian.github.io/AI_GTA/huicheng-residence/) |
 | [`digit-recognition/`](./digit-recognition/) | **一笔，如何成为一个数字**：77 秒全屏科普动画，以手写 0–9 展示像素采样、二值化、卷积、三维特征分层、池化和分类计算；支持暂停、分步、拖动进度、调速与全屏 | HTML + SVG + Three.js 0.185.1（本地依赖；含离线单文件版；需 WebGL 2） | [▶ 观看动画](https://shfzhangjian.github.io/AI_GTA/digit-recognition/) |
@@ -174,12 +174,13 @@ cd sketch-wave-racer/dist && python3 -m http.server 8080
 
 ## 仓流智控 · 三维仓储指挥台
 
-在等距三维园区中管理仓储与运输。五个园区分别维护库存、月台、叉车和车辆；界面、场景标识及预置业务数据均以中文显示。
+五座仓库位于同一张等距三维地图，通过环形道路连接。货车从源仓装货后直接行驶到目标仓卸货，两端库存随真实搬运进度交接；界面、场景标识及预置业务数据均以中文显示。
 
 - [在线体验](https://shfzhangjian.github.io/AI_GTA/waretrack-3d/dist/) · [源码与操作说明](./waretrack-3d/README.md) · [验证记录](./waretrack-3d/docs/VERIFICATION.md)
-- 点击「运行车辆演示」即可观察卡车沿道路进场、转弯与倒车入位，叉车往返搬货，装卸完成后车辆从出口驶离；支持跟随车辆、共享通道让行、暂停及 1× / 5× / 15× 模拟。
-- 出库预留与扣减、入库容量校验、月台和叉车调度、取消释放、补货及充电构成完整本地业务流程；提供库存报表、表格导出、搜索、自动保存及存档导入导出。
-- 包含源码、依赖锁文件、14 项自动测试及可供 GitHub Pages 直接托管的 `dist/`。运行 `npm test` 验证业务与车辆路径，运行 `npm run build` 更新发布产物。
+- 默认自动生成仓间运输，点击「演示跨仓运输」查看进行中的任务，也可「新建仓间调拨」选择源仓、目标仓与货物；同一辆货车完成进场、装车、道路行驶、目标仓卸货和驶离，支持全程跟随、暂停及 1× / 5× / 15× 模拟。
+- 默认仅显示关键摘要和少量操作按钮。右下角「面板」可独立控制 9 类界面元素，「隐藏全部」进入纯地图视图，刷新后保留显隐偏好；点击仓库或车辆时显示简洁详情。
+- 出库库存和目标仓容量提前预留；月台或叉车忙碌时车辆等待，装卸完成后释放资源。保留出入库调度、取消释放、补货充电、库存报表、表格导出、搜索与存档导入导出。
+- 包含源码、依赖锁文件、20 项自动测试及可供 GitHub Pages 直接托管的 `dist/`。运行 `npm test` 验证库存、调度、全部 20 条仓间路线与车辆连续移动，运行 `npm run build` 更新发布产物。
 - 本项目为本地仓储模拟，未接入真实仓储系统或车辆定位；车辆采用路径调度与可视化动画。
 
 ## 星环漫游 · STARBLOOM

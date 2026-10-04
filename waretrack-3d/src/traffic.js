@@ -58,3 +58,23 @@ export function forkMotion(site,start,destination){
   return motion(roundedPath(points,.45),2);
 }
 export const roadHeight=(site,z)=>-.4*Math.max(0,Math.min(1,(z-site.d/2-11.4)/3.1));
+
+export const ROAD_WEST=-104, ROAD_EAST=104;
+export function siteOrigin(site){
+  const index=Number(site.id.slice(-2))-1;
+  return {x:[-64,0,64,-36,36][index],z:(index<3?-20:45)-site.d/2-15};
+}
+export const roadZ=site=>siteOrigin(site).z+site.d/2+15;
+export const toWorld=(site,p)=>({...p,x:p.x+siteOrigin(site).x,z:p.z+siteOrigin(site).z});
+export const toLocal=(site,p)=>({...p,x:p.x-siteOrigin(site).x,z:p.z-siteOrigin(site).z});
+
+// Two eastbound loading streets share a westbound return lane and perimeter links.
+// Endpoints exactly match the source exit and the destination entrance queue.
+export function transferMotion(source,destination,start){
+  const a=start||toWorld(source,sampleMotion(departureMotion(source,1),departureMotion(source,1).length));
+  const b=toWorld(destination,waitingPose(destination)),sourceZ=roadZ(source),targetZ=roadZ(destination);
+  let points;
+  if(sourceZ===targetZ&&b.x>a.x)points=[a,b];
+  else points=[a,{x:ROAD_EAST,z:sourceZ},{x:ROAD_EAST,z:targetZ+3},{x:ROAD_WEST,z:targetZ+3},{x:ROAD_WEST,z:targetZ},{...b}];
+  const route=motion(roundedPath(points,1.3),6);route.space='world';return route;
+}
