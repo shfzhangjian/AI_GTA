@@ -8,6 +8,7 @@ AI 生成的游戏与交互动画项目集合。每个项目独立目录存放�
 
 | 目录 | 说明 | 技术栈 | 在线试玩 |
 | --- | --- | --- | --- |
+| [`xiyou-blocks/`](./xiyou-blocks/) | **西游 · 补天方阵**：原创中国神话落块消除，五色神石、悟空剪纸与山水天宫；四阶消除特效、满蓄力金箍横扫、保留预览、幽灵落点、连消升级，支持键盘与手机触屏 | HTML + Three.js + WebAudio（本地依赖、零构建） | [🐒 启程补天](https://shfzhangjian.github.io/AI_GTA/xiyou-blocks/) |
 | [`canyon-railway/`](./canyon-railway/) | **峡谷铁路 · 西部铁道物语**：中文 3D 西部铁路经营游戏，六座车站、铺轨与跨河桥梁、蒸汽机车自动运货、三份合同、车队购买升级、自动存档及手机操作 | Three.js 0.185.1 + 原生 JavaScript + WebAudio（本地依赖、零构建） | [🚂 开始经营](https://shfzhangjian.github.io/AI_GTA/canyon-railway/) |
 | [`waretrack-3d/`](./waretrack-3d/) | **仓流智控 · 三维仓储指挥台**：全中文五仓同图，货车沿公共道路跨仓运货，叉车逐托盘装卸与库存交接；支持自动及手动调拨、跟随镜头、倍速模拟、精简界面与全部面板显隐、报表和存档 | Three.js 0.180 + Vite 8 + 原生 JavaScript（源码及相对路径 dist/ 一并提交，无后端要求） | [🏭 进入仓库](https://shfzhangjian.github.io/AI_GTA/waretrack-3d/dist/) |
 | [`starbloom/`](./starbloom/) | **星环漫游 · STARBLOOM**：原创 3D 球面重力射击肉鸽，五种小星球、每球三波敌人、八项可叠加强化、彗星冲刺与星际跳跃；14 种原创音效、5 种星球环境音与独立音量控制；支持键鼠与触屏，附中文介绍视频和实机截图 | HTML + Three.js + 原生 ES Module + WebAudio（本地依赖、零构建、无需后端） | [✦ 开始航程](https://shfzhangjian.github.io/AI_GTA/starbloom/) · [🎬 视频与博文](https://shfzhangjian.github.io/AI_GTA/starbloom/blog.html) |
