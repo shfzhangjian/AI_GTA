@@ -1,6 +1,9 @@
 {
   "name": "paper-zero",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "scripts": { "test": "node test/math.test.js && node test/boss.test.js && node test/combat.test.js && node test/runtime-contract.test.js", "build": "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force dist | Out-Null; Copy-Item src/index.html,src/style.css,src/math.js,src/boss.js,src/combat.js,src/game2.js dist -Force\"" }
+  "scripts": {
+    "test": "node test/math.test.js && node test/boss.test.js && node test/combat.test.js && node test/runtime-contract.test.js && node --test test/subjects.test.cjs && node test/learning-ui.test.cjs",
+    "build": "node build.cjs"
+  }
 }

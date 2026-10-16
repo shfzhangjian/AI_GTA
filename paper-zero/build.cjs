@@ -1,0 +1,1 @@
+const fs=require('node:fs'); const path=require('node:path'); fs.mkdirSync(path.join(__dirname,'dist'),{recursive:true}); for(const f of fs.readdirSync(path.join(__dirname,'src')))fs.copyFileSync(path.join(__dirname,'src',f),path.join(__dirname,'dist',f)); console.log('Built static dist');

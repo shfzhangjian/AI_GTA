@@ -43,6 +43,9 @@
     const p=page(); ui.chapter.textContent=state.page+1; ui.mode.textContent=p.name;
     ui.objective.textContent=p.goal===0?'把所有数字变成 0':'让所有数字变成 10';
     ui.hint.textContent=p.tip; ui.hp.textContent=state.hp; ui.score.textContent=state.score; ui.wave.textContent=`${state.wave+1}/${p.waves.length}`;
+    // The markup's initial fallback is replaced as one semantic wave label.
+    ui.wave.parentElement.childNodes.forEach(node=>{if(node.nodeType===Node.TEXT_NODE)node.textContent='';});
+    if(!ui.wave.parentElement.dataset.waveLabel){ui.wave.parentElement.insertBefore(document.createTextNode('波次 '),ui.wave);ui.wave.parentElement.dataset.waveLabel='true';}
     if(state.operatorDirty) renderOperators();
   }
   function renderOperators(){

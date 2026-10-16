@@ -26,3 +26,37 @@
 ## 原创说明
 
 本项目没有使用参考作品的代码、美术、音效或文字；绘制、规则实现和合成音均为本项目原创。
+
+
+## 2.0 纸上实验室
+
+竞技标题页选择「纸上实验室」，或打开 `dist/learn.html`。八页实验各有短演示与三道挑战，全部 24 题。按目录逐页解锁，完成页可重玩。点按工具即可操作；不计时、不扣分，有重置和撤销。声音默认关闭。
+
+1. 正负数数轴：±1、±3 移动归零
+2. 分数纸条：精确有理数加减，分子分母约分
+3. 等式天平：两边同时加数或除以非零数
+4. 坐标纸：点选节点或用箭头移动，匹配指定函数坐标
+5. 匀速纸飞机：调速度并试飞，含厘米换米
+6. 平衡力箱子：箱子已向右运动，合力为零保持原速度
+7. 做功轨道：调整位移，计算指定同向恒拉力的功
+8. 串联电路：更换电阻后合开关，开路电流为零
+
+### 模型与数据
+
+教学模式不含攻击。数学允许多路径，分数与方程使用整数有理数，不使用 eval。物理明确使用题目限定的理想模型；动画为缩放示意，不是数值积分。恒拉力不代表匀速，指定力的功不是净功；串联闭合回路各处电流相同。纯虚拟低压电路，不指导操作市电。
+
+进度仅以 24 个布尔值存于 localStorage（paper-zero-lab-v1），不收集个人信息、不联网。存储被拒绝或内容损坏时安全降级；刷新后可能无法保留成绩，但当次仍可完成全部题目。
+
+### 构建与验收
+
+Node.js 18+，无依赖。`npm test` 包含竞技数学/Boss/弹道回归、39 条学科规则测试，以及八段演示、24 道挑战的 DOM 状态机模拟。`node test/arena-input-playthrough.cjs` 用模拟键鼠走完竞技五页；它不是实机浏览器测试。`npm run build` 跨平台复制完整 src 到 dist。
+
+学科界面浏览器验收将在公开部署后完成，不能把上述模拟等同于实机验收。既有竞技 v5 已在云端实际浏览器正常键鼠通关五页；本版保持竞技逻辑，仅整合 HUD v6 修正和学科入口。
+
+### 课程参考
+
+- OpenStax Physics: [Newton’s First Law](https://openstax.org/books/physics/pages/4-2-newtons-first-law-of-motion-inertia)
+- OpenStax Physics: [Work, Power, and the Work–Energy Theorem](https://openstax.org/books/physics/pages/9-1-work-power-and-the-work-energy-theorem)
+- OpenStax Physics: [Series Circuits](https://openstax.org/books/physics/pages/19-2-series-circuits)
+
+图形、交互和题目呈现为原创代码绘制，未复制商业游戏素材。
