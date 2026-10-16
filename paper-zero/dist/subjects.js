@@ -25,7 +25,7 @@
       { start: { n: 3, d: 4 }, target: { n: 0, d: 1 }, prompt: '从 3/4 出发，加减 1/2、1/3、1/4 或 1/6，得到 0。' },
       { start: { n: -2, d: 3 }, target: { n: 0, d: 1 }, prompt: '从 −2/3 出发，加减 1/2、1/3、1/4 或 1/6，得到 0。' }
     ] },
-    { id: 'equation', title: '一元一次方程', subtitle: '等式两边一起变', concept: '两边同加一个数，或同除以一个非零数，等式仍成立。目标是 x = 答案。', unit: '', controls: { min: -1000, max: 1000 }, tasks: [
+    { id: 'equation', title: '一元一次方程', subtitle: '等式两边一起变', concept: '两边同加一个数，或同乘、同除以一个非零数，等式仍成立。目标是 x = 答案。', unit: '', controls: { min: -1000, max: 1000 }, tasks: [
       { a: 3, b: 6, c: 18, answer: 4, prompt: '3x + 6 = 18，把方程化成 x = 答案。' },
       { a: 2, b: -8, c: 6, answer: 7, prompt: '2x − 8 = 6，把方程化成 x = 答案。' },
       { a: -2, b: 4, c: 10, answer: -3, prompt: '−2x + 4 = 10，把方程化成 x = 答案。' }
@@ -83,6 +83,7 @@
     return power >= 0 ? rational(numerator * (10n ** BigInt(power)), 1n) : rational(numerator, 10n ** BigInt(-power));
   }
   function plus(a, b) { return rational(BigInt(a.n) * BigInt(b.d) + BigInt(b.n) * BigInt(a.d), BigInt(a.d) * BigInt(b.d)); }
+  function multiplied(a, b) { return rational(BigInt(a.n) * BigInt(b.n), BigInt(a.d) * BigInt(b.d)); }
   function divided(a, b) { return rational(BigInt(a.n) * BigInt(b.d), BigInt(a.d) * BigInt(b.n)); }
   function textFraction(a) { return a.d === 1 ? String(a.n) : a.n + '/' + a.d; }
   function equalFraction(a, b) { return BigInt(a.n) * BigInt(b.d) === BigInt(b.n) * BigInt(a.d); }
@@ -158,12 +159,15 @@
         return accept(nextFraction, nextFraction.n === 0 ? '恰好得到 0！' : '约分后的结果：' + textFraction(nextFraction));
       }
       if (level.id === 'equation') {
-        if (action.type !== 'bothAdd' && action.type !== 'bothDivide') return reject('请对等式两边同时加数或除以非零数。');
+        if (action.type !== 'bothAdd' && action.type !== 'bothDivide' && action.type !== 'bothMultiply') return reject('请对等式两边同时加数，或乘、除以非零数。');
         var operand = asRational(action.value);
         if (!within(operand.n / operand.d, level.controls)) return reject('操作数应在 −1000 到 1000 之间。');
         if (action.type === 'bothDivide' && operand.n === 0) return reject('不能除以 0；等式两边都一样。');
+        if (action.type === 'bothMultiply' && (operand.n === 0 || operand.d !== 1)) return reject('此处请两边同乘一个非零整数；乘以 0 会丢失原方程的信息。');
         var equation = action.type === 'bothAdd' ? {
           a: asRational(state.a), b: plus(state.b, operand), c: plus(state.c, operand)
+        } : action.type === 'bothMultiply' ? {
+          a: multiplied(state.a, operand), b: multiplied(state.b, operand), c: multiplied(state.c, operand)
         } : { a: divided(state.a, operand), b: divided(state.b, operand), c: divided(state.c, operand) };
         return accept(equation, solved(levelIndex, taskIndex, equation) ? '解得 x = ' + textFraction(equation.c) + '。' : '两边进行了相同的操作，等式仍成立。');
       }

@@ -143,7 +143,7 @@ test('equations preserve exact coefficients on division-first and fractional alt
 
 test('equations reject zero division, nonfinite values, oversized operands, and unsafe rationals', () => {
   for (const value of [0, -0, { n: 0, d: 3 }]) rejection(2, { type: 'bothDivide', value });
-  for (const type of ['bothAdd', 'bothDivide']) {
+  for (const type of ['bothAdd', 'bothDivide', 'bothMultiply']) {
     for (const value of [NaN, Infinity, -Infinity, '3', null, 1001, -1001, { n: 1, d: 0 }, { n: Infinity, d: 1 }, 1e-100]) rejection(2, { type, value });
   }
   assert.equal(act(2, 0, initial(2, 0), { type: 'bothAdd', value: 0 }).ok, true);
@@ -229,4 +229,40 @@ test('returned solutions and states do not share mutable task data', () => {
   const steps = solution(0, 0);
   steps[0].value = 1;
   assert.equal(solution(0, 0)[0].value, -3);
+});
+
+
+test('multiplication restores division detours exactly and supports alternate solution paths', () => {
+  for (const divisor of [2, 3, -2, -3]) {
+    const restored = execute(2, 0, [
+      { type: 'bothDivide', value: divisor },
+      { type: 'bothMultiply', value: divisor }
+    ]);
+    assert.deepEqual(restored, initial(2, 0));
+    assert.equal(solved(2, 0, execute(2, 0, [
+      { type: 'bothDivide', value: divisor },
+      { type: 'bothMultiply', value: divisor },
+      ...solution(2, 0)
+    ])), true);
+  }
+  const fractional = act(2, 0, initial(2, 0), { type: 'bothDivide', value: 4 }).state;
+  const doubled = act(2, 0, fractional, { type: 'bothMultiply', value: 2 });
+  assert.equal(doubled.ok, true);
+  assert.deepEqual(doubled.state, { a: { n: 3, d: 2 }, b: { n: 3, d: 1 }, c: { n: 9, d: 1 } });
+  for (let t = 0; t < 3; t++) {
+    assert.equal(solved(2, t, execute(2, t, [
+      { type: 'bothMultiply', value: -3 },
+      { type: 'bothDivide', value: -3 },
+      ...solution(2, t)
+    ])), true);
+  }
+});
+
+test('multiplication requires a nonzero integer and preserves the original equation on rejection', () => {
+  for (const value of [0, -0, 0.5, -1.5, { n: 0, d: 1 }, { n: 1, d: 2 }]) rejection(2, { type: 'bothMultiply', value });
+  assert.equal(act(2, 0, initial(2, 0), { type: 'bothMultiply', value: -2 }).ok, true);
+  assert.equal(act(2, 0, initial(2, 0), { type: 'bothMultiply', value: 1 }).ok, true);
+  assert.equal(act(2, 0, initial(2, 0), { type: 'bothMultiply', value: { n: 6, d: 3 } }).ok, true);
+  const large = { a: { n: Number.MAX_SAFE_INTEGER, d: 1 }, b: { n: 0, d: 1 }, c: { n: 1, d: 1 } };
+  rejection(2, { type: 'bothMultiply', value: 2 }, 0, large);
 });
