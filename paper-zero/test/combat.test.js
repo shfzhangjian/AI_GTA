@@ -1,0 +1,11 @@
+const assert = require('assert');
+const Combat = require('../src/combat.js');
+const ink = {half:1,root:0,mod:0};
+assert.deepStrictEqual(Combat.consumeCharge(ink,'half'),{ok:true});
+assert.strictEqual(ink.half,0);
+assert.deepStrictEqual(Combat.consumeCharge(ink,'half'),{ok:false,reason:'铅笔芯用完'});
+assert.strictEqual(ink.half,0,'second in-flight hit cannot go negative');
+assert.deepStrictEqual(Combat.consumeCharge(ink,'minus'),{ok:true});
+assert.strictEqual(Combat.pointToSegmentDistance(15,0,0,0,10,0),5,'line damage ends at endpoint');
+assert.strictEqual(Combat.pointToSegmentDistance(5,3,0,0,10,0),3);
+console.log('combat behavior tests: ok');

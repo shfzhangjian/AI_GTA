@@ -1,0 +1,21 @@
+const assert = require('assert');
+const fs = require('fs');
+const source = fs.readFileSync(require.resolve('../src/game2.js'), 'utf8');
+
+assert.match(source, /paused:true/, 'title screen starts with combat paused');
+assert.match(source, /state\.paused=false/, 'overlay start resumes combat');
+assert.match(source, /MathRules\.OPERATORS\[id\]\.cooldown/, 'operator uses the defined cooldown field');
+assert.doesNotMatch(source, /OPERATORS\[id\]\.cool;/, 'no undefined cooldown property');
+assert.match(source, /clearInterval\(music\)/, 'music can be stopped');
+assert.match(source, /music=setInterval/, 'only one music timer is retained');
+assert.match(source, /touchMoveId/, 'touch movement has a tracked pointer lifecycle');
+assert.match(source, /state\.touchMove=null/, 'touch movement releases on pointer up');
+assert.match(source, /dashCool/, 'dash has an independent cooldown');
+assert.match(source, /Math\.max\(state\.player\.inv,.18\)/, 'dash never shortens damage invulnerability');
+assert.match(source, /BossAI\.tick/, 'Boss state machine is connected to battle updates');
+assert.match(source, /kind:'ink'/, 'ink ring attack creates damage entities');
+assert.match(source, /kind:'ruler'/, 'ruler attack creates a telegraphed damage entity');
+assert.match(source, /Combat\.consumeCharge/, 'scarce charges are spent through the atomic helper');
+assert.match(source, /pendingBoss/, 'boss attack endpoints persist beyond warning rendering');
+assert.match(source, /window\.addEventListener\('pointerup',releasePointer\)/, 'release outside canvas stops firing');
+console.log('runtime contract tests: ok');
